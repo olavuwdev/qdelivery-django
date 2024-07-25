@@ -1,3 +1,6 @@
 from django.contrib import admin
 
+from qdelivery.models import Dados, RedeSocial, Estado, Cidade
+
 # Register your models here.
+admin.site.register([Dados, RedeSocial, Estado, Cidade])
