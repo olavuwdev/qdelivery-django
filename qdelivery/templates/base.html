@@ -65,13 +65,14 @@
         <h3 class="total"> Total: 36,00 </h3>
         <a href="" class="btn">Ir para carrinho </a>
     </div>
-    <form action="" class="login-form">
-        <h3>Acesso a conta</h3>
-        <input type="email" name="email" placeholder="Seu E-email" class="box">
-        <input type="password" name="senha" placeholder="Sua senha" class="box">
+    <form action="admin/login/?next=/admin/" method="post" class="login-form">
+        {% csrf_token %}
+        <h3>Acesso à conta</h3>
+        <input type="text" name="username" placeholder="Seu E-mail" class="box">
+        <input type="password" name="password" placeholder="Sua senha" class="box">
         <div class="lembrar-senha">
-            <input type="checkbox" name="lembrar" id="relembrar">
-            <label for="relembrar"> Me lembrar da senha</label>
+            <input type="checkbox" name="remember" id="relembrar">
+            <label for="relembrar">Me lembrar da senha</label>
         </div>
         <button type="submit" name="sendLogin" class="btn">Acessar</button>
     </form>

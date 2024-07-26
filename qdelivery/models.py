@@ -46,6 +46,9 @@ class Dados(models.Model):
 
     def __str__(self):
         return self.nome
+    class Meta:
+        verbose_name = "Dado"
+        verbose_name_plural = "Dados"
 
     def formatar_wtt(self):
         if self.whatsapp:
@@ -76,7 +79,11 @@ class Produtos(models.Model):
     titulo = models.CharField(max_length=255)
     capa = RichTextUploadingField()
     valor = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    valor_promo = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     descricao = RichTextField(blank=True, null=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.titulo
+    class Meta:
+        verbose_name = "Dado"
+        verbose_name_plural = "Dados"

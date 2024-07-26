@@ -6,7 +6,8 @@ from django.http import JsonResponse
 # Create your views here.
 def index(request):
     dados = get_object_or_404(Dados, id=1)
-    return render(request, "index.html", {'dados': dados})
+    produtos = Produtos.objects.all()
+    return render(request, "index.html", {'dados': dados, 'produtos':produtos})
 def empresa(request):
     dados = get_object_or_404(Dados, id=1)
     return render(request, "empresa.html", {'dados': dados})
