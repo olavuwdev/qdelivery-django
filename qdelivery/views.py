@@ -1,14 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from .models import Dados, Produtos
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    dados = get_object_or_404(Dados, id=1)
+    return render(request, "index.html", {'dados': dados})
 def empresa(request):
-    return render(request, "empresa.html")
+    dados = get_object_or_404(Dados, id=1)
+    return render(request, "empresa.html", {'dados': dados})
 def contatos(request):
-    return render(request, "contatos.html")
+    dados = get_object_or_404(Dados, id=1)
+    return render(request, "contatos.html", {'dados': dados})
 def blog(request):
-    return render(request, "blog.html")
+    dados = get_object_or_404(Dados, id=1)
+    return render(request, "blog.html", {'dados': dados})
 def cardapio(request):
-    return render(request, "menu.html")
+    dados = get_object_or_404(Dados, id=1)
+    produtos = Produtos.objects.all()
+    return render(request, "menu.html", {'dados': dados, 'produtos': produtos})

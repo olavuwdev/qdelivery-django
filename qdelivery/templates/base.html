@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="shortcut icon" href="{% static 'img/QDicon.jpg' %}" type="image/x-icon">
-    <title>Quentinha Delivery</title>
+    <title>{{dados.nome}}</title>
 </head>
 <body>
 <!-- INICIO CABEÇALHO DO SITE -->
 <header class="topo-site">
     <a href="" class="logo">
         <i class="fa fa-utensils"></i>
-        Quentinha Delivery
+       {{dados.nome}}
     </a>
     <nav class="menu-site">
         <a href="/">Inicio</a>
@@ -83,7 +83,7 @@
 <section class="rodape">
     <div class="box-container">
         <div class="box">
-            <h3>Quentinha Delivery</h3>
+            <h3>{{dados.nome}}</h3>
             <p>Melhor quentinha da cidade</p>
             <div class="rede-sociais">
                 <a href="" class="fab fa-facebook-f"></a>
@@ -94,16 +94,16 @@
         </div>
         <div class="box">
             <h3>Faça seu pedido</h3>
-            <p>(84) 9 9666-3656</p>
+            <a class="link" title="WhatsApp" href="//api.whatsapp.com/send/?phone={{dados.formatar_wtt}}&text=Olá gostaria+de+fazer+um+pedido%21&type=phone_number&app_absent=0">{{ dados.fone}} </a><br><br>
             <a class="link" href="mailto:quentinhadelivery@gmail.com" title="quentinhadelivery@gmail.com">quentinhadelivery@gmail.com</a>
         </div>
         <div class="box">
             <h3>Localização</h3>
             <p>
-                Rua Lourival Caetano Ferreira, 470 <br>
-                Alto do Sumaré <br>
-                Mossoró/RN <br>
-                59633-710
+                {{dados.endereco}}, {{dados.numero}} <br>
+               {{ dados.bairro}} <br>
+                {{dados.cidade.nome}}/{{dados.cidade.uf}} <br>
+                {{ dados.cep}}
             </p>
         </div>
     </div>

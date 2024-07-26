@@ -1,5 +1,7 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 # Create your models here.
 from django.db import models
 
@@ -21,12 +23,13 @@ class Cidade(models.Model):
 
 
 class Dados(models.Model):
-    logo = models.CharField(max_length=255)
-    icone = models.CharField(max_length=255)
+    logo = RichTextUploadingField()
+    icone = RichTextUploadingField()
     nome = models.CharField(max_length=255)
+    subtitulo = RichTextField(blank=True, null=True)
     frete = models.DecimalField(max_digits=10, decimal_places=2)
     cnpj = models.CharField(max_length=100)
-    descricao = models.TextField()
+    descricao = RichTextField()
     fone = models.CharField(max_length=70, blank=True, null=True)
     whatsapp = models.CharField(max_length=70)
     email = models.CharField(max_length=255)
@@ -44,6 +47,17 @@ class Dados(models.Model):
     def __str__(self):
         return self.nome
 
+    def formatar_wtt(self):
+        if self.whatsapp:
+            numero = self.whatsapp.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+            if len(numero) == 10:  # Ex: 8499666265
+                return f"55{numero[:2]}{numero[2:]}"
+            elif len(numero) == 11:  # Ex: 84996626265
+                return f"55{numero[:2]}{numero[2:]}"
+            else:
+                return numero
+        return ""
+
 class RedeSocial(models.Model):
     icone = models.CharField(max_length=255)
     nome = models.CharField(max_length=255)
@@ -58,3 +72,9 @@ class RedeSocial(models.Model):
     def __str__(self):
         return self.nome
 
+class Produtos(models.Model):
+    titulo = models.CharField(max_length=255)
+    capa = RichTextUploadingField()
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.titulo

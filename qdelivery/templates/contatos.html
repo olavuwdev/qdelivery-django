@@ -5,7 +5,7 @@
 <!-- INICIO TOPO DA PAGINA DO SITE -->
 <div class="topo-pagina">
     <h1>Fale conosco</h1>
-    <p><a href="" title="contatos">Inicio ></a> Contatos </p>
+    <p><a href="/" title="contatos">Inicio ></a> Contatos </p>
 </div>
 <!-- FIM TOPO DA PAGINA DO SITE -->
 
@@ -17,25 +17,27 @@
         <div class="icons">
             <i class="fas fa-phone"></i>
             <h3>Atendimentos Fones</h3>
-            <p>84 9 9666-2653</p>
-            <p>84 9 9666-2653</p>
+            <p>{{dados.fone}}</p>
+            <p>{{dados.whatsapp}}</p>
         </div>
         <!-- FIM ITEM BLOCO DO SITE -->
         <!-- INICIO ITEM BLOCO DO SITE -->
         <div class="icons">
             <i class="fas fa-envelope"></i>
             <h3>Nossos emails</h3>
-            <p>quentinhadelivery@gmail.com</p>
+            <p>{{dados.email}}</p>
         </div>
         <!-- FIM ITEM BLOCO DO SITE -->
         <!-- INICIO ITEM BLOCO DO SITE -->
         <div class="icons">
             <i class="fas fa-map-marker-alt"></i>
             <h3>Endereço</h3>
-            <p>Rua Lourival Caetano Ferreira, 470 <br>
-                Alto do Sumaré <br>
-                Mossoró/RN <br>
-                59633-710</p>
+            <p>
+                {{dados.endereco}}, {{dados.numero}} <br>
+               {{ dados.bairro}} <br>
+                {{dados.cidade.nome}}/{{dados.cidade.uf}} <br>
+                {{ dados.cep}}
+            </p>
         </div>
         <!-- FIM ITEM BLOCO DO SITE -->
     </div>

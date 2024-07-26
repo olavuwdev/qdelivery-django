@@ -208,14 +208,10 @@
             <img src="{% static 'img/empresa_video.gif' %}" alt="780x900">
         </div>
         <div class="content">
-            <h3>Quentinha Delivery: Quentinha <span>rápida e barata</span>  </h3>
-            <p>
-                Empresa fundada com proposito de fornecer comida de qualidade e acessivel para a cidade de Mossoró/RN.
-            </p>
-            <p>
-                Criada em 2023, a <span>Quentinha Delivery</span> até os dias de hoje entrega comida boa e acessivel para todos os clientes.
-            </p>
-            <a href="" class="btn">Saiba mais</a>
+            <h3>{{ dados.nome }}: {{dados.subtitulo|safe}}  </h3>
+            {{ dados.descricao|safe}}
+            {{dados.icone|safe}}
+            <a href="/empresa" class="btn">Saiba mais</a>
         </div>
     </div>
 </section>

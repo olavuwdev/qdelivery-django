@@ -43,9 +43,8 @@
             <img src="{% static 'img/empresa_video.gif' %}" alt="780x900" onerror="this.onerror=null; this.src='{% static 'img/fachadaMarmitaria.jpeg' %}'">
         </div>
         <div class="content">
-            <h3>Quentinha Delivery: Quentinha <span>rápida e barata</span></h3>
-            <p>{{ empresa.descricao }}</p>
-            <a href="" class="btn">Saiba mais</a>
+            <h3>{{dados.nome}}:</h3>{{dados.subtitulo|safe}} 
+            {{ dados.descricao|safe}}
         </div>
     </div>
 </section>
