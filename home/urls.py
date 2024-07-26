@@ -27,5 +27,6 @@ urlpatterns = [
     path('contatos/', views.contatos),
     path('blog/', views.blog),
     path('cardapio/', views.cardapio),
-    path('ckeditor/', include('ckeditor_uploader.urls'))
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('produto/<int:produto_id>/', views.produto_detalhes, name='produto_detalhes'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

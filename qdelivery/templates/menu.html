@@ -25,41 +25,19 @@
                 <div class="box-container">
 
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
+                     {% for produto in produtos %}
+                    <div class="box" data-name="{{produto.id}}">
                         <div class="info">
-                            <h3>Quentinha P</h3>
-                            <p>Quentinha perfeita para uma pessoa 😋</p>
+                            <h3>{{produto.titulo}}</h3>
+                            <p>{{produto.descricao|safe}} 😋</p>
                         </div>
-                        <div class="valor">R$11,99</div>
+                        <div class="valor">R${{produto.valor}}</div>
 
 
                     </div>
+ 
                     <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Quentinha M</h3>
-                            <p>Quentinha perfeita para duas pessoas 😋</p>
-                        </div>
-                        <div class="valor">R$12,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Quentinha G</h3>
-                            <p>Quentinha perfeita para duas ou mais pessoas 😋</p>
-                        </div>
-                        <div class="valor">R$14,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
+                    {% endfor %}
                 </div>
             </div>
             

@@ -63,29 +63,35 @@ var swiper = new Swiper(".menu-slider",{
 
 /* JANELA MODAL SITE */
 
+// Seleciona o modal e o botão de fechamento
 let verModalCorpo = document.querySelector(".menu-modal-container");
 let verModalBox = verModalCorpo.querySelector(".menu-modal");
 
-document.querySelectorAll(".menu .box").forEach(menu =>{
-    menu.onclick = () =>{
+// Adiciona um evento de clique em todos os produtos
+document.querySelectorAll(".box").forEach(menu => {
+    menu.onclick = () => {
+        // Obtém o ID do produto clicado
+        let produtoId = menu.getAttribute('data-name');
+        
+        // Exibe o modal
         verModalCorpo.style.display = 'flex';
-        let nome = menu.getAttribute('data-name');
-        verModalBox.forEach(visualizar => {
-            let chamada = visualizar;getAttribute('data-target');
-            if(nome == chamada){
-                visualizar.classList.add('active');
-            };
-        });
+        
+        // Faz uma solicitação AJAX para obter os dados do produto
+        fetch(`/produto/${produtoId}/`)
+            .then(response => response.json())
+            .then(data => {
+                // Preenche o modal com os dados do produto
+                verModalBox.querySelector('#modal-titulo').textContent = data.titulo;
+                verModalBox.querySelector('#modal-descricao').textContent = data.descricao;
+                verModalBox.querySelector('#modal-preco').textContent = `R$ ${data.valor}`;
+                // Atualize as estrelas se necessário
+                // verModalBox.querySelector('#modal-estrelinhas').innerHTML = ...; 
+            })
+            .catch(error => console.error('Erro:', error));
     };
-
 });
 
-
-
-verModalCorpo.querySelector('#fechar').onclick = () =>{
+// Adiciona um evento de clique no botão de fechamento do modal
+verModalCorpo.querySelector('#fechar').onclick = () => {
     verModalCorpo.style.display = 'none';
-    verModalBox.forEach(fechar => {
-        fechar.classList.remove('active');
-        
-    });
 };
