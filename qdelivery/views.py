@@ -19,13 +19,14 @@ def blog(request):
     return render(request, "blog.html", {'dados': dados})
 def cardapio(request):
     dados = get_object_or_404(Dados, id=1)
-    produtos = Produtos.objects.all()
-    return render(request, "menu.html", {'dados': dados, 'produtos': produtos})
-def produto_detalhes(request, produto_id):
-    produto = get_object_or_404(Produtos, id=produto_id)
+    produtos = get_object_or_404(Produtos, id=1)
+    quentinhas = Produtos.objects.filter(tipo='Q')
+    bebidas = Produtos.objects.filter(tipo='B')
     dados_produto = {
-        'nome': produto.nome,
-        'descricao': produto.descricao,
-        'preco': produto.preco,  # Certifique-se de que este campo existe no seu modelo
+        
     }
-    return JsonResponse(dados_produto)
+    return render(request, "menu.html",{'dados': dados,
+        'produtos': produtos,
+        'quentinhas': quentinhas,
+        'bebidas': bebidas})
+

@@ -25,7 +25,7 @@
                 <div class="box-container">
 
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                     {% for produto in produtos %}
+                     {% for produto in quentinhas %}
                     <div class="box" data-name="{{produto.id}}">
                         <div class="info">
                             <h3>{{produto.titulo}}</h3>
@@ -46,74 +46,18 @@
             <div class="swiper-slide slider">
                 <h3 class="titulo"> Bebidas</h3>
                 <div class="box-container">
-
+                    {% for produto in bebidas %}
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
                     <div class="box" data-name="quentinha">
                         <div class="info">
-                            <h3>Coca-cola 350ml</h3>
-                            <p>Perfeita para uma pessoa 😋</p>
+                            <h3>{{ produto.titulo}}</h3>
+                            <p>{{produto.descricao|safe}}</p>
                         </div>
-                        <div class="valor">R$11,99</div>
+                        <div class="valor">R${{produto.valor}}</div>
 
 
                     </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Coca-cola 1L</h3>
-                            <p>Perfeita para duas pessoas 😋</p>
-                        </div>
-                        <div class="valor">R$12,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Guarana 350ml</h3>
-                            <p>Perfeita para uma pessoa 😋</p>
-                        </div>
-                        <div class="valor">R$14,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Guarana 1L</h3>
-                            <p>Perfeita para duas ou mais pessoas 😋</p>
-                        </div>
-                        <div class="valor">R$14,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Agua 350ml</h3>
-                            <p>Perfeita para uma pessoa 😋</p>
-                        </div>
-                        <div class="valor">R$14,99</div>
-
-
-                    </div>
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
-                        <div class="info">
-                            <h3>Indaia Sabores 350ml</h3>
-                            <p>Perfeita para uma pessoa 😋</p>
-                        </div>
-                        <div class="valor">R$14,99</div>
-
-
-                    </div>
+                    {% endfor %}
                     <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
 
                 </div>

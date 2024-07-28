@@ -76,14 +76,19 @@ class RedeSocial(models.Model):
         return self.nome
 
 class Produtos(models.Model):
+    TIPO_CHOICES = [
+    ('Q', 'Quentinha'),
+    ('B', 'Bebidas'),
+    ]
     titulo = models.CharField(max_length=255)
-    capa = RichTextUploadingField()
+    capa = RichTextUploadingField(blank=True , null=True)
     valor = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     valor_promo = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     descricao = RichTextField(blank=True, null=True)
+    tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, blank=True, null=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.titulo
     class Meta:
-        verbose_name = "Dado"
-        verbose_name_plural = "Dados"
+        verbose_name = "Produto"
+        verbose_name_plural = "Produtos"
