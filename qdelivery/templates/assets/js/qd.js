@@ -82,8 +82,8 @@ document.querySelectorAll(".box").forEach(menu => {
             .then(data => {
                 // Preenche o modal com os dados do produto
                 verModalBox.querySelector('#modal-titulo').textContent = data.titulo;
-                verModalBox.querySelector('#modal-descricao').textContent = data.descricao;
-                verModalBox.querySelector('#modal-preco').textContent = `R$ ${data.valor}`;
+                verModalBox.querySelector('#modal-descricao').innerHTML = data.descricao;
+                verModalBox.querySelector('#modal-preco').textContent = `R$ ${data.preco}`;
                 // Atualize as estrelas se necessário
                 // verModalBox.querySelector('#modal-estrelinhas').innerHTML = ...; 
             })

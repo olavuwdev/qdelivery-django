@@ -48,7 +48,7 @@
                 <div class="box-container">
                     {% for produto in bebidas %}
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="quentinha">
+                    <div class="box" data-name="{{produto.id}}">
                         <div class="info">
                             <h3>{{ produto.titulo}}</h3>
                             <p>{{produto.descricao|safe}}</p>
@@ -79,13 +79,13 @@
 
 <!-- INICIO JANELA MODAL DE COMPRAS DO SITE -->
 
-<section class="menu-modal-container">
+<section class="menu-modal-container" style="display: none;">
     <div id="fechar" class="fas fa-times"></div>
 
     <div class="menu-modal" data-target="quentinha">
-        <h3>Quentinha M</h3>
+        <h3 id="modal-titulo">Quentinha M</h3>
 
-        <div class="estrelinhas">
+        <div class="estrelinhas" id="modal-estrelinhas">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -93,12 +93,13 @@
             <i class="fas fa-star"></i>
         </div>
 
-        <p> Quentinha saborosa e acessivel</p>
+        <p id="modal-descricao">Quentinha saborosa e acessível</p>
 
-        <div class="valor">R$ 77,99</div>
+        <div class="valor" id="modal-preco">R$ 77,99</div>
         <div class="btn">Adicionar ao carrinho</div>
     </div>
 </section>
+
 
 <!-- FIM JANELA MODAL DO SITE -->
 {% endblock %}

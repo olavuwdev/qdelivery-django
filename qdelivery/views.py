@@ -37,3 +37,15 @@ def cardapio(request):
 
     return render(request, "menu.html", dados_produto)
 
+def produto_detalhes(request, id):
+    produto = get_object_or_404(Produtos, id=id)
+    
+    dados_produto = {
+        'titulo': produto.titulo,
+        'descricao': produto.descricao,
+        'preco': str(produto.valor),
+        'tipo': produto.tipo,  
+    }
+    return JsonResponse(dados_produto)
+
+
