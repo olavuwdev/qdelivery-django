@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Dados, Produtos, ItemPedido, Pedido
 from django.http import JsonResponse
+from decimal import Decimal
 
 # Create your views here.
 def index(request):
@@ -50,22 +51,30 @@ def produto_detalhes(request, id):
 
 
 
-
 def adicionar_ao_carrinho(request, produto_id):
     produto = get_object_or_404(Produtos, id=produto_id)
     carrinho = request.session.get('carrinho', {})
     
-    if produto_id in carrinho:
-        carrinho[produto_id]['quantidade'] += 1
+    if str(produto_id) in carrinho:
+        carrinho[str(produto_id)]['quantidade'] += 1
     else:
-        carrinho[produto_id] = {'titulo': produto.titulo, 'valor': produto.valor, 'quantidade': 1}
+        carrinho[str(produto_id)] = {
+            'titulo': produto.titulo,
+            'valor': str(produto.valor),  # Convertendo Decimal para string
+            'quantidade': 1
+        }
     
     request.session['carrinho'] = carrinho
     return redirect('ver_carrinho')
 
 def ver_carrinho(request):
     carrinho = request.session.get('carrinho', {})
-    total = sum(item['quantidade'] * item['valor'] for item in carrinho.values())
+    total = Decimal(0)
+    
+    for item in carrinho.values():
+        item['valor'] = Decimal(item['valor'])
+        total += item['valor'] * item['quantidade']
+    
     return render(request, 'ver_carrinho.html', {'carrinho': carrinho, 'total': total})
 
 def finalizar_pedido(request):

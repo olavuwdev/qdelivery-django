@@ -147,7 +147,7 @@
             <div class="loja_valor">
                 R$ {{produto.valor_promo}}<span> R$ {{produto.valor}}</span>
             </div>
-            <a href="{% url 'adicionar_ao_carrinho' %}/2" class="btn">Adicionar ao carrinho</a>
+            <a href="{% url 'adicionar_ao_carrinho' produto.id %}" class="btn">Adicionar ao carrinho</a>
         </div>
         {% endfor %}
         
