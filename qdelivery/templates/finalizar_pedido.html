@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Finalizar Pedido</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+    
+    <label for="telefone">Telefone:</label>
+    <input type="text" id="telefone" name="telefone" required>
+    
+    <button type="submit">Enviar Pedido</button>
+</form>
+{% endblock %}

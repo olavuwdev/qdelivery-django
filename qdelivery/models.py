@@ -92,3 +92,23 @@ class Produtos(models.Model):
     class Meta:
         verbose_name = "Produto"
         verbose_name_plural = "Produtos"
+
+
+class Pedido(models.Model):
+    nome = models.CharField(max_length=255)
+    telefone = models.CharField(max_length=20)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Pedido de {self.nome}'
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.quantidade} x {self.produto.titulo}'
+
+    def get_total(self):
+        return self.quantidade * self.produto.valor

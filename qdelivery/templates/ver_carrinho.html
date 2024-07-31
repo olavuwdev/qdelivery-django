@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Seu Carrinho</h1>
+<table>
+    <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço</th>
+        <th>Total</th>
+    </tr>
+    {% for produto_id, item in carrinho.items %}
+    <tr>
+        <td>{{ item.titulo }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>R${{ item.valor }}</td>
+        <td>R${{ item.quantidade|floatformat:2|add:item.valor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p>Total do Pedido: R${{ total }}</p>
+<a href="{% url 'finalizar_pedido' %}">Finalizar Pedido</a>
+{% endblock %}
