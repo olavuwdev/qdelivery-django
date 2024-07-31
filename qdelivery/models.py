@@ -49,7 +49,7 @@ class Dados(models.Model):
     class Meta:
         verbose_name = "Dado"
         verbose_name_plural = "Dados"
-
+    #Função para formatar o numero do whatsapp
     def formatar_wtt(self):
         if self.whatsapp:
             numero = self.whatsapp.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")

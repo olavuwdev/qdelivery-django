@@ -30,3 +30,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('produto/<int:id>/', views.produto_detalhes, name='produto_detalhes'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'ADM Quentinha Delivery'
+admin.site.index_title = 'Quentinha Delivery'
+admin.site.site_title = 'ADM'

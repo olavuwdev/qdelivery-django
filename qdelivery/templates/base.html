@@ -30,28 +30,14 @@
         <div id="cart" class="fa fa-shopping-cart"></div>
         <div id="login" class="fa fa-users"></div>
         <div id="menu" class="fa fa-bars"></div>
+        <a href="/admin" class="fa fa-user-shield admin-icon" title="Admin"></a> 
+  
     </div>
     <div class="carrinho">
-        <div class="box">
-            <i class="fa fa-times"></i>
-            <img src="{% static 'img/quentinha2.png' %}" width="100" height="70" alt="">
-            <div class="content">
-                <h3>Marmita Tradicional</h3>
-                <span class="quantidade">1</span>
-                <span class="multiplica">x</span>
-                <span class="valor">R$ 12,00</span>
-            </div>
-        </div>
-        <div class="box">
-            <img src="{% static 'img/quentinha2.png' %}" width="100" height="70" alt="">
-            <div class="content">
-                <i class="fa fa-times"></i>
-                <h3>Marmita Media</h3>
-                <span class="quantidade">1</span>
-                <span class="multiplica">x</span>
-                <span class="valor">R$ 12,00</span>
-            </div>
-        </div>
+        <h1 style="text-align: center;color: gray;">Carrinho vazio</h1>
+
+<!-- 
+        Box do item no carrinho
         <div class="box">
             <i class="fa fa-times"></i>
             <img src="{% static 'img/quentinha2.png' %}" width="100" height="70" alt="">
@@ -62,8 +48,9 @@
                 <span class="valor">R$ 12,00</span>
             </div>
         </div>
-        <h3 class="total"> Total: 36,00 </h3>
-        <a href="" class="btn">Ir para carrinho </a>
+         -->
+        <h3 class="total"> Total: 00,00 </h3>
+        <a href="" class="btn">Fechar pedido </a>
     </div>
     <form action="admin/login/?next=/admin/" method="post" class="login-form">
         {% csrf_token %}

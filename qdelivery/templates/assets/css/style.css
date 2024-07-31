@@ -239,6 +239,11 @@ section{
     text-align: center;
     margin: 1rem 0;
 }
+/*ADMINISTRATIVO*/
+.admin-icon {
+    font-size: 2.2rem   ; /* Ajusta o tamanho do ícone */
+    margin-left: 10px; /* Ajusta o espaço entre os ícones */
+}
 
 /* FIM CABEÇALHO DO SITE */
 
