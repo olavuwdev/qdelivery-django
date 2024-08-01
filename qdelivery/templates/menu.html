@@ -44,6 +44,26 @@
             <!-- FIM ITEM SLIDE PRINCIPAL -->
             <!-- INICIO ITEM SLIDE PRINCIPAL -->
             <div class="swiper-slide slider">
+                <h3 class="titulo"> Acompanhamentos</h3>
+                <div class="box-container">
+                    {% for produto in bebidas %}
+                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
+                    <div class="box" data-name="{{produto.id}}">
+                        <div class="info">
+                            <h3>{{ produto.titulo}}</h3>
+                            <p>{{produto.descricao|safe}}</p>
+                        </div>
+                        <div class="valor">R${{produto.valor}}</div>
+
+
+                    </div>
+                    {% endfor %}
+                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
+
+                </div>
+            </div>
+            <!-- INICIO ITEM SLIDE PRINCIPAL -->
+            <div class="swiper-slide slider">
                 <h3 class="titulo"> Bebidas</h3>
                 <div class="box-container">
                     {% for produto in bebidas %}
