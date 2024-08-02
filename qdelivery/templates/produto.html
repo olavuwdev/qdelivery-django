@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<br><br><br><br><br>
+    <div>
+        {% for prote in dados_produto.proteinas %}
+            <p>{{ prote.titulo }}</p>
+        {% endfor %}
+        {% for acompanhamento in dados_produto.acompanhamentos %}
+            <p>{{ acompanhamento.nome }}</p>
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}

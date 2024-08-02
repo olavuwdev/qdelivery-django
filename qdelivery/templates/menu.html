@@ -26,15 +26,15 @@
 
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
                      {% for produto in quentinhas %}
-                    <div class="box" data-name="{{produto.id}}">
-                        <div class="info">
-                            <h3>{{produto.titulo}}</h3>
-                            <p> {{produto.descricao|safe}}😋</p>
+                     <div class="box"">
+                        <a href="{% url 'pro_cadapio' produto.id %}">
+                            <div class="info">
+                                <h3>{{produto.titulo}}</h3>
+                                <p> {{produto.descricao|safe}}😋</p>
+                            </div>
+                            <div class="valor">R${{produto.valor}}</div>
+                        </a>
                         </div>
-                        <div class="valor">R${{produto.valor}}</div>
-
-
-                    </div>
  
                     <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
                     {% endfor %}
@@ -68,7 +68,7 @@
                 <div class="box-container">
                     {% for produto in bebidas %}
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="{{produto.id}}">
+                    <div class="box" >
                         <div class="info">
                             <h3>{{ produto.titulo}}</h3>
                             <p>{{produto.descricao|safe}}</p>
@@ -92,13 +92,20 @@
     </div>
     <!-- FIM SLIDE PRINCIPAL DE COMPRAS DO SITE -->
 
+<!-- INICIO DO CARRINHO FIXO -->
+ <div class="carrinho_bar">
+    <div class="carrinho-fixo">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="contador">0</span>
+    </div>
+</div>
+<!-- FIM DO CARRINHO FIXO -->
 </section>
 
 <!-- FIM  SLIDE DE COMPRAS DO SITE -->
 
-
-<!-- INICIO JANELA MODAL DE COMPRAS DO SITE -->
-
+<!--
+INICIO JANELA MODAL DE COMPRAS DO SITE 
 <section class="menu-modal-container" style="display: none;">
     <div id="fechar" class="fas fa-times"></div>
 
@@ -113,13 +120,39 @@
             <i class="fas fa-star"></i>
         </div>
 
-        <p id="modal-descricao">Quentinha saborosa e acessível</p>
 
         <div class="valor" id="modal-preco">R$ 77,99</div>
-        <a href="{% url 'adicionar_ao_carrinho' 2 %}" class="btn">Adicionar ao carrinho</a>
+
+       Campos para Proteínas 
+        <div>
+            <h4>Proteínas</h4>
+            {% for proteina in proteinas %}
+            <label>
+                <input type="checkbox" name="proteinas" value="{{ proteina.id }}">{{ proteina.titulo }}
+            </label>
+            {% endfor %}
+        </div>
+
+       Campos para Acompanhamentos 
+        <div>
+            <h4>Acompanhamentos</h4>
+            {% for acompa in acompanhamento %}
+            <label>
+                <input type="checkbox" name="acompanhamentos" value="{{ acompa.id }}">{{ acompanhamento.nome }}
+            </label>
+            {% endfor %}
+        </div>
+
+       Campo de Observação 
+        <div>
+            <h4>Observação</h4>
+            <textarea id="observacoes"></textarea>
+        </div>
+
+        Botão para adicionar ao carrinho 
+        <button class="btn" id="adicionarCarrinho">Adicionar ao carrinho</button>
     </div>
 </section>
-
-
-<!-- FIM JANELA MODAL DO SITE -->
+-->
+<!-- FINAL MODAL -->
 {% endblock %}

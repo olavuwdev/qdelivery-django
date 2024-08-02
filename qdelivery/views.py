@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Dados, Produtos, ItemPedido, Pedido
+from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina
 from django.http import JsonResponse
 from decimal import Decimal
+import json
 
 # Create your views here.
 def index(request):
@@ -28,15 +29,37 @@ def blog(request):
 def cardapio(request):
     dados = get_object_or_404(Dados, id=1)
     produtos = get_object_or_404(Produtos, id=1)
-    quentinhas = Produtos.objects.filter(tipo='Q')
+    quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
     bebidas = Produtos.objects.filter(tipo='B')
+    proteinas = Proteina.objects.filter(ativo=True)
+    acompanhamento = Acompanhamento.objects.filter(ativo=True)
     dados_produto = {
         'dados': dados,
         'produtos': produtos,
         'quentinhas': quentinhas,
-        'bebidas': bebidas}
+        'bebidas': bebidas,
+        'acompanhamento': acompanhamento,
+        'proteinas': proteinas
+        }
 
     return render(request, "menu.html", dados_produto)
+
+def produto_cardapio(request, id):
+    produto = get_object_or_404(Produtos, id=id)
+    dados = get_object_or_404(Dados, id=1)
+    dados_produto = {
+        'titulo': produto.titulo,
+        'preco': str(produto.valor),
+        'tipo': produto.tipo,
+        'acompanhamentos': Acompanhamento.objects.filter(ativo=True),
+        'proteinas':  Proteina.objects.filter(ativo=True) 
+    }
+    context = {
+        'dados_produto': dados_produto,
+        'dados':dados
+    }
+    return render(request, "produto.html", context)
+
 
 def produto_detalhes(request, id):
     produto = get_object_or_404(Produtos, id=id)
@@ -45,37 +68,58 @@ def produto_detalhes(request, id):
         'titulo': produto.titulo,
         'descricao': produto.descricao,
         'preco': str(produto.valor),
-        'tipo': produto.tipo,  
+        'tipo': produto.tipo
     }
     return JsonResponse(dados_produto)
 
 
 
 def adicionar_ao_carrinho(request, produto_id):
-    produto = get_object_or_404(Produtos, id=produto_id)
-    carrinho = request.session.get('carrinho', {})
+    if request.method == "POST":
+        dados = json.loads(request.body)
+        proteinas_ids = dados.get('proteinas', [])
+        acompanhamentos_ids = dados.get('acompanhamentos', [])
+        observacoes = dados.get('observacoes', '')
+
+        produto = get_object_or_404(Produtos, id=produto_id)
+        
+        # Recuperar o carrinho do cookie, ou criar um novo se não existir
+        carrinho = json.loads(request.COOKIES.get('carrinho', '{}'))
+
+        # Gerar uma chave única para o item com base no produto e suas seleções
+        item_key = f"{produto_id}-{','.join(proteinas_ids)}-{','.join(acompanhamentos_ids)}"
+
+        if item_key in carrinho:
+            carrinho[item_key]['quantidade'] += 1
+        else:
+            carrinho[item_key] = {
+                'titulo': produto.titulo,
+                'valor': str(produto.valor),
+                'quantidade': 1,
+                'proteinas': proteinas_ids,
+                'acompanhamentos': acompanhamentos_ids,
+                'observacoes': observacoes
+            }
+
+        response = JsonResponse({'status': 'success'})
+
+        # Armazenar o carrinho atualizado no cookie
+        response.set_cookie('carrinho', json.dumps(carrinho), max_age=604800)  # 1 semana de duração
+
+        return response
     
-    if str(produto_id) in carrinho:
-        carrinho[str(produto_id)]['quantidade'] += 1
-    else:
-        carrinho[str(produto_id)] = {
-            'titulo': produto.titulo,
-            'valor': str(produto.valor),  # Convertendo Decimal para string
-            'quantidade': 1
-        }
-    
-    request.session['carrinho'] = carrinho
-    return redirect('ver_carrinho')
 
 def ver_carrinho(request):
-    carrinho = request.session.get('carrinho', {})
-    total = Decimal(0)
+    carrinho = json.loads(request.COOKIES.get('carrinho', '{}'))
     
-    for item in carrinho.values():
-        item['valor'] = Decimal(item['valor'])
-        total += item['valor'] * item['quantidade']
+    # Carregar informações detalhadas sobre proteínas e acompanhamentos
+    for item_key, item in carrinho.items():
+        item['proteinas'] = Proteina.objects.filter(id__in=item['proteinas'])
+        item['acompanhamentos'] = Acompanhamento.objects.filter(id__in=item['acompanhamentos'])
     
-    return render(request, 'ver_carrinho.html', {'carrinho': carrinho, 'total': total})
+    return render(request, 'ver_carrinho.html', {'carrinho': carrinho})
+
+
 
 def finalizar_pedido(request):
     if request.method == 'POST':

@@ -17,7 +17,7 @@ document.querySelector('#login').onclick = () => {
 }
 
 //Menu Responsivo
-
+/* 
 let menuResponsivo = document.querySelector('.menu-site');
 document.querySelector('#menu').onclick = () => {
     menuResponsivo.classList.toggle('active');
@@ -61,7 +61,7 @@ var swiper = new Swiper(".menu-slider",{
 })
 
 
-/* JANELA MODAL SITE */
+ JANELA MODAL SITE 
 
 // Seleciona o modal e o botão de fechamento
 let verModalCorpo = document.querySelector(".menu-modal-container");
@@ -95,3 +95,4 @@ document.querySelectorAll(".box").forEach(menu => {
 verModalCorpo.querySelector('#fechar').onclick = () => {
     verModalCorpo.style.display = 'none';
 };
+ */

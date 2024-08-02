@@ -27,6 +27,7 @@ urlpatterns = [
     path('contatos/', views.contatos),
     path('blog/', views.blog, name='blog'),
     path('cardapio/', views.cardapio),
+    path('prod/<int:id>', views.produto_cardapio, name="pro_cadapio"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('produto/<int:id>/', views.produto_detalhes, name='produto_detalhes'),
     path('adicionar_ao_carrinho/<int:produto_id>/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),

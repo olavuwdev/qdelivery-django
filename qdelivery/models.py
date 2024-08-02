@@ -87,6 +87,7 @@ class Produtos(models.Model):
     descricao = RichTextField(blank=True, null=True)
     tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    ativo = models.BooleanField(default=True)
     def __str__(self):
         return self.titulo
     class Meta:
@@ -112,3 +113,20 @@ class ItemPedido(models.Model):
 
     def get_total(self):
         return self.quantidade * self.produto.valor
+    
+
+class Acompanhamento(models.Model):
+    nome = models.CharField(max_length=100, unique=True)
+    imagem = RichTextUploadingField(null=True, blank=True)
+    ativo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nome
+class Proteina(models.Model):
+    titulo = models.CharField(max_length=200,unique=True)
+    imagem = RichTextField()
+    ativo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.titulo
+

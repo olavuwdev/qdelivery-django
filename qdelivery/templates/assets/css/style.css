@@ -716,7 +716,7 @@ section{
     text-align: center;
     padding: 3rem 2rem;
     border-radius: .5rem;
-    width: 35rem;
+    width: 100%;
 }
 .menu-modal-container .menu-modal.active{
     display: inline-block;
@@ -746,6 +746,23 @@ section{
     color: #130f40;
     margin-bottom: .5rem;
 }
+
+.menu .carrinho_bar{
+    padding: 1rem;
+    font-size: 3rem;
+    color: rgb(0, 0, 0);
+    background-color:rgba(255, 0, 0, 0.685);
+    margin-bottom: 3rem;
+    text-align: center;
+
+}
+.menu .carrinho_bar:hover{
+    cursor: pointer;
+    transform: scale(.9);
+}
+
+
+
 #fechar{
     position: absolute;
     top:1.5rem;
