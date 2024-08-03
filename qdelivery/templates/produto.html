@@ -1,15 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<br><br><br><br><br>
-    <div>
-        {% for prote in dados_produto.proteinas %}
-            <p>{{ prote.titulo }}</p>
-        {% endfor %}
-        {% for acompanhamento in dados_produto.acompanhamentos %}
-            <p>{{ acompanhamento.nome }}</p>
-        {% endfor %}
 
+<section class="lis_itens">
+    <div class="produto">
+        <h2>{{ dados_produto.titulo }}</h2>
+        {{dados_produto.capa|safe}}
+        <div class="loja_valor">
+            <h3>R$ {{dados_produto.preco}}</h3>
+        </div>
     </div>
+    {% if dados_produto.tipo == 'Q' %}
+    <div class="lis_itens_pro">
+        <h3>Selecione até 2 Proteínas:</h3>
+        <form method="post" action="{% url 'adicionar_ao_carrinho' %}">
+            {% csrf_token %}
+            <input type="hidden" name="produto_id" value="{{ dados_produto.id }}">
+            {% for prote in dados_produto.proteinas %}
+                <div>
+                    <input type="checkbox" id="proteina_{{ prote.id }}" name="proteinas" value="{{ prote.id }}">
+                    <label for="proteina_{{ prote.id }}">{{ prote.titulo }}</label>
+                </div>
+            {% endfor %}
+            
+            <h3>Selecione os Acompanhamentos:</h3>
+            {% for acompanhamento in dados_produto.acompanhamentos %}
+                <div>
+                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}">
+                    <label for="acompanhamento_{{ acompanhamento.id }}">{{ acompanhamento.nome }}</label>
+                </div>
+            {% endfor %}
 
-
+            <h3>Observações:</h3>
+            <textarea wrap="off" cols="80" rows="5" name="observacoes"  placeholder="Escreva suas observações ou instruções especiais aqui..."></textarea>
+            
+            <button type="submit">Adicionar ao Carrinho</button>
+        </form>
+    </div>
+    {% endif %}
+    <!-- INICIO DO CARRINHO FIXO -->
+    <a href="{% url 'ver_carrinho' %}">
+        <div class="carrinho_bar">
+            <div class="carrinho-fixo">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador">{{ request.session.carrinho|length }}</span>
+            </div>
+        </div>
+    </a>
+    <!-- FIM DO CARRINHO FIXO -->
+</section>
 {% endblock %}

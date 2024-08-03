@@ -865,6 +865,148 @@ section{
     border-radius: .5rem;
     box-shadow: 0 .6rem 2.4rem rgba(0, 0, 0, 0.5);
 }
+
+/* ESTILIZAÇÃO LISTA PROTEINA E ACOMPANHAMENTOS ( produto.html) */
+
+.lis_itens {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-top: 70px;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.lis_itens form textarea{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+    resize: vertical;
+    white-space: pre-wrap; /* Ensures line breaks are preserved */
+    line-height: 1.5;
+}
+
+.produto {
+    
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+
+.produto h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.produto img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.loja_valor {
+    margin-top: 10px;
+}
+
+.loja_valor h3 {
+    font-size: 20px;
+    color: #e63946;
+}
+
+.lis_itens_pro {
+    flex: 1;
+    padding: 10px;
+    text-align: left;
+}
+
+.lis_itens_pro h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.lis_itens_pro div {
+    margin-bottom: 10px;
+}
+
+.lis_itens_pro input[type="radio"],
+.lis_itens_pro input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.lis_itens_pro label {
+    font-size: 16px;
+    color: #555;
+}
+
+button[type="submit"] {
+    background-color: #1d3557;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px; /* Espaço acima do botão */
+}
+
+button[type="submit"]:hover {
+    background-color: #457b9d;
+}
+
+.lis_itens {
+    text-align: center;
+}
+
+.carrinho_bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-size: 3rem;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 0, 0, 0.685);
+    margin-top: 20px; /* Espaço acima do carrinho */
+    margin-bottom: 3rem; /* Espaço abaixo do carrinho */
+}
+
+.carrinho_bar:hover {
+    cursor: pointer;
+    transform: scale(0.9);
+}
+
+.carrinho-fixo {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carrinho-fixo i {
+    font-size: 24px;
+}
+
+.contador {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
 /*Responsiva site */
 
 @media(max-width:991px){
@@ -906,6 +1048,19 @@ section{
     .qd_destaque .slide .content h3{
         font-size: 4rem;
     }
+    .lis_itens {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .produto, .lis_itens_pro {
+        flex: 1 1 100%;
+        margin-bottom: 20px;
+    }
+    .produto{
+        margin-top: 30px;
+    }
+
 
 }
 
@@ -924,4 +1079,17 @@ section{
     .qd_destaque .slide .content h3{
         font-size: 3.5rem;
     }
+    .produto h2, .lis_itens_pro h3 {
+        font-size: 20px;
+    }
+
+    .loja_valor h3, .lis_itens_pro label {
+        font-size: 14px;
+    }
+
+    button[type="submit"] {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
+

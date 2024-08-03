@@ -42,26 +42,7 @@
             </div>
             
             <!-- FIM ITEM SLIDE PRINCIPAL -->
-            <!-- INICIO ITEM SLIDE PRINCIPAL -->
-            <div class="swiper-slide slider">
-                <h3 class="titulo"> Acompanhamentos</h3>
-                <div class="box-container">
-                    {% for produto in bebidas %}
-                    <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" data-name="{{produto.id}}">
-                        <div class="info">
-                            <h3>{{ produto.titulo}}</h3>
-                            <p>{{produto.descricao|safe}}</p>
-                        </div>
-                        <div class="valor">R${{produto.valor}}</div>
 
-
-                    </div>
-                    {% endfor %}
-                    <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
-
-                </div>
-            </div>
             <!-- INICIO ITEM SLIDE PRINCIPAL -->
             <div class="swiper-slide slider">
                 <h3 class="titulo"> Bebidas</h3>
@@ -92,14 +73,16 @@
     </div>
     <!-- FIM SLIDE PRINCIPAL DE COMPRAS DO SITE -->
 
-<!-- INICIO DO CARRINHO FIXO -->
- <div class="carrinho_bar">
-    <div class="carrinho-fixo">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="contador">0</span>
-    </div>
-</div>
-<!-- FIM DO CARRINHO FIXO -->
+    <!-- INICIO DO CARRINHO FIXO -->
+    <a href="{% url 'ver_carrinho' %}">
+        <div class="carrinho_bar">
+            <div class="carrinho-fixo">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador">{{ request.session.carrinho|length }}</span>
+            </div>
+        </div>
+    </a>
+    <!-- FIM DO CARRINHO FIXO -->
 </section>
 
 <!-- FIM  SLIDE DE COMPRAS DO SITE -->

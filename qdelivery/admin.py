@@ -33,3 +33,15 @@ class ProdutosAdmin(admin.ModelAdmin):
 @admin.register(Proteina)
 class ProteinasAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'ativo')
+    actions = ['marcar_ativos', 'desmarcar_ativos']
+
+    def marcar_ativos(self, request, queryset):
+        queryset.update(ativo=True)
+        self.message_user(request, "Acompanhamentos marcados como ativos.")
+
+    def desmarcar_ativos(self, request, queryset):
+        queryset.update(ativo=False)
+        self.message_user(request, "Acompanhamentos desmarcados como inativos.")
+
+    marcar_ativos.short_description = "Marcar proteinas selecionados como ativos"
+    desmarcar_ativos.short_description = "Desmarcar proteinas selecionados como inativos"
