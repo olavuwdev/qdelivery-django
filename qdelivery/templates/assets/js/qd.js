@@ -16,6 +16,32 @@ document.querySelector('#login').onclick = () => {
     console.log("ok")
 }
 
+//Atualizar quantidade CARRINHO
+/* document.querySelectorAll('.quantity-input').forEach(input => {
+    input.addEventListener('change', function() {
+        const itemId = this.dataset.itemId;
+        const quantidade = this.value;
+
+        fetch("{% url 'atualizar_quantidade' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({ item_id: itemId, quantidade: quantidade })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('total_carrinho').innerText = data.total_carrinho;
+            } else {
+                alert('Erro ao atualizar quantidade.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    });
+}); */
+
 //Menu Responsivo
 /* 
 let menuResponsivo = document.querySelector('.menu-site');

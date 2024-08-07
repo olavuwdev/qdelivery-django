@@ -3,6 +3,7 @@
 <!-- INICIO DO CARRINHO -->
 <div class="carrinho">
     <h2>Carrinho de Compras</h2>
+    {% if request.session.carrinho %}
     <table>
         <thead>
             <tr>
@@ -16,12 +17,12 @@
         <tbody>
             {% for item_id, item in request.session.carrinho.items %}
             <tr>
-                <td>    <h1>{{ item.produto }}</h1>
+                <td>    
+                    <h1>{{ item.produto }}</h1>
                     <p>{{ item.proteinas|join:", " }}</p>
                     <p>{{ item.acompanhamentos|join:", " }}</p>
                 </td>
-                <td><h2>{{ item.preco }}</h2>
-              
+                <td><h2>{{ item.preco }}</h2></td>
                 <td>
                     <form method="post" action="{% url 'atualizar_quantidade' %}">
                         {% csrf_token %}
@@ -30,7 +31,7 @@
                         <button type="submit">Atualizar</button>
                     </form>
                 </td>
-                <td>{{  item.total }}</td>
+                <td>{{ item.total }}</td>
                 <td>
                     <form method="post" action="{% url 'remover_item' %}">
                         {% csrf_token %}
@@ -43,7 +44,22 @@
         </tbody>
     </table>
     <p class="total_carrinho">Total do carrinho: {{ total_carrinho }}</p>
+    <a class="bnt_finalizar_pedido" href="{% url 'menu' %}">
+        Finalizar pedido
+    </a>
+    
+    {% else %}
+    <div class="carrinho_vazio">
+        <p class="text_carrinho_vazio">
+            Seu carrinho está vazio.
+        </p>
+    </div>
+    {% endif %}
+    <a href="{% url 'menu' %}">
+        Voltar ao cardapio
+    </a>
 
-</div>
+
+    </div>
 <!-- FIM DO CARRINHO -->
 {% endblock %}

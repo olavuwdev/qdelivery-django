@@ -27,11 +27,15 @@ urlpatterns = [
     path('contatos/', views.contatos),
     path('blog/', views.blog, name='blog'),
     path('cardapio/', views.cardapio, name='menu'),
-    path('prod/<int:id>', views.produto_cardapio, name="pro_cadapio"),
+    path('prod/<int:id>', views.produto_cardapio, name="pro_cardapio"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('produto/<int:id>/', views.produto_detalhes, name='produto_detalhes'),
-    path('adicionar_ao_carrinho/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),
     path('ver_carrinho/', views.carrinho, name='ver_carrinho'),
+
+
+    path('adicionar_ao_carrinho/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),# não usado
+    path('produto/<int:id>/', views.produto_detalhes, name='produto_detalhes'), #não usado
+
+
     path('atualizar_quantidade/', views.atualizar_quantidade, name='atualizar_quantidade'),
     path('remover_item/', views.remover_item, name='remover_item'),
     path('finalizar_pedido/', views.finalizar_pedido, name='finalizar_pedido'),

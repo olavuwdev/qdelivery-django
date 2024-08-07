@@ -50,7 +50,7 @@ def produto_cardapio(request, id):
     dados_produto = {
         'id':produto.id,
         'titulo': produto.titulo,
-        'preco': str(produto.valor),
+        'preco': str(produto.valor_promo),
         'tipo': produto.tipo,
         'capa': produto.capa,
         'acompanhamentos': Acompanhamento.objects.filter(ativo=True),
@@ -69,55 +69,13 @@ def produto_detalhes(request, id):
     dados_produto = {
         'titulo': produto.titulo,
         'descricao': produto.descricao,
-        'preco': str(produto.valor),
+        'preco': str(produto.valor_promo),
         'tipo': produto.tipo
     }
     return JsonResponse(dados_produto)
 
 
 
-def adicionar_ao_carrinho(request):
-    if request.method == 'POST':
-        produto_id = request.POST.get('produto_id')
-        proteinas_ids = request.POST.getlist('proteinas')
-        acompanhamentos_ids = request.POST.getlist('acompanhamentos')
-        observacao = request.POST.get('observacao', '')
-
-        # Obter o produto
-        produto = get_object_or_404(Produtos, id=produto_id)
-
-        # Obter proteinas e acompanhamentos
-        proteinas = Proteina.objects.filter(id__in=proteinas_ids)
-        acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
-
-        # Obter ou criar o carrinho na sessão
-        carrinho = request.session.get('carrinho', {})
-        print(carrinho)
-        # Criar um identificador único para o item no carrinho
-        item_id = f'{produto_id}_{",".join(proteinas_ids)}_{",".join(acompanhamentos_ids)}'
-
-        # Adicionar item ao carrinho
-        if item_id not in carrinho:
-            carrinho[item_id] = {
-                'produto': produto.titulo,
-                'preco': float(produto.valor),  # converter Decimal para float
-                'proteinas': [proteina.titulo for proteina in proteinas],
-                'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
-                'observacao': observacao,
-                'quantidade': 1
-            }
-        else:
-            # Se já existir, apenas incrementar a quantidade
-            carrinho[item_id]['quantidade'] += 1
-
-        # Atualizar o carrinho na sessão
-        request.session['carrinho'] = carrinho
-
-        # Redirecionar para a página do menu
-        return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
-
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
-    
 
 def carrinho(request):
     carrinho = request.session.get('carrinho', {})
@@ -173,14 +131,7 @@ def remover_item(request):
 
 
 
-
-
-
-
-
-
-
-
+#Views não usadas no ate o momento
 
 def finalizar_pedido(request):
     if request.method == 'POST':
@@ -209,3 +160,46 @@ def finalizar_pedido(request):
         return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes})
     
     return render(request, 'finalizar_pedido.html')
+
+def adicionar_ao_carrinho(request):
+    if request.method == 'POST':
+        produto_id = request.POST.get('produto_id')
+        proteinas_ids = request.POST.getlist('proteinas')
+        acompanhamentos_ids = request.POST.getlist('acompanhamentos')
+        observacao = request.POST.get('observacao', '')
+
+        # Obter o produto
+        produto = get_object_or_404(Produtos, id=produto_id)
+
+        # Obter proteinas e acompanhamentos
+        proteinas = Proteina.objects.filter(id__in=proteinas_ids)
+        acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
+
+        # Obter ou criar o carrinho na sessão
+        carrinho = request.session.get('carrinho', {})
+        print(carrinho)
+        # Criar um identificador único para o item no carrinho
+        item_id = f'{produto_id}_{",".join(proteinas_ids)}_{",".join(acompanhamentos_ids)}'
+
+        # Adicionar item ao carrinho
+        if item_id not in carrinho:
+            carrinho[item_id] = {
+                'produto': produto.titulo,
+                'preco': float(produto.valor_promo),  # converter Decimal para float
+                'proteinas': [proteina.titulo for proteina in proteinas],
+                'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
+                'observacao': observacao,
+                'quantidade': 1
+            }
+        else:
+            # Se já existir, apenas incrementar a quantidade
+            carrinho[item_id]['quantidade'] += 1
+
+        # Atualizar o carrinho na sessão
+        request.session['carrinho'] = carrinho
+
+        # Redirecionar para a página do menu
+        return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
+
+    return JsonResponse({'error': 'Método não permitido'}, status=405)
+    

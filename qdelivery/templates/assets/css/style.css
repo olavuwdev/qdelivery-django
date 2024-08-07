@@ -551,6 +551,7 @@ section{
     padding: 1rem;
     border-radius:  .5rem;
     position: relative;
+
     
 }
 
@@ -559,6 +560,10 @@ section{
 .rodape{
     background: var(--yellow_qd);
     text-align: center;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 }
 
 .rodape .box-container{
@@ -663,8 +668,11 @@ section{
     flex-wrap: wrap;
     gap: 1.5rem;
     padding-bottom: 2rem ;
+    text-align: center;
 }
-.menu .slider .box-container .box{
+
+
+.menu .slider .box-container a{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -674,6 +682,7 @@ section{
     padding: 2rem;
     box-shadow:  0 .5rem 1rem rgba(0, 0, 0, 0.1);
 }
+
 .menu .slider .box-container .box:hover{
     transform: scale(.9);
     cursor: pointer;
@@ -1008,8 +1017,9 @@ button[type="submit"]:hover {
 /* STYLE VER_CARRINHO.HTML */
 /* Container for the cart */
 .carrinho {
-
-    max-width: 800px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     padding: 100px;
     background-color: #f7f7f7;
@@ -1079,6 +1089,17 @@ button[type="submit"]:hover {
     text-align: center;
     margin-top: 5px;
 }
+.carrinho .bnt_finalizar_pedido{
+    text-align: center;
+    background-color: #ad1d18;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
 .carrinho .total_carrinho{
     font-size: 1.3rem;
     font-weight: bold;
@@ -1092,6 +1113,28 @@ button[type="submit"]:hover {
     font-size: 1.2rem;
     color: #333;
 }
+
+.carrinho .carrinho_vazio{
+    text-align: center;
+}
+
+.carrinho .text_carrinho_vazio{
+    color: #ff0404;
+    font-size: large;
+    margin-bottom: 20px;
+}
+.carrinho  a{
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
 
 
 
