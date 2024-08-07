@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!-- INICIO DO CARRINHO -->
 <div class="carrinho">
     <h2>Carrinho de Compras</h2>
@@ -14,13 +16,17 @@
         <tbody>
             {% for item_id, item in request.session.carrinho.items %}
             <tr>
-                <td>{{ item.produto }}</td>
-                <td>{{ item.preco }}</td>
+                <td>    <h1>{{ item.produto }}</h1>
+                    <p>{{ item.proteinas|join:", " }}</p>
+                    <p>{{ item.acompanhamentos|join:", " }}</p>
+                </td>
+                <td><h2>{{ item.preco }}</h2>
+              
                 <td>
                     <form method="post" action="{% url 'atualizar_quantidade' %}">
                         {% csrf_token %}
                         <input type="hidden" name="item_id" value="{{ item_id }}">
-                        <input type="number" name="quantidade" value="{{ item.quantidade }}">
+                        <input type="number" min='0' name="quantidade" value="{{ item.quantidade }}">
                         <button type="submit">Atualizar</button>
                     </form>
                 </td>
@@ -36,6 +42,8 @@
             {% endfor %}
         </tbody>
     </table>
-    <p>Total do carrinho: {{ total_carrinho }}</p>
+    <p class="total_carrinho">Total do carrinho: {{ total_carrinho }}</p>
+
 </div>
 <!-- FIM DO CARRINHO -->
+{% endblock %}

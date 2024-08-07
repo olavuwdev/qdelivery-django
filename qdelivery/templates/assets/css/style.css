@@ -662,13 +662,13 @@ section{
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    padding-bottom: 4rem ;
+    padding-bottom: 2rem ;
 }
 .menu .slider .box-container .box{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex:1 1 38rem;
+    flex:1 1 1rem;
     gap: 1rem;
     background-color: #eee;
     padding: 2rem;
@@ -1004,6 +1004,95 @@ button[type="submit"]:hover {
     font-size: 18px;
     font-weight: bold;
 }
+
+/* STYLE VER_CARRINHO.HTML */
+/* Container for the cart */
+.carrinho {
+
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carrinho h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Table styles */
+.carrinho table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.carrinho th,
+.carrinho td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.carrinho th {
+    background-color: var(--yellow_qd);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.carrinho tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Form and button styles */
+.carrinho input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.carrinho button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.carrinho button:hover {
+    background-color: #45a049;
+}
+
+.carrinho p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 5px;
+}
+.carrinho .total_carrinho{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.carrinho td h1, .carrinho td h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
 
 
 

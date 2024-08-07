@@ -26,15 +26,15 @@
 
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
                      {% for produto in quentinhas %}
-                     <div class="box"">
-                        <a href="{% url 'pro_cadapio' produto.id %}">
+                     <a href="{% url 'pro_cadapio' produto.id %}">
+                     <div class="box">
                             <div class="info">
                                 <h3>{{produto.titulo}}</h3>
                                 <p> {{produto.descricao|safe}}😋</p>
                             </div>
                             <div class="valor">R${{produto.valor}}</div>
-                        </a>
                         </div>
+                    </a>
  
                     <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
                     {% endfor %}
