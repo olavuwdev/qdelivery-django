@@ -177,7 +177,7 @@ def adicionar_ao_carrinho(request):
 
         # Obter ou criar o carrinho na sessão
         carrinho = request.session.get('carrinho', {})
-        print(carrinho)
+
         # Criar um identificador único para o item no carrinho
         item_id = f'{produto_id}_{",".join(proteinas_ids)}_{",".join(acompanhamentos_ids)}'
 
@@ -185,6 +185,7 @@ def adicionar_ao_carrinho(request):
         if item_id not in carrinho:
             carrinho[item_id] = {
                 'produto': produto.titulo,
+                'imagem':produto.capa ,
                 'preco': float(produto.valor_promo),  # converter Decimal para float
                 'proteinas': [proteina.titulo for proteina in proteinas],
                 'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
@@ -203,3 +204,18 @@ def adicionar_ao_carrinho(request):
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
     
+
+def cartTeste(request):
+    carrinho = request.session.get('carrinho', {})
+    total_carrinho = 0
+    print(carrinho.items())
+    for item_id, item in carrinho.items():
+        item['total'] = item['preco'] * item['quantidade']
+        total_carrinho += item['total']
+
+
+    context = {
+        'carrinho': carrinho,
+        'total_carrinho': total_carrinho,
+    }
+    return render(request, 'ver_carrinho2.html', context)

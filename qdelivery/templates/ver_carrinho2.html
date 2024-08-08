@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- INICIO DO CARRINHO -->
+
+
+    <main class="main_cart">
+      <div class="page-title">Seu Carrinho</div>
+
+      <div class="content">
+        <section class="sec_carrinho">
+          <table class="table_cart">
+            <thead class="thread_cart">
+              <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>Acão</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for item_id, item in request.session.carrinho.items %}
+              <tr>
+                <td>
+                  <div class="product">
+                    {{item.imagem|safe}}
+                    <div class="info">
+                      <div class="name">{{ item.produto }}</div>
+                      <div class="category">                    
+                        <p>{{ item.proteinas|join:", " }}</p>
+                        <p>{{ item.acompanhamentos|join:", " }}</p></div>
+                    </div>
+                  </div>
+                </td>
+                <td>R$ {{ item.preco }}</td>
+                <td>
+                    <form method="post" action="{% url 'atualizar_quantidade' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item_id }}">
+                        <input type="number" min='0' name="quantidade" value="{{ item.quantidade }}">
+                        <button class="refresh" type="submit"><i class="bx bx-refresh " style="color: rgb(0, 0, 0);"></i></button>
+                    </form>
+                </td>
+                <td>R$ {{ item.total }}</td>
+                <td>    
+                    <form method="post" action="{% url 'remover_item' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value="{{ item_id }}">
+                        <button type="submit" class="remove"><i class="bx bx-x" style="color: red;" ></i></button>
+                    </form>
+                </td>
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+          </table>
+        </section>
+
+        <aside>
+          <div class="box">
+            <header>Resumo do pedido</header>
+            <div class="info">
+              <div><span>Sub-total</span><span> {{ total_carrinho }}</span></div>
+
+            </div>
+            <footer>
+              <span>Total</span>
+              <span>{{ total_carrinho }}</span>
+            </footer>
+          </div>
+          <button>Finalizar Compra</button>
+        </aside>
+      </div>
+    </main>    
+
+<!-- FIM DO CARRINHO -->
+{% endblock %}
