@@ -1192,7 +1192,38 @@ button[type="submit"]:hover {
     .produto{
         margin-top: 30px;
     }
+    /*responsividade ver_carrinho.html */
+    .carrinho table, .carrinho th, .carrinho td {
+        display: block;
+        width: 100%;
+    }
 
+    .carrinho th, .carrinho td {
+        text-align: left;
+        padding: 10px 5px;
+        border: none;
+    }
+
+    .carrinho th {
+        background-color: transparent;
+        font-weight: normal;
+        color: #333;
+    }
+
+    .carrinho td h1, .carrinho td h2 {
+        font-size: 1rem;
+    }
+
+    .carrinho .bnt_finalizar_pedido,
+    .carrinho a {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .carrinho .total_carrinho {
+        text-align: center;
+        margin-top: 20px;
+    }
 
 }
 

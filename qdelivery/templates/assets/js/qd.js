@@ -40,10 +40,11 @@ document.querySelector('#login').onclick = () => {
         })
         .catch(error => console.error('Erro:', error));
     });
-}); */
+}); 
+*/
 
 //Menu Responsivo
-/* 
+ 
 let menuResponsivo = document.querySelector('.menu-site');
 document.querySelector('#menu').onclick = () => {
     menuResponsivo.classList.toggle('active');
@@ -86,7 +87,7 @@ var swiper = new Swiper(".menu-slider",{
     
 })
 
-
+/*
  JANELA MODAL SITE 
 
 // Seleciona o modal e o botão de fechamento
