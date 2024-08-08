@@ -134,7 +134,10 @@ def remover_item(request):
 #Views não usadas no ate o momento
 
 def finalizar_pedido(request):
-    if request.method == 'POST':
+    #if request.method == 'POST':
+    print( request.session.get('carrinho', {}))
+
+    """ 
         nome = request.POST['nome']
         telefone = request.POST['telefone']
         
@@ -157,9 +160,10 @@ def finalizar_pedido(request):
         # Limpar o carrinho após finalizar o pedido
         request.session['carrinho'] = {}
         
-        return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes})
+        return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
+    """
     
-    return render(request, 'finalizar_pedido.html')
+    return redirect('cartTeste')
 
 def adicionar_ao_carrinho(request):
     if request.method == 'POST':
@@ -208,7 +212,7 @@ def adicionar_ao_carrinho(request):
 def cartTeste(request):
     carrinho = request.session.get('carrinho', {})
     total_carrinho = 0
-    print(carrinho.items())
+    #print(carrinho.items())
     for item_id, item in carrinho.items():
         item['total'] = item['preco'] * item['quantidade']
         total_carrinho += item['total']
