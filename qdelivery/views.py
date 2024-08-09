@@ -144,47 +144,46 @@ def finalizar_pedido(request):
     #Valor total do carrinho
     total_carrinho = func_total_carrinho(carrinho)
 
-
-    #if request.method == 'POST':
-    usuario = request.session.get('usuario', {})
-    usuario = {
-        'nome': request.POST['nome'],
-        'telefone': request.POST['telefone']
-    }
-    #Pedido.objects.create(nome=usuario['nome'], telefone=usuario['telefone'], endereco="Rua Teste")
-    print(f"{datetime.now()}  {usuario}" )
-
-    """ 
-        nome = request.POST['nome']
-        telefone = request.POST['telefone']
-        
-        pedido = Pedido.objects.create(nome=nome, telefone=telefone)
-        
-        carrinho = request.session.get('carrinho', {})
-        for produto_id, item in carrinho.items():
-            produto = get_object_or_404(Produtos, id=produto_id)
-            ItemPedido.objects.create(pedido=pedido, produto=produto, quantidade=item['quantidade'])
-        
-        # Lógica para enviar os detalhes do pedido para o WhatsApp
-        pedido_detalhes = f'Pedido de {nome}:\nTelefone: {telefone}\n'
-        for item in pedido.itens.all():
-            pedido_detalhes += f'{item.quantidade} x {item.produto.titulo} - R${item.get_total()}\n'
-        pedido_detalhes += f'Total do Pedido: R${sum(item.get_total() for item in pedido.itens.all())}'
-        
-        # Use a API do WhatsApp para enviar os detalhes do pedido
-        # Aqui você pode usar uma biblioteca como Twilio para enviar mensagens para o WhatsApp
-        
-        # Limpar o carrinho após finalizar o pedido
-        request.session['carrinho'] = {}
-        
-        return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
-    """
-    
     context = {
-        'usuario': usuario,
         'bairros': bairro,
         'total_carrinho': total_carrinho
-    }
+        }
+    if request.method == 'POST':
+        usuario = request.session.get('usuario', {})
+        usuario = {
+            'nome': request.POST.get('nome', ''),
+            'telefone': request.POST.get('telefone', '')
+        }
+        #Pedido.objects.create(nome=usuario['nome'], telefone=usuario['telefone'], endereco="Rua Teste")
+        context['usuario'] = usuario
+        print(f"{datetime.now()}  {usuario} carrinho: {carrinho} \n Total a pagar: {total_carrinho}" )
+        """ 
+            nome = request.POST['nome']
+            telefone = request.POST['telefone']
+            
+            pedido = Pedido.objects.create(nome=nome, telefone=telefone)
+            
+            carrinho = request.session.get('carrinho', {})
+            for produto_id, item in carrinho.items():
+                produto = get_object_or_404(Produtos, id=produto_id)
+                ItemPedido.objects.create(pedido=pedido, produto=produto, quantidade=item['quantidade'])
+            
+            # Lógica para enviar os detalhes do pedido para o WhatsApp
+            pedido_detalhes = f'Pedido de {nome}:\nTelefone: {telefone}\n'
+            for item in pedido.itens.all():
+                pedido_detalhes += f'{item.quantidade} x {item.produto.titulo} - R${item.get_total()}\n'
+            pedido_detalhes += f'Total do Pedido: R${sum(item.get_total() for item in pedido.itens.all())}'
+            
+            # Use a API do WhatsApp para enviar os detalhes do pedido
+            # Aqui você pode usar uma biblioteca como Twilio para enviar mensagens para o WhatsApp
+            
+            # Limpar o carrinho após finalizar o pedido
+            request.session['carrinho'] = {}
+            
+            return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
+        """
+        
+
     
     return render(request, 'finalizar_pedido.html', context)
 
@@ -234,11 +233,12 @@ def adicionar_ao_carrinho(request):
 
 def cartTeste(request):
     carrinho = request.session.get('carrinho', {})
-    total_carrinho = func_total_carrinho(carrinho)
+    total_carrinho = func_total_carrinho(carrinho) # type: ignore
     #print(carrinho.items())
 
     context = {
         'carrinho': carrinho,
         'total_carrinho': total_carrinho,
     }
+    print('ok')
     return render(request, 'ver_carrinho2.html', context)

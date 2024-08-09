@@ -4,7 +4,7 @@
 
 
     <main class="main_cart">
-      <div class="page-title">Seu Carrinho</div>
+      <div class="page-title" id="tesst">Seu Carrinho</div>
       {% if request.session.carrinho %}
       <div class="content">
         <section class="sec_carrinho">
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 {% for item_id, item in request.session.carrinho.items %}
-              <tr>
+              <tr data-item-id="{{ item_id }}">
                 <td>
                   <div class="product">
                     {{item.imagem|safe}}
@@ -32,16 +32,21 @@
                     </div>
                   </div>
                 </td>
-                <td>R$ {{ item.preco }}</td>
-                <td>
-                    <form method="post" action="{% url 'atualizar_quantidade' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="item_id" value="{{ item_id }}">
-                        <input type="number" min='0' name="quantidade" value="{{ item.quantidade }}">
-                        <button class="refresh" type="submit"><i class="bx bx-refresh " style="color: rgb(0, 0, 0);"></i></button>
-                    </form>
+                <td> 
+                
+                  R$ <span id="preco_{{ item_id }}">{{ item.preco }}</span>
+                
                 </td>
-                <td>R$ {{ item.total }}</td>
+                <td>
+                  <div class="quantidade">
+                    <button type="button" class="btn-decrement" onclick="updateQuantity(-1, '{{ item_id }}')">-</button>
+                    <div id="quantidade_{{ item_id }}">{{ item.quantidade }}</div>
+                    <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')">+</button>
+                </div>
+                </td>
+                <td>
+                   <div class="total">Total: R$ <span id="total_{{ item_id }}">{{ item.total }}</span></div> 
+                </td>
                 <td>    
                     <form method="post" action="{% url 'remover_item' %}">
                         {% csrf_token %}
@@ -61,12 +66,11 @@
           <div class="box">
             <header>Resumo do pedido</header>
             <div class="info">
-              <div><span>Sub-total</span><span> {{ total_carrinho }}</span></div>
+              <h1>Total do carrinho: R$ <span id="total_carrinho">{{ total_carrinho }}</span></h1>
 
             </div>
             <footer>
-              <span>Total</span>
-              <span>{{ total_carrinho }}</span>
+              <div>Total: R$ <span id="total_{{ item_id }}">{{ item.total }}</span></div>
             </footer>
           </div>
           <a href="{% url 'finalizar_pedido' %}" >Finalizar Compra</a>
@@ -87,4 +91,37 @@
     </main>    
 
 <!-- FIM DO CARRINHO -->
+
+
+<script>
+    function updateQuantity(change, itemId) {
+        const quantityDiv = document.getElementById(`quantidade_${itemId}`);
+        let quantity = parseInt(quantityDiv.textContent);
+        const newQuantity = quantity + change;
+        if (newQuantity >= 0) {
+            quantityDiv.textContent = newQuantity;
+            updateTotal(newQuantity, itemId);
+        }
+    }
+
+    function updateTotal(quantity, itemId) {
+        const itemDiv = document.getElementById(`total_${itemId}`);
+        const preco = document.getElementById(`preco_${itemId}`);
+        const totaItem = document.getElementById(`total_${itemId}`)
+        const newTotal = parseFloat(preco.textContent) * quantity;
+
+        totaItem.textContent = newTotal;
+
+        // Atualizar o valor total do carrinho
+        updateCartTotal();
+    }
+
+    function updateCartTotal() {
+        let total = 0;
+        document.querySelectorAll('span[id^="total_"]').forEach((span) => {
+            total += parseFloat(span.textContent);
+        });
+        document.getElementById('total_carrinho').textContent = total.toFixed(2);
+    }
+</script>
 {% endblock %}

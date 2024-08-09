@@ -2,10 +2,10 @@
     {% csrf_token %}
     
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required value="{{ request.session.nome|default:'' }}">
+    <input type="text" id="nome" name="nome" required value="{{ usuario.nome|default:'' }}">
     {% if usuario.telefone == '' %}
     <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" required value="{{ request.session.telefone|default:'' }}">
+    <input type="text" id="telefone" name="telefone" required value="{{ usuario.telefone|default:'' }}">
     {% endif %}
     <label>
         <input type="radio" name="entrega_retirada" value="retirada" checked onclick="toggleEnderecoFields(false)">
