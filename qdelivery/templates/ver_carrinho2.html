@@ -5,7 +5,7 @@
 
     <main class="main_cart">
       <div class="page-title">Seu Carrinho</div>
-
+      {% if request.session.carrinho %}
       <div class="content">
         <section class="sec_carrinho">
           <table class="table_cart">
@@ -72,6 +72,18 @@
           <a href="{% url 'finalizar_pedido' %}" >Finalizar Compra</a>
         </aside>
       </div>
+      {% else %}
+      <div class="main_vazio" style="text-align: center; font-size: larger;">
+      <div class="carrinho_vazio">
+          <p class="text_carrinho_vazio">
+              Seu carrinho está vazio.
+          </p>
+      </div>
+      {% endif %}
+      <a href="{% url 'menu' %}">
+          Voltar ao cardapio
+      </a>
+    </div>
     </main>    
 
 <!-- FIM DO CARRINHO -->

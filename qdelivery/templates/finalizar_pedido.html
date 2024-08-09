@@ -1,15 +1,74 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>Finalizar Pedido</h1>
-<br><br><br><br>
-<form method="post">
+<form method="post" action="{% url 'finalizar_pedido' %}">
     {% csrf_token %}
+    
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
-    
+    <input type="text" id="nome" name="nome" required value="{{ request.session.nome|default:'' }}">
+    {% if usuario.telefone == '' %}
     <label for="telefone">Telefone:</label>
-    <input type="text" id="telefone" name="telefone" required>
+    <input type="text" id="telefone" name="telefone" required value="{{ request.session.telefone|default:'' }}">
+    {% endif %}
+    <label>
+        <input type="radio" name="entrega_retirada" value="retirada" checked onclick="toggleEnderecoFields(false)">
+        Retirada
+    </label>
+    <label>
+        <input type="radio" name="entrega_retirada" value="entrega" onclick="toggleEnderecoFields(true)">
+        Entrega
+    </label>
     
+    <div id="endereco_fields" style="display: none;">
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco">
+        
+        <label for="bairro">Bairro:</label>
+        <select id="bairro" name="bairro" onchange="updateDeliveryFee()">
+            <option value="">Selecione o bairro</option>
+            {% for bairro in bairros %}
+            <option value="{{ bairro.id }}" data-valor="{{ bairro.valor }}">{{ bairro.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <label for="pagamento">Forma de Pagamento:</label>
+    <select id="pagamento" name="pagamento" required>
+        <option value="pix">PIX</option>
+        <option value="cartao_debito">Cartão de Débito</option>
+        <option value="cartao_credito">Cartão de Crédito</option>
+    </select>
+    
+    <section class="resumo_pedido">
+        <h1>Valor da compra: R$ <span id="valor_compra">{{ total_carrinho }}</span></h1>
+        <h1>Taxa de entrega: R$ <span id="taxa_entrega">0.00</span></h1>
+        <h1>Total: R$ <span id="total">{{ total_carrinho }}</span></h1>
+    </section>
+
     <button type="submit">Enviar Pedido</button>
 </form>
-{% endblock %}
+
+<script>
+    function toggleEnderecoFields(show) {
+        var enderecoFields = document.getElementById('endereco_fields');
+        if (show) {
+            enderecoFields.style.display = 'block';
+        } else {
+            enderecoFields.style.display = 'none';
+            document.getElementById('taxa_entrega').innerText = '0.00';
+            updateTotal();
+        }
+    }
+
+    function updateDeliveryFee() {
+        var bairroSelect = document.getElementById('bairro');
+        var selectedOption = bairroSelect.options[bairroSelect.selectedIndex];
+        var deliveryFee = parseFloat(selectedOption.getAttribute('data-valor')) || 0.00;
+        document.getElementById('taxa_entrega').innerText = deliveryFee.toFixed(2);
+        updateTotal();
+    }
+
+    function updateTotal() {
+        var valorCompra = parseFloat(document.getElementById('valor_compra').innerText);
+        var taxaEntrega = parseFloat(document.getElementById('taxa_entrega').innerText);
+        var total = valorCompra + taxaEntrega;
+        document.getElementById('total').innerText = total.toFixed(2);
+    }
+</script>

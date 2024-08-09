@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-
+<script>
+    function limitProteinaSelection(checkbox) {
+        // Get all checkboxes with the name 'proteinas'
+        var checkboxes = document.querySelectorAll('input[name="proteinas"]');
+        console.log(checkboxes)
+        // Count the number of checked checkboxes
+        var checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        
+        // If more than 2 are checked, uncheck the last one clicked
+        if (checkedCount > 2) {
+            checkbox.checked = false;
+            alert("Você só pode selecionar até 2 proteínas.");
+        }
+    }
+</script>
 <section class="lis_itens">
     <div class="produto">
         <h2>{{ dados_produto.titulo }}</h2>
@@ -17,7 +31,7 @@
             <input type="hidden" name="produto_id" value="{{ dados_produto.id }}">
             {% for prote in dados_produto.proteinas %}
                 <div>
-                    <input type="checkbox" id="proteina_{{ prote.id }}" name="proteinas" value="{{ prote.id }}">
+                    <input type="checkbox" id="proteina_{{ prote.id }}" name="proteinas" value="{{ prote.id }}" onclick="limitProteinaSelection(this)">
                     <label for="proteina_{{ prote.id }}">{{ prote.titulo }}</label>
                 </div>
             {% endfor %}

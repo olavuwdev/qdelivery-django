@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina
+from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro
 from django.http import JsonResponse
 from decimal import Decimal
 import json
+
+#importando funções
+
+from .utils import *
 
 # Create your views here.
 def index(request):
@@ -79,11 +83,9 @@ def produto_detalhes(request, id):
 
 def carrinho(request):
     carrinho = request.session.get('carrinho', {})
-    total_carrinho = 0
+    total_carrinho = func_total_carrinho(carrinho)
 
-    for item_id, item in carrinho.items():
-        item['total'] = item['preco'] * item['quantidade']
-        total_carrinho += item['total']
+
     
     context = {
         'carrinho': carrinho,
@@ -130,12 +132,27 @@ def remover_item(request):
 
 
 
-
+from datetime import datetime
 #Views não usadas no ate o momento
 
 def finalizar_pedido(request):
+    ##Get banco de dados
+
+    bairro = Bairro.objects.all()
+
+    carrinho = request.session.get('carrinho', {})
+    #Valor total do carrinho
+    total_carrinho = func_total_carrinho(carrinho)
+
+
     #if request.method == 'POST':
-    print( request.session.get('carrinho', {}))
+    usuario = request.session.get('usuario', {})
+    usuario = {
+        'nome': request.POST['nome'],
+        'telefone': request.POST['telefone']
+    }
+    #Pedido.objects.create(nome=usuario['nome'], telefone=usuario['telefone'], endereco="Rua Teste")
+    print(f"{datetime.now()}  {usuario}" )
 
     """ 
         nome = request.POST['nome']
@@ -163,7 +180,13 @@ def finalizar_pedido(request):
         return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
     """
     
-    return redirect('cartTeste')
+    context = {
+        'usuario': usuario,
+        'bairros': bairro,
+        'total_carrinho': total_carrinho
+    }
+    
+    return render(request, 'finalizar_pedido.html', context)
 
 def adicionar_ao_carrinho(request):
     if request.method == 'POST':
@@ -211,12 +234,8 @@ def adicionar_ao_carrinho(request):
 
 def cartTeste(request):
     carrinho = request.session.get('carrinho', {})
-    total_carrinho = 0
+    total_carrinho = func_total_carrinho(carrinho)
     #print(carrinho.items())
-    for item_id, item in carrinho.items():
-        item['total'] = item['preco'] * item['quantidade']
-        total_carrinho += item['total']
-
 
     context = {
         'carrinho': carrinho,

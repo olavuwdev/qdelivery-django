@@ -1,8 +1,8 @@
 from django.contrib import admin
-from qdelivery.models import Dados, RedeSocial, Estado, Cidade, Produtos, Acompanhamento, Proteina
+from qdelivery.models import Dados, RedeSocial, Estado, Cidade, Produtos, Acompanhamento, Proteina, Bairro, Pedido
 
 # Registro de modelos sem configurações especiais
-admin.site.register([Dados, RedeSocial, Estado, Cidade])
+admin.site.register([Dados, RedeSocial, Estado, Cidade, Bairro, Pedido])
 
 # Classe de administração para o modelo Acompanhamento
 @admin.register(Acompanhamento)
