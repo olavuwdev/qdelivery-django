@@ -108,7 +108,10 @@ def atualizar_quantidade(request):
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
 
-        return redirect('ver_carrinho')
+        # Calcular o novo total do carrinho
+        total_carrinho = sum(item['preco'] * item['quantidade'] for item in carrinho.values())
+
+        return JsonResponse({'success': True, 'total_carrinho': total_carrinho})
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
@@ -242,3 +245,4 @@ def cartTeste(request):
     }
     print('ok')
     return render(request, 'ver_carrinho2.html', context)
+

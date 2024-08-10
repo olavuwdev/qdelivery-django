@@ -38,10 +38,18 @@
                 
                 </td>
                 <td>
+                  <!-- TENTANTO IMPLEMENTAR PARA A Quantidade SER ARMAZENADA NA SESSÃO -->
+                    <div class="quantidade">
+                      <form action="{% url 'atualizar_quantida'}" method="post">
+                        
+                      </form>
+                    </div>
+                    <!--                   
                   <div class="quantidade">
-                    <button type="button" class="btn-decrement" onclick="updateQuantity(-1, '{{ item_id }}')">-</button>
+                    <button type="button" class="btn-decrement" onclick="window.location.href='{% url 'atualizar_quantidade' %}'"> - </button>
                     <div id="quantidade_{{ item_id }}">{{ item.quantidade }}</div>
-                    <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')">+</button>
+                    <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')"> + </button>
+                     -->
                 </div>
                 </td>
                 <td>
