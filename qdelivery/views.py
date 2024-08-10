@@ -243,6 +243,6 @@ def cartTeste(request):
         'carrinho': carrinho,
         'total_carrinho': total_carrinho,
     }
-    print('ok')
+    print(carrinho)
     return render(request, 'ver_carrinho2.html', context)
 

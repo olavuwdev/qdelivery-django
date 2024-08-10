@@ -44,12 +44,12 @@
                         
                       </form>
                     </div>
-                    <!--                   
+                 
                   <div class="quantidade">
                     <button type="button" class="btn-decrement" onclick="window.location.href='{% url 'atualizar_quantidade' %}'"> - </button>
                     <div id="quantidade_{{ item_id }}">{{ item.quantidade }}</div>
                     <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')"> + </button>
-                     -->
+
                 </div>
                 </td>
                 <td>
@@ -102,7 +102,7 @@
 
 
 <script>
-    function updateQuantity(change, itemId) {
+        function updateQuantity(change, itemId) {
         const quantityDiv = document.getElementById(`quantidade_${itemId}`);
         let quantity = parseInt(quantityDiv.textContent);
         const newQuantity = quantity + change;
@@ -113,12 +113,11 @@
     }
 
     function updateTotal(quantity, itemId) {
-        const itemDiv = document.getElementById(`total_${itemId}`);
-        const preco = document.getElementById(`preco_${itemId}`);
-        const totaItem = document.getElementById(`total_${itemId}`)
-        const newTotal = parseFloat(preco.textContent) * quantity;
+        const preco = document.getElementById(`preco_${itemId}`).textContent;
+        const totalItem = document.getElementById(`total_${itemId}`);
+        const newTotal = (parseFloat(preco) * quantity).toFixed(2);
 
-        totaItem.textContent = newTotal;
+        totalItem.textContent = newTotal;
 
         // Atualizar o valor total do carrinho
         updateCartTotal();
