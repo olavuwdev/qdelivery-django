@@ -123,3 +123,42 @@ verModalCorpo.querySelector('#fechar').onclick = () => {
     verModalCorpo.style.display = 'none';
 };
  */
+
+
+
+function limitProteinaSelection(checkbox) {
+    // Get all checkboxes with the name 'proteinas'
+    var checkboxes = document.querySelectorAll('input[name="proteinas"]');
+    console.log(checkboxes)
+    // Count the number of checked checkboxes
+    var checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+    
+    // If more than 2 are checked, uncheck the last one clicked
+    if (checkedCount > 2) {
+        checkbox.checked = false;
+        alert("Você só pode selecionar até 2 proteínas.");
+    }
+    
+}
+
+const menos = document.getElementById('menos');
+const quant = document.getElementById("quantidade");
+const mais = document.getElementById('mais');
+
+function updateQuantidade(tipo) {
+    // Converta o valor de quant para um número inteiro
+    let quantidadeAtual = parseInt(quant.value, 10);
+
+    // Verifique se a conversão foi bem-sucedida
+    if (isNaN(quantidadeAtual)) {
+        quantidadeAtual = 0; // Define um valor padrão se a conversão falhar
+    }
+
+    let novaQuantidade = quantidadeAtual + tipo;
+    
+    // Verifica se a nova quantidade é válida (não negativa)
+    if (novaQuantidade >= 0) {
+        quant.value = novaQuantidade; // Atualiza o valor no campo de entrada
+    }
+    console.log(novaQuantidade); // Imprime a nova quantidade no console
+}

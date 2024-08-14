@@ -1,112 +1,111 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- INICIO DO CARRINHO -->
-
-
-    <main class="main_cart">
-      <div class="page-title" id="tesst">Seu Carrinho</div>
-      {% if request.session.carrinho %}
-      <div class="content">
+<main class="main_cart">
+    <div class="page-title" id="tesst">Seu Carrinho</div>
+    {% if request.session.carrinho %}
+    <div class="content">
         <section class="sec_carrinho">
-          <table class="table_cart">
-            <thead class="thread_cart">
-              <tr>
-                <th>Produto</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
-                <th>Total</th>
-                <th>Acão</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for item_id, item in request.session.carrinho.items %}
-              <tr data-item-id="{{ item_id }}">
-                <td>
-                  <div class="product">
-                    {{item.imagem|safe}}
-                    <div class="info">
-                      <div class="name">{{ item.produto }}</div>
-                      <div class="category">                    
-                        <p>{{ item.proteinas|join:", " }}</p>
-                        <p>{{ item.acompanhamentos|join:", " }}</p></div>
-                    </div>
-                  </div>
-                </td>
-                <td> 
-                
-                  R$ <span id="preco_{{ item_id }}">{{ item.preco }}</span>
-                
-                </td>
-                <td>
-                  <!-- TENTANTO IMPLEMENTAR PARA A Quantidade SER ARMAZENADA NA SESSÃO -->
-                    <div class="quantidade">
-                      <form action="{% url 'atualizar_quantida'}" method="post">
-                        
-                      </form>
-                    </div>
-                 
-                  <div class="quantidade">
-                    <button type="button" class="btn-decrement" onclick="window.location.href='{% url 'atualizar_quantidade' %}'"> - </button>
-                    <div id="quantidade_{{ item_id }}">{{ item.quantidade }}</div>
-                    <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')"> + </button>
-
-                </div>
-                </td>
-                <td>
-                   <div class="total">Total: R$ <span id="total_{{ item_id }}">{{ item.total }}</span></div> 
-                </td>
-                <td>    
-                    <form method="post" action="{% url 'remover_item' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="item_id" value="{{ item_id }}">
-                        <button type="submit" class="remove"><i class="bx bx-x" style="color: red;" ></i></button>
-                    </form>
-                </td>
-              </tr>
-              {% endfor %}
-
-
-            </tbody>
-          </table>
+            <table class="table_cart">
+                <thead class="thread_cart">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item_id, item in request.session.carrinho.items %}
+                    <tr data-item-id="{{ item_id }}">
+                        <td>
+                            <div class="product">
+                                {{ item.imagem|safe }}
+                                <div class="info">
+                                    <div class="name">{{ item.produto }}</div>
+                                    <div class="category">
+                                        <p>{{ item.proteinas|join:", " }}</p>
+                                        <p>{{ item.acompanhamentos|join:", " }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            R$ <span id="preco_{{ item_id }}">{{ item.preco }}</span>
+                        </td>
+                        <td>
+                            <div class="quantidade">
+                                <button type="button" class="btn-decrement" onclick="updateQuantity(-1, '{{ item_id }}')">-</button>
+                                <div id="quantidade_{{ item_id }}">{{ item.quantidade }}</div>
+                                <button type="button" class="btn-increment" onclick="updateQuantity(1, '{{ item_id }}')">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="total">R$ <span name="total_no_item" id="total_{{ item_id }}">{{ item.total }}</span></div>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'remover_item' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" value="{{ item_id }}">
+                                <button type="submit" class="remove"><i class="bx bx-x" style="color: red;"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
 
         <aside>
-          <div class="box">
-            <header>Resumo do pedido</header>
-            <div class="info">
-              <h1>Total do carrinho: R$ <span id="total_carrinho">{{ total_carrinho }}</span></h1>
+            <div class="box">
+                <header>Resumo do pedido</header>
+                <div class="info">
+                    <h1>Total do carrinho: R$ <span  id="total_carrinho">{{ total_carrinho }}</span></h1>
+                </div>
 
-            </div>
-            <footer>
-              <div>Total: R$ <span id="total_{{ item_id }}">{{ item.total }}</span></div>
-            </footer>
-          </div>
-          <a href="{% url 'finalizar_pedido' %}" >Finalizar Compra</a>
+                <form method="post" action="{% url 'finalizar_pedido' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="total_carrinho" id="total_carrinho_hidden" value="{{ total_carrinho }}">
+                    
+                        <button type="submit">Finalizar Compra</button>
+                    
+                </form>
         </aside>
-      </div>
-      {% else %}
-      <div class="main_vazio" style="text-align: center; font-size: larger;">
-      <div class="carrinho_vazio">
-          <p class="text_carrinho_vazio">
-              Seu carrinho está vazio.
-          </p>
-      </div>
-      {% endif %}
-      <a href="{% url 'menu' %}">
-          Voltar ao cardapio
-      </a>
     </div>
-    </main>    
-
+    {% else %}
+    <div class="main_vazio" style="text-align: center; font-size: larger;">
+        <div class="carrinho_vazio">
+            <p class="text_carrinho_vazio">
+                Seu carrinho está vazio.
+            </p>
+        </div>
+    {% endif %}
+    <a href="{% url 'menu' %}">
+        Voltar ao cardápio
+    </a>
+    </div>
+</main>
 <!-- FIM DO CARRINHO -->
 
-
 <script>
-        function updateQuantity(change, itemId) {
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+
+        updateCartTotal() // Atualiza o total geral do carrinho
+    });
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    function updateQuantity(change, itemId) {
         const quantityDiv = document.getElementById(`quantidade_${itemId}`);
         let quantity = parseInt(quantityDiv.textContent);
         const newQuantity = quantity + change;
+
         if (newQuantity >= 0) {
+            // Atualiza a quantidade na interface
             quantityDiv.textContent = newQuantity;
             updateTotal(newQuantity, itemId);
         }
@@ -118,17 +117,32 @@
         const newTotal = (parseFloat(preco) * quantity).toFixed(2);
 
         totalItem.textContent = newTotal;
-
-        // Atualizar o valor total do carrinho
-        updateCartTotal();
-    }
+        updateCartTotal()
+}
 
     function updateCartTotal() {
         let total = 0;
-        document.querySelectorAll('span[id^="total_"]').forEach((span) => {
-            total += parseFloat(span.textContent);
+
+        // Seleciona todos os elementos que têm o atributo name igual a 'total_no_item'
+        document.querySelectorAll('[name="total_no_item"]').forEach((element) => {
+            // Remove o prefixo "R$ " e substitui ',' por '.' antes de converter para float
+            const itemTotal = parseFloat(element.textContent.replace('R$ ', '').replace(',', '.'));
+            if (!isNaN(itemTotal)) { // Verifica se a conversão foi bem-sucedida
+                total += itemTotal;
+            }
         });
-        document.getElementById('total_carrinho').textContent = total.toFixed(2);
-    }
+
+        // Atualiza o total do carrinho e formata para duas casas decimais
+        const totalCarrinhoElement = document.getElementById('total_carrinho');
+        totalCarrinhoElement.textContent = `${total.toFixed(2)}`;
+
+
+        // Atualiza o valor do campo oculto no formulário
+        const totalCarrinhoHidden = document.getElementById('total_carrinho_hidden');
+        totalCarrinhoHidden.value = `${total.toFixed(2)}`;
+
+        // Debug para verificar o valor total
+        console.log(`Total do carrinho: R$ ${total.toFixed(2)}`);
+            }
 </script>
 {% endblock %}

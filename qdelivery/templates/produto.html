@@ -1,20 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<script>
-    function limitProteinaSelection(checkbox) {
-        // Get all checkboxes with the name 'proteinas'
-        var checkboxes = document.querySelectorAll('input[name="proteinas"]');
-        console.log(checkboxes)
-        // Count the number of checked checkboxes
-        var checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-        
-        // If more than 2 are checked, uncheck the last one clicked
-        if (checkedCount > 2) {
-            checkbox.checked = false;
-            alert("Você só pode selecionar até 2 proteínas.");
-        }
-    }
-</script>
+
+<form method="post" action="{% url 'adicionar_ao_carrinho' %}">
+    {% csrf_token %}
 <section class="lis_itens">
     <div class="produto">
         <h2>{{ dados_produto.titulo }}</h2>
@@ -22,12 +10,19 @@
         <div class="loja_valor">
             <h3>R$ {{dados_produto.preco}}</h3>
         </div>
+        <div class="quantidade_item_carrinho">
+            <i class='bx bx-minus' id="menos" onclick="updateQuantidade(-1)"></i>
+            <input type="number" name="quantidade" id="quantidade" value="1">
+            <i class='bx bx-plus' id="mais"  onclick="updateQuantidade(1)"></i>
+        </div>
+            
+
     </div>
     {% if dados_produto.tipo == 'Q' %}
     <div class="lis_itens_pro">
         <h3>Selecione até 2 Proteínas:</h3>
-        <form method="post" action="{% url 'adicionar_ao_carrinho' %}">
-            {% csrf_token %}
+        <div class="formulario_cardapio"> 
+
             <input type="hidden" name="produto_id" value="{{ dados_produto.id }}">
             {% for prote in dados_produto.proteinas %}
                 <div>
@@ -49,6 +44,7 @@
             
             <button type="submit">Adicionar ao Carrinho</button>
         </form>
+        </div>
     </div>
     {% endif %}
     <!-- INICIO DO CARRINHO FIXO -->

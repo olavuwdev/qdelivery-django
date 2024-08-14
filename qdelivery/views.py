@@ -95,8 +95,10 @@ def carrinho(request):
 
 def atualizar_quantidade(request):
     if request.method == 'POST':
-        item_id = request.POST.get('item_id')
-        quantidade = int(request.POST.get('quantidade'))
+        # Decodifica o corpo da requisição JSON
+        data = json.loads(request.body)
+        item_id = data.get('item_id')
+        quantidade = data.get('quantidade')
 
         # Obter o carrinho da sessão
         carrinho = request.session.get('carrinho', {})
@@ -104,12 +106,15 @@ def atualizar_quantidade(request):
         # Atualizar a quantidade do item
         if item_id in carrinho:
             carrinho[item_id]['quantidade'] = quantidade
+            # Atualizar o total do item
+            carrinho[item_id]['total'] = carrinho[item_id]['preco'] * quantidade
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
+        request.session.modified = True  # Marca a sessão como modificada
 
         # Calcular o novo total do carrinho
-        total_carrinho = sum(item['preco'] * item['quantidade'] for item in carrinho.values())
+        total_carrinho = sum(item['total'] for item in carrinho.values())
 
         return JsonResponse({'success': True, 'total_carrinho': total_carrinho})
 
@@ -145,7 +150,7 @@ def finalizar_pedido(request):
 
     carrinho = request.session.get('carrinho', {})
     #Valor total do carrinho
-    total_carrinho = func_total_carrinho(carrinho)
+    total_carrinho = request.POST.get('total_carrinho')
 
     context = {
         'bairros': bairro,
@@ -196,6 +201,7 @@ def adicionar_ao_carrinho(request):
         proteinas_ids = request.POST.getlist('proteinas')
         acompanhamentos_ids = request.POST.getlist('acompanhamentos')
         observacao = request.POST.get('observacao', '')
+        quantidade = request.POST.get('quantidade', 1)
 
         # Obter o produto
         produto = get_object_or_404(Produtos, id=produto_id)
@@ -219,7 +225,8 @@ def adicionar_ao_carrinho(request):
                 'proteinas': [proteina.titulo for proteina in proteinas],
                 'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
                 'observacao': observacao,
-                'quantidade': 1
+                'quantidade': float(quantidade),
+                'total': float(produto.valor_promo) * float(quantidade),
             }
         else:
             # Se já existir, apenas incrementar a quantidade
@@ -227,7 +234,7 @@ def adicionar_ao_carrinho(request):
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
-
+        print(carrinho)
         # Redirecionar para a página do menu
         return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
 
