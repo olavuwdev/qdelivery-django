@@ -162,3 +162,17 @@ function updateQuantidade(tipo) {
     }
     console.log(novaQuantidade); // Imprime a nova quantidade no console
 }
+
+// produto.html
+//usuário só consiga inserir números inteiros no campo de quantidade, evitando valores inválidos como números decimais ou letras
+
+document.getElementById('quantidade').addEventListener('input', function (e) {
+    let value = e.target.value;
+    // Remove qualquer valor não numérico e não inteiro
+    e.target.value = value.replace(/[^0-9]/g, '');
+    
+    // Se for vazio, substitui por 1
+    if (e.target.value === '') {
+        e.target.value = 1;
+    }
+});
