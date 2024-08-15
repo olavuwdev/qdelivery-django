@@ -100,16 +100,57 @@
     }
 
     function updateQuantity(change, itemId) {
-        const quantityDiv = document.getElementById(`quantidade_${itemId}`);
-        let quantity = parseInt(quantityDiv.textContent);
-        const newQuantity = quantity + change;
+    const quantityDiv = document.getElementById(`quantidade_${itemId}`);
+    let quantity = parseInt(quantityDiv.textContent);
+    const newQuantity = quantity + change;
 
-        if (newQuantity >= 0) {
-            // Atualiza a quantidade na interface
-            quantityDiv.textContent = newQuantity;
-            updateTotal(newQuantity, itemId);
+    if (newQuantity >= 0) {
+        // Atualiza a quantidade na interface
+        quantityDiv.textContent = newQuantity;
+        updateTotal(newQuantity, itemId);
+
+        // Envia a nova quantidade ao servidor via fetch
+        fetch('/atualizar_quantidade/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'), // Importante para segurança no Django
+            },
+            body: JSON.stringify({
+                item_id: itemId,
+                quantidade: newQuantity
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar a quantidade no servidor');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Quantidade atualizada com sucesso:', data);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+}
+
+// Função para obter o CSRF token do cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
+    return cookieValue;
+}
 
     function updateTotal(quantity, itemId) {
         const preco = document.getElementById(`preco_${itemId}`).textContent;

@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
 import json
 
@@ -31,6 +33,12 @@ def blog(request):
     dados = get_object_or_404(Dados, id=1)
     return render(request, "blog.html", {'dados': dados})
 def cardapio(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificador já existente: {identificador}")
+
     dados = get_object_or_404(Dados, id=1)
     produtos = get_object_or_404(Produtos, id=1)
     quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
@@ -49,6 +57,13 @@ def cardapio(request):
     return render(request, "menu.html", dados_produto)
 
 def produto_cardapio(request, id):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificador já existente: {identificador}")
+    
+
     produto = get_object_or_404(Produtos, id=id)
     dados = get_object_or_404(Dados, id=1)
     dados_produto = {
@@ -93,7 +108,10 @@ def carrinho(request):
     }
     return render(request, 'ver_carrinho.html', context)
 
-def atualizar_quantidade(request):
+""" 
+    #Função atualizar antiga
+
+    def atualizar_quantidade(request):
     if request.method == 'POST':
         # Decodifica o corpo da requisição JSON
         data = json.loads(request.body)
@@ -118,7 +136,24 @@ def atualizar_quantidade(request):
 
         return JsonResponse({'success': True, 'total_carrinho': total_carrinho})
 
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
+    return JsonResponse({'error': 'Método não permitido'}, status=405) """
+
+@require_POST
+@csrf_exempt  # Necessário se o CSRF não for tratado no frontend (por segurança, ideal tratar no JS)
+def atualizar_quantidade(request):
+    data = json.loads(request.body)
+    item_id = str(data.get('item_id'))
+    nova_quantidade = data.get('quantidade')
+
+    carrinho = request.session.get('carrinho', {})
+
+    if item_id in carrinho:
+        carrinho[item_id]['quantidade'] = nova_quantidade
+        request.session['carrinho'] = carrinho  # Salva a sessão
+
+        return JsonResponse({'success': True, 'message': 'Quantidade atualizada com sucesso.'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Item não encontrado no carrinho.'}, status=404)
 
 def remover_item(request):
     if request.method == 'POST':
