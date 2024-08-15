@@ -138,6 +138,8 @@ def carrinho(request):
 
     return JsonResponse({'error': 'Método não permitido'}, status=405) """
 
+
+
 @require_POST
 @csrf_exempt  # Necessário se o CSRF não for tratado no frontend (por segurança, ideal tratar no JS)
 def atualizar_quantidade(request):
@@ -149,8 +151,8 @@ def atualizar_quantidade(request):
 
     if item_id in carrinho:
         carrinho[item_id]['quantidade'] = nova_quantidade
+        carrinho[item_id]['total'] = nova_quantidade * carrinho[item_id]['preco']
         request.session['carrinho'] = carrinho  # Salva a sessão
-
         return JsonResponse({'success': True, 'message': 'Quantidade atualizada com sucesso.'})
     else:
         return JsonResponse({'success': False, 'message': 'Item não encontrado no carrinho.'}, status=404)
@@ -265,7 +267,7 @@ def adicionar_ao_carrinho(request):
             }
         else:
             # Se já existir, apenas incrementar a quantidade
-            carrinho[item_id]['quantidade'] += 1
+            carrinho[item_id]['quantidade'] += int(quantidade)
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
@@ -279,12 +281,13 @@ def adicionar_ao_carrinho(request):
 def cartTeste(request):
     carrinho = request.session.get('carrinho', {})
     total_carrinho = func_total_carrinho(carrinho) # type: ignore
-    #print(carrinho.items())
 
     context = {
         'carrinho': carrinho,
         'total_carrinho': total_carrinho,
     }
-    print(carrinho)
+    for produto, itens in carrinho.items():
+        print(f"{produto} \n {itens}")
+        
     return render(request, 'ver_carrinho2.html', context)
 
