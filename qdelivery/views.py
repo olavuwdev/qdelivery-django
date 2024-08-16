@@ -202,31 +202,37 @@ def finalizar_pedido(request):
         #Pedido.objects.create(nome=usuario['nome'], telefone=usuario['telefone'], endereco="Rua Teste")
         context['usuario'] = usuario
         print(f"{datetime.now()}  {usuario} carrinho: {carrinho} \n Total a pagar: {total_carrinho}" )
-        """ 
-            nome = request.POST['nome']
-            telefone = request.POST['telefone']
-            
-            pedido = Pedido.objects.create(nome=nome, telefone=telefone)
-            
-            carrinho = request.session.get('carrinho', {})
-            for produto_id, item in carrinho.items():
-                produto = get_object_or_404(Produtos, id=produto_id)
-                ItemPedido.objects.create(pedido=pedido, produto=produto, quantidade=item['quantidade'])
-            
-            # Lógica para enviar os detalhes do pedido para o WhatsApp
-            pedido_detalhes = f'Pedido de {nome}:\nTelefone: {telefone}\n'
-            for item in pedido.itens.all():
-                pedido_detalhes += f'{item.quantidade} x {item.produto.titulo} - R${item.get_total()}\n'
-            pedido_detalhes += f'Total do Pedido: R${sum(item.get_total() for item in pedido.itens.all())}'
-            
-            # Use a API do WhatsApp para enviar os detalhes do pedido
-            # Aqui você pode usar uma biblioteca como Twilio para enviar mensagens para o WhatsApp
-            
-            # Limpar o carrinho após finalizar o pedido
-            request.session['carrinho'] = {}
-            
-            return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
-        """
+       
+        nome = request.POST['nome']
+        telefone = request.POST['telefone']
+        endereco = request.POST['endereco']
+        bairro = request.POST['bairro']
+        
+        pedido = Pedido.objects.create(nome=nome, telefone=telefone, endereco=endereco, bairro=bairro)
+        
+        carrinho = request.session.get('carrinho', {})
+        for item_id, item in carrinho.items():
+            produto_id = int(item_id.split('_')[0])
+            produto = get_object_or_404(Produtos, id=produto_id)
+            ItemPedido.objects.create(pedido=pedido, produto=produto, quantidade=item['quantidade'])
+        
+        
+        # Lógica para enviar os detalhes do pedido para o WhatsApp
+        pedido_detalhes = f'Pedido de {nome}:\nTelefone: {telefone}\n'
+        for item in pedido.itens.all():
+            pedido_detalhes += f'{item.quantidade} x {item.produto.titulo} - R${item.get_total()}\n'
+        pedido_detalhes += f'Total do Pedido: R${sum(item.get_total() for item in pedido.itens.all())}'
+        
+        # Use a API do WhatsApp para enviar os detalhes do pedido
+        # Aqui você pode usar uma biblioteca como Twilio para enviar mensagens para o WhatsApp
+        # 
+        
+        # Limpar o carrinho após finalizar o pedido
+        request.session['carrinho'] = {}
+        print('ok')
+        
+        return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
+        
         
 
     
@@ -256,6 +262,7 @@ def adicionar_ao_carrinho(request):
         # Adicionar item ao carrinho
         if item_id not in carrinho:
             carrinho[item_id] = {
+                'id': produto.id,
                 'produto': produto.titulo,
                 'imagem':produto.capa ,
                 'preco': float(produto.valor_promo),  # converter Decimal para float
@@ -271,7 +278,8 @@ def adicionar_ao_carrinho(request):
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
-        print(carrinho)
+        for produto, itens in carrinho.items():
+            print(f"{produto} \n {itens}")
         # Redirecionar para a página do menu
         return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
 

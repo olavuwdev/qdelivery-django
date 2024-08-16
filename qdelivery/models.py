@@ -99,6 +99,8 @@ class Pedido(models.Model):
     nome = models.CharField(max_length=255)
     telefone = models.CharField(max_length=20)
     endereco = models.CharField(max_length=255,blank=True, null=True)
+    bairro = models.CharField(max_length=255,blank=True, null=True)
+    status = models.CharField(max_length=50, blank=False, default='EM ABERTO')
     criado_em = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
