@@ -31,16 +31,16 @@
                 </div>
             {% endfor %}
             
-            <h3>Selecione os Acompanhamentos:</h3>
+            <h3> Acompanhamentos:</h3>
             {% for acompanhamento in dados_produto.acompanhamentos %}
                 <div>
-                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}">
+                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}" required>
                     <label for="acompanhamento_{{ acompanhamento.id }}">{{ acompanhamento.nome }}</label>
                 </div>
             {% endfor %}
 
-            <h3>Observações:</h3>
-            <textarea wrap="off" cols="80" rows="5" name="observacoes"  placeholder="Escreva suas observações ou instruções especiais aqui..."></textarea>
+            <h3>Algum comentário?</h3>
+            <textarea wrap="off" cols="80" rows="5" name="observacoes"  placeholder="Ex:Feijão com caldo, tirar a cebola"></textarea>
             
             <button type="submit">Adicionar ao Carrinho</button>
         </form>
