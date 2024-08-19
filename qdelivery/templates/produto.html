@@ -34,7 +34,7 @@
             <h3> Acompanhamentos:</h3>
             {% for acompanhamento in dados_produto.acompanhamentos %}
                 <div>
-                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}" required>
+                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}" >
                     <label for="acompanhamento_{{ acompanhamento.id }}">{{ acompanhamento.nome }}</label>
                 </div>
             {% endfor %}

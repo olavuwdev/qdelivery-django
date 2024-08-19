@@ -29,7 +29,9 @@ urlpatterns = [
     path('cardapio/', views.cardapio, name='menu'),
     path('prod/<int:id>', views.produto_cardapio, name="pro_cardapio"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('ver_carrinho/', views.carrinho, name='ver_carrinho'),
+    
+    path('ver_carrinho/', views.cartTeste, name='ver_carrinho'),
+    #path('ver_carrinho/', views.carrinho, name='ver_carrinho'),
 
 
     path('ver_carTeste/', views.cartTeste, name='cartTeste'),
