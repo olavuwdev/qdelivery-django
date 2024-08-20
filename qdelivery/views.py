@@ -106,7 +106,7 @@ def carrinho(request):
         'carrinho': carrinho,
         'total_carrinho': total_carrinho,
     }
-    return render(request, 'ver_carrinho.html', context)
+    return render(request, 'ver_carrinho2.html', context)
 
 """ 
     #Função atualizar antiga
@@ -244,7 +244,7 @@ def adicionar_ao_carrinho(request):
         proteinas_ids = request.POST.getlist('proteinas')
         acompanhamentos_ids = request.POST.getlist('acompanhamentos')
         observacao = request.POST.get('observacao', '')
-        quantidade = request.POST.get('quantidade', 1)
+        quantidade = int(request.POST.get('quantidade', 1))
 
         # Obter o produto
         produto = get_object_or_404(Produtos, id=produto_id)
@@ -256,35 +256,35 @@ def adicionar_ao_carrinho(request):
         # Obter ou criar o carrinho na sessão
         carrinho = request.session.get('carrinho', {})
 
-        # Criar um identificador único para o item no carrinho
-        item_id = f'{produto_id}_{",".join(proteinas_ids)}_{",".join(acompanhamentos_ids)}'
-
-        # Adicionar item ao carrinho
-        if item_id not in carrinho:
-            carrinho[item_id] = {
+        # Usar o produto_id como chave no carrinho
+        if produto_id not in carrinho:
+            carrinho[produto_id] = {
                 'id': produto.id,
                 'produto': produto.titulo,
-                'imagem':produto.capa ,
+                'imagem': produto.capa,
                 'preco': float(produto.valor_promo),  # converter Decimal para float
                 'proteinas': [proteina.titulo for proteina in proteinas],
                 'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
                 'observacao': observacao,
-                'quantidade': float(quantidade),
-                'total': float(produto.valor_promo) * float(quantidade),
+                'quantidade': quantidade,
+                'total': float(produto.valor_promo) * quantidade,
             }
         else:
-            # Se já existir, apenas incrementar a quantidade
-            carrinho[item_id]['quantidade'] += int(quantidade)
+            # Se já existir, apenas incrementar a quantidade e atualizar o total
+            carrinho[produto_id]['quantidade'] += quantidade
+            carrinho[produto_id]['total'] = carrinho[produto_id]['preco'] * carrinho[produto_id]['quantidade']
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
-        for produto, itens in carrinho.items():
-            print(f"{produto} \n {itens}")
+
+        for item_id, item in carrinho.items():
+            print(f"{item_id}: {item}")
+
         # Redirecionar para a página do menu
         return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
-    
+
 
 def cartTeste(request):
     carrinho = request.session.get('carrinho', {})
@@ -296,6 +296,6 @@ def cartTeste(request):
     }
     for produto, itens in carrinho.items():
         print(f"{produto} \n {itens}")
-        
-    return render(request, 'ver_carrinho2.html', context)
+    print(total_carrinho)    
+    return render(request, 'ver_carrinho3.html', context)
 

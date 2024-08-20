@@ -54,7 +54,7 @@
             
             .img-produto img {
                 width: 96px !important;
-                height: auto !important;* Sobrescreve com classes Tailwind */
+                height: auto !important;
             }
         </style>
 		<style type="text/tailwindcss">
@@ -122,82 +122,43 @@
 
     {% for item_id, item in request.session.carrinho.items %}
 
-  <div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4">
-    <div class="img-produto">
-        {{ item.imagem | safe}}
-    </div>
-    <div class="flex-1 mx-4">
-      <h3 class="text-lg font-semibold text-purple-600">{{ item.produto }}</h3>
-      <p class="text-sm text-muted-foreground">
-        <p class="text-sm font-bold">{{ item.proteinas|join:", " }}</p>
-        <p class="text-xs ">{{ item.acompanhamentos|join:", " }}</p>
-      </p>
-      <p class="text-lg font-bold">R$ <span id=""preco_{{ item_id }}"></span> 25,50</p>
-    </div>
-    <div class="flex items-center">
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-      <span class="mx-2">1</span>
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
-    </div>
-  </div>
+	<div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4 relative">
+		<div class="img-produto">
+		  {{ item.imagem | safe }}
+		</div>
+		<div class="flex-1 mx-4">
+		  <h3 class="text-lg font-semibold text-purple-600">{{ item.produto }}</h3>
+		  <p class="text-sm text-muted-foreground">
+			<p class="text-sm font-bold">{{ item.proteinas|join:", " }}</p>
+			<p class="text-xs">{{ item.acompanhamentos|join:", " }}</p>
+		  </p>
+		  <p class="text-sm font-bold">R$ <span id="preco_{{ item_id }}"></span> {{ item.preco }}</p>
+		</div>
+		<div class="flex flex-col items-center">
+		  <div class="flex items-center">
+			<button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
+			<span class="mx-1">{{ item.quantidade }}</span>
+			<button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
+		  </div>
+		  <p class="text-sm font-bold mt-2">R$ <span name="total_no_item" id="total_{{ item_id }}">{{ item.total }}</p>
+		</div>
+		<form method="post" action="{% url 'remover_item' %}">
+			{% csrf_token %}
+			<input type="hidden" name="item_id" value="{{ item_id }}">
+			<button type="submit" class="absolute top-2 left-4 bg-destructive text-destructive-foreground p-1 rounded">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-3 h-3">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+				</svg>
+			</button>
+		</form>
+	  </div>
+	  
+	  
   {% endfor %}
 
-  <div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4">
-    <img src="https://openui.fly.dev/openui/24x24.svg?text=🍗" alt="Frango Frito" class="w-12 h-12" />
-    <div class="flex-1 mx-4">
-      <h3 class="text-lg font-semibold text-purple-600">Frango Frito</h3>
-      <p class="text-sm text-muted-foreground">⏱️ 15 min <span class="text-muted">Pronto</span></p>
-      <p class="text-lg font-bold">R$12,40</p>
-    </div>
-    <div class="flex items-center">
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-      <span class="mx-2">1</span>
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
-    </div>
-  </div>
-
-  <div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4">
-    <img src="https://openui.fly.dev/openui/24x24.svg?text=🍩" alt="Rosquinha" class="w-12 h-12" />
-    <div class="flex-1 mx-4">
-      <h3 class="text-lg font-semibold text-purple-600">Rosquinha</h3>
-      <p class="text-sm text-muted-foreground">⏱️ 15 min <span class="text-muted">Pronto</span></p>
-      <p class="text-lg font-bold">R$8,29</p>
-    </div>
-    <div class="flex items-center">
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-      <span class="mx-2">1</span>
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
-    </div>
-  </div>
-  <div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4">
-    <img src="https://openui.fly.dev/openui/24x24.svg?text=🍩" alt="Rosquinha" class="w-12 h-12" />
-    <div class="flex-1 mx-4">
-      <h3 class="text-lg font-semibold text-purple-600">Rosquinha</h3>
-      <p class="text-sm text-muted-foreground">⏱️ 15 min <span class="text-muted">Pronto</span></p>
-      <p class="text-lg font-bold">R$8,29</p>
-    </div>
-    <div class="flex items-center">
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-      <span class="mx-2">1</span>
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
-    </div>
-  </div>
-  <div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4">
-    <img src="https://openui.fly.dev/openui/24x24.svg?text=🍩" alt="Rosquinha" class="w-12 h-12" />
-    <div class="flex-1 mx-4">
-      <h3 class="text-lg font-semibold text-purple-600">Rosquinha</h3>
-      <p class="text-sm text-muted-foreground">⏱️ 15 min <span class="text-muted">Pronto</span></p>
-      <p class="text-lg font-bold">R$8,29</p>
-    </div>
-    <div class="flex items-center">
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-      <span class="mx-2">1</span>
-      <button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
-    </div>
-  </div>
 
   <div class="fixed bottom-0 w-full text-center bg-white p-4">
-    <p class="text-lg font-bold">Pagar R$46,19</p>
+    <p class="text-lg font-bold">Pagar {{ total_carrinho }}</p>
     <button class="bg-primary text-primary-foreground p-3 rounded-lg mt-4">Finalizar Compra</button>
   </div>
   

@@ -34,7 +34,7 @@ urlpatterns = [
     #path('ver_carrinho/', views.carrinho, name='ver_carrinho'),
 
 
-    path('ver_carTeste/', views.cartTeste, name='cartTeste'),
+    path('ver_carTeste/', views.carrinho, name='cartTeste'),
 
 
     path('adicionar_ao_carrinho/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),
