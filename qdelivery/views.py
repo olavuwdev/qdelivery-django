@@ -254,36 +254,50 @@ def adicionar_ao_carrinho(request):
         acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
 
         # Obter ou criar o carrinho na sessão
-        carrinho = request.session.get('carrinho', {})
+        carrinho = request.session.get('carrinho', [])
 
-        # Usar o produto_id como chave no carrinho
-        if produto_id not in carrinho:
-            carrinho[produto_id] = {
-                'id': produto.id,
-                'produto': produto.titulo,
-                'imagem': produto.capa,
-                'preco': float(produto.valor_promo),  # converter Decimal para float
-                'proteinas': [proteina.titulo for proteina in proteinas],
-                'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
-                'observacao': observacao,
-                'quantidade': quantidade,
-                'total': float(produto.valor_promo) * quantidade,
-            }
+        # Dados do novo item
+        novo_item = {
+            'id': produto.id,
+            'produto': produto.titulo,
+            'imagem': produto.capa,
+            'preco': float(produto.valor_promo),  # converter Decimal para float
+            'proteinas': [proteina.titulo for proteina in proteinas],
+            'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
+            'observacao': observacao,
+            'quantidade': quantidade,
+            'total': float(produto.valor_promo) * quantidade,
+        }
+
+        # Verificar se o mesmo item (mesmo produto com as mesmas proteínas e acompanhamentos) já está no carrinho
+        item_existente = None
+        for item in carrinho:
+            if (item['id'] == novo_item['id'] and 
+                item['proteinas'] == novo_item['proteinas'] and 
+                item['acompanhamentos'] == novo_item['acompanhamentos'] 
+                ):
+                item_existente = item
+                break
+
+        if item_existente:
+            # Se o item já existir, incrementar a quantidade e atualizar o total
+            item_existente['quantidade'] += quantidade
+            item_existente['total'] = item_existente['preco'] * item_existente['quantidade']
         else:
-            # Se já existir, apenas incrementar a quantidade e atualizar o total
-            carrinho[produto_id]['quantidade'] += quantidade
-            carrinho[produto_id]['total'] = carrinho[produto_id]['preco'] * carrinho[produto_id]['quantidade']
+            # Se não existir, adicionar o novo item ao carrinho
+            carrinho.append(novo_item)
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
 
-        for item_id, item in carrinho.items():
-            print(f"{item_id}: {item}")
+        for item in carrinho:
+            print(item)
 
         # Redirecionar para a página do menu
-        return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
+        return redirect('menu')
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
+
 
 
 def cartTeste(request):
@@ -294,8 +308,8 @@ def cartTeste(request):
         'carrinho': carrinho,
         'total_carrinho': total_carrinho,
     }
-    for produto, itens in carrinho.items():
-        print(f"{produto} \n {itens}")
+    for itens in carrinho:
+        print(f"\n {itens}")
     print(total_carrinho)    
     return render(request, 'ver_carrinho3.html', context)
 

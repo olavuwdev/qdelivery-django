@@ -117,12 +117,12 @@
 
   <div class="bg-background p-4 rounded-lg shadow-md">
     <h2 class="text-center font-bold text-primary mb-4">Carrinho de compras</h2>
-
+	{% if request.session.carrinho %}
     <!-- Inicio do loop para os produto -->
 
-    {% for item_id, item in request.session.carrinho.items %}
+    {% for item in request.session.carrinho %}
 
-	<div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4 relative">
+	<div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4 relative" >
 		<div class="img-produto">
 		  {{ item.imagem | safe }}
 		</div>
@@ -132,13 +132,13 @@
 			<p class="text-sm font-bold">{{ item.proteinas|join:", " }}</p>
 			<p class="text-xs">{{ item.acompanhamentos|join:", " }}</p>
 		  </p>
-		  <p class="text-sm font-bold">R$ <span id="preco_{{ item_id }}"></span> {{ item.preco }}</p>
+		  <p class="text-sm font-bold">R$ <span id="preco_{{ item_id }}">{{ item.preco }}</span> </p>
 		</div>
 		<div class="flex flex-col items-center">
 		  <div class="flex items-center">
-			<button class="bg-secondary text-secondary-foreground p-2 rounded">-</button>
-			<span class="mx-1">{{ item.quantidade }}</span>
-			<button class="bg-secondary text-secondary-foreground p-2 rounded">+</button>
+			<button class="bg-secondary text-secondary-foreground p-2 rounded" onclick="updateQuantity(-1, '{{ item_id }}')">-</button>
+			<span class="mx-1" id="quantidade_{{ item_id }}">{{ item.quantidade }}</span>
+			<button class="bg-secondary text-secondary-foreground p-2 rounded" onclick="updateQuantity(1, '{{ item_id }}')">+</button>
 		  </div>
 		  <p class="text-sm font-bold mt-2">R$ <span name="total_no_item" id="total_{{ item_id }}">{{ item.total }}</p>
 		</div>
@@ -161,7 +161,98 @@
     <p class="text-lg font-bold">Pagar {{ total_carrinho }}</p>
     <button class="bg-primary text-primary-foreground p-3 rounded-lg mt-4">Finalizar Compra</button>
   </div>
+  {% else %}
+  <div class="main_vazio" style="text-align: center; font-size: larger;">
+	  <div class="carrinho_vazio">
+		  <p class="text_carrinho_vazio">
+			  Seu carrinho está vazio.
+		  </p>
+	  </div>
+  {% endif %}
+  <a href="{% url 'menu' %}">
+	  Voltar ao cardápio
+  </a>
+  </div>
   
 </div>
   </body>
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    updateCartTotal(); // Atualiza o total geral do carrinho ao carregar a página
+});
+
+function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+}
+
+function updateQuantity(change, itemId) {
+    const quantityDiv = document.getElementById(`quantidade_${itemId}`);
+    let quantity = parseInt(quantityDiv.textContent);
+    const newQuantity = quantity + change;
+
+    if (newQuantity >= 0) {
+        // Atualiza a quantidade na interface
+        quantityDiv.textContent = newQuantity;
+        updateTotal(newQuantity, itemId);
+
+        // Envia a nova quantidade ao servidor via fetch
+        fetch('/atualizar_quantidade/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(), // Utiliza o token CSRF do Django
+            },
+            body: JSON.stringify({
+                item_id: itemId,
+                quantidade: newQuantity
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.log('Erro ao atualizar a quantidade no servidor');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Quantidade atualizada com sucesso:', data);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    }
+}
+
+function updateTotal(quantity, itemId) {
+    const preco = document.getElementById(`preco_${itemId}`).textContent;
+    const totalItem = document.getElementById(`total_${itemId}`);
+    const newTotal = (parseFloat(preco) * quantity).toFixed(2);
+
+    // Atualiza o total do item na interface
+    totalItem.textContent = newTotal;
+    updateCartTotal(); // Atualiza o total geral do carrinho
+}
+
+function updateCartTotal() {
+    let total = 0;
+
+    // Seleciona todos os elementos que têm o atributo name igual a 'total_no_item'
+    document.querySelectorAll('[name="total_no_item"]').forEach((element) => {
+        const itemTotal = parseFloat(element.textContent.replace('R$ ', '').replace(',', '.'));
+        if (!isNaN(itemTotal)) { // Verifica se a conversão foi bem-sucedida
+            total += itemTotal;
+        }
+    });
+
+    // Atualiza o total do carrinho e formata para duas casas decimais
+    const totalCarrinhoElement = document.querySelector('p.text-lg.font-bold');
+    if (totalCarrinhoElement) {
+        totalCarrinhoElement.textContent = `R$ ${total.toFixed(2)}`;
+    }
+
+    // Debug para verificar o valor total
+    console.log(`Total do carrinho: R$ ${total.toFixed(2)}`);
+}
+
+</script>
