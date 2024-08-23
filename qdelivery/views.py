@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro
+from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro, Carrinho, ItemCarrinho
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
@@ -177,6 +177,68 @@ def remover_item(request):
 
 
 
+
+
+def adicionar_ao_carrinho(request):
+    if request.method == 'POST':
+        produto_id = request.POST.get('produto_id')
+        proteinas_ids = request.POST.getlist('proteinas')
+        acompanhamentos_ids = request.POST.getlist('acompanhamentos')
+        observacao = request.POST.get('observacao', '')
+        quantidade = request.POST.get('quantidade', 1)
+
+        # Obter o produto
+        produto = get_object_or_404(Produtos, id=produto_id)
+
+        # Obter proteinas e acompanhamentos
+        proteinas = Proteina.objects.filter(id__in=proteinas_ids)
+        acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
+
+        # Obter ou criar o carrinho na sessão
+        carrinho = request.session.get('carrinho', {})
+
+        # Criar um identificador único para o item no carrinho
+        item_id = f'{produto_id}_{",".join(proteinas_ids)}_{",".join(acompanhamentos_ids)}'
+
+        # Adicionar item ao carrinho
+        if item_id not in carrinho:
+            carrinho[item_id] = {
+                'produto': produto.titulo,
+                'imagem':produto.capa ,
+                'preco': float(produto.valor_promo),  # converter Decimal para float
+                'proteinas': [proteina.titulo for proteina in proteinas],
+                'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
+                'observacao': observacao,
+                'quantidade': float(quantidade),
+                'total': float(produto.valor_promo) * float(quantidade),
+            }
+        else:
+            # Se já existir, apenas incrementar a quantidade
+            carrinho[item_id]['quantidade'] += 1
+
+        # Atualizar o carrinho na sessão
+        request.session['carrinho'] = carrinho
+        print(carrinho)
+        # Redirecionar para a página do menu
+        return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
+
+    return JsonResponse({'error': 'Método não permitido'}, status=405)
+
+
+
+def cartTeste(request):
+    carrinho = request.session.get('carrinho', {})
+    total_carrinho = func_total_carrinho(carrinho) # type: ignore
+
+    context = {
+        'carrinho': carrinho,
+        'total_carrinho': total_carrinho,
+    }
+    for item_id ,itens in carrinho.items():
+        print(f"{item_id}\n {itens}")
+    print(total_carrinho)    
+    return render(request, 'ver_carrinho3.html', context)
+
 from datetime import datetime
 #Views não usadas no ate o momento
 
@@ -187,7 +249,7 @@ def finalizar_pedido(request):
 
     carrinho = request.session.get('carrinho', {})
     #Valor total do carrinho
-    total_carrinho = request.POST.get('total_carrinho')
+    total_carrinho = func_total_carrinho(carrinho)
 
     context = {
         'bairros': bairro,
@@ -202,11 +264,11 @@ def finalizar_pedido(request):
         #Pedido.objects.create(nome=usuario['nome'], telefone=usuario['telefone'], endereco="Rua Teste")
         context['usuario'] = usuario
         print(f"{datetime.now()}  {usuario} carrinho: {carrinho} \n Total a pagar: {total_carrinho}" )
-       
-        nome = request.POST['nome']
-        telefone = request.POST['telefone']
-        endereco = request.POST['endereco']
-        bairro = request.POST['bairro']
+        """
+        nome = request.POST.get('nome')
+        telefone = request.POST.get('telefone')
+        endereco = request.POST.get('endereco')
+        bairro = request.POST.get('bairro')
         
         pedido = Pedido.objects.create(nome=nome, telefone=telefone, endereco=endereco, bairro=bairro)
         
@@ -231,85 +293,11 @@ def finalizar_pedido(request):
         request.session['carrinho'] = {}
         print('ok')
         
-        return render(request, 'pedido_finalizado.html', {'pedido_detalhes': pedido_detalhes}) 
+        
+        return HttpResponse(request, 'Pedido feito com sucesso') 
+        """
         
         
 
     
     return render(request, 'finalizar_pedido.html', context)
-
-def adicionar_ao_carrinho(request):
-    if request.method == 'POST':
-        produto_id = request.POST.get('produto_id')
-        proteinas_ids = request.POST.getlist('proteinas')
-        acompanhamentos_ids = request.POST.getlist('acompanhamentos')
-        observacao = request.POST.get('observacao', '')
-        quantidade = int(request.POST.get('quantidade', 1))
-
-        # Obter o produto
-        produto = get_object_or_404(Produtos, id=produto_id)
-
-        # Obter proteinas e acompanhamentos
-        proteinas = Proteina.objects.filter(id__in=proteinas_ids)
-        acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
-
-        # Obter ou criar o carrinho na sessão
-        carrinho = request.session.get('carrinho', [])
-
-        # Dados do novo item
-        novo_item = {
-            'id': produto.id,
-            'produto': produto.titulo,
-            'imagem': produto.capa,
-            'preco': float(produto.valor_promo),  # converter Decimal para float
-            'proteinas': [proteina.titulo for proteina in proteinas],
-            'acompanhamentos': [acomp.nome for acomp in acompanhamentos],
-            'observacao': observacao,
-            'quantidade': quantidade,
-            'total': float(produto.valor_promo) * quantidade,
-        }
-
-        # Verificar se o mesmo item (mesmo produto com as mesmas proteínas e acompanhamentos) já está no carrinho
-        item_existente = None
-        for item in carrinho:
-            if (item['id'] == novo_item['id'] and 
-                item['proteinas'] == novo_item['proteinas'] and 
-                item['acompanhamentos'] == novo_item['acompanhamentos'] 
-                ):
-                item_existente = item
-                break
-
-        if item_existente:
-            # Se o item já existir, incrementar a quantidade e atualizar o total
-            item_existente['quantidade'] += quantidade
-            item_existente['total'] = item_existente['preco'] * item_existente['quantidade']
-        else:
-            # Se não existir, adicionar o novo item ao carrinho
-            carrinho.append(novo_item)
-
-        # Atualizar o carrinho na sessão
-        request.session['carrinho'] = carrinho
-
-        for item in carrinho:
-            print(item)
-
-        # Redirecionar para a página do menu
-        return redirect('menu')
-
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
-
-
-
-def cartTeste(request):
-    carrinho = request.session.get('carrinho', {})
-    total_carrinho = func_total_carrinho(carrinho) # type: ignore
-
-    context = {
-        'carrinho': carrinho,
-        'total_carrinho': total_carrinho,
-    }
-    for itens in carrinho:
-        print(f"\n {itens}")
-    print(total_carrinho)    
-    return render(request, 'ver_carrinho3.html', context)
-

@@ -116,7 +116,24 @@ class ItemPedido(models.Model):
 
     def get_total(self):
         return self.quantidade * self.produto.valor
-    
+
+class Carrinho(models.Model):
+    id_cliente = models.CharField(max_length=255)
+    nome_cliente = models.CharField(max_length=150, default='')
+    status = models.CharField(max_length=10, default='aberto')
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_modificacao = models.DateTimeField(auto_now=True)
+
+
+class ItemCarrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name='itens')
+    produto_id = models.IntegerField()
+    quantidade = models.IntegerField(default=1)
+    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    preco_total = models.DecimalField(max_digits=10, decimal_places=2)
+    observacao = models.TextField(blank=True)
+
+
 
 class Acompanhamento(models.Model):
     nome = models.CharField(max_length=100, unique=True)

@@ -120,7 +120,7 @@
 	{% if request.session.carrinho %}
     <!-- Inicio do loop para os produto -->
 
-    {% for item in request.session.carrinho %}
+    {% for item_id, item in request.session.carrinho.items %}
 
 	<div class="flex items-center justify-between bg-card p-4 rounded-lg mb-4 relative" >
 		<div class="img-produto">
@@ -157,10 +157,16 @@
   {% endfor %}
 
 
-  <div class="fixed bottom-0 w-full text-center bg-white p-4">
-    <p class="text-lg font-bold">Pagar {{ total_carrinho }}</p>
-    <button class="bg-primary text-primary-foreground p-3 rounded-lg mt-4">Finalizar Compra</button>
-  </div>
+
+  
+  <form method="post" action="{% url 'finalizar_pedido' %}">
+	{% csrf_token %}
+		<div class="fixed bottom-0 w-full text-center bg-white p-4">
+			<input type="hidden" name="total_carrinho" id="total_carrinho_hidden" value="{{ total_carrinho }}">
+			<p class="text-lg font-bold">Pagar {{ total_carrinho }}</p>
+			<button type="submit" class="bg-primary text-primary-foreground p-3 rounded-lg mt-4">Finalizar Compra</button>
+		</div>
+	</form>
   {% else %}
   <div class="main_vazio" style="text-align: center; font-size: larger;">
 	  <div class="carrinho_vazio">
