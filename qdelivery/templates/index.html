@@ -134,7 +134,7 @@
         <!-- INICIO ITEM LOJA SITE -->
         {% for produto in quentinhas %}
         <div class="box">
-            {{produto.capa|safe}}
+            <img src="../../media/{{produto.capa}}" alt="">
             <h3>{{ produto.titulo}}</h3>
             <p>{{produto.descricao | safe}}</p>
             <div class="estrelas">

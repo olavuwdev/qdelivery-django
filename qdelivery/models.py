@@ -81,7 +81,7 @@ class Produtos(models.Model):
     ('B', 'Bebidas'),
     ]
     titulo = models.CharField(max_length=255)
-    capa = RichTextUploadingField(blank=True , null=True)
+    capa = models.ImageField(upload_to='uploads/')
     valor = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     valor_promo = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     descricao = RichTextField(blank=True, null=True)
@@ -93,47 +93,6 @@ class Produtos(models.Model):
     class Meta:
         verbose_name = "Produto"
         verbose_name_plural = "Produtos"
-
-
-class Pedido(models.Model):
-    nome = models.CharField(max_length=255)
-    telefone = models.CharField(max_length=20)
-    endereco = models.CharField(max_length=255,blank=True, null=True)
-    bairro = models.CharField(max_length=255,blank=True, null=True)
-    status = models.CharField(max_length=50, blank=False, default='EM ABERTO')
-    criado_em = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Pedido de {self.nome}'
-
-class ItemPedido(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
-    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
-
-    def __str__(self):
-        return f'{self.quantidade} x {self.produto.titulo}'
-
-    def get_total(self):
-        return self.quantidade * self.produto.valor
-
-class Carrinho(models.Model):
-    id_cliente = models.CharField(max_length=255)
-    nome_cliente = models.CharField(max_length=150, default='')
-    status = models.CharField(max_length=10, default='aberto')
-    data_criacao = models.DateTimeField(auto_now_add=True)
-    data_modificacao = models.DateTimeField(auto_now=True)
-
-
-class ItemCarrinho(models.Model):
-    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name='itens')
-    produto_id = models.IntegerField()
-    quantidade = models.IntegerField(default=1)
-    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2)
-    preco_total = models.DecimalField(max_digits=10, decimal_places=2)
-    observacao = models.TextField(blank=True)
-
-
 
 class Acompanhamento(models.Model):
     nome = models.CharField(max_length=100, unique=True)
@@ -156,3 +115,66 @@ class Bairro(models.Model):
 
     def __str__(self):
         return self.nome
+class Cliente(models.Model):
+    nome = models.CharField(max_length=255, null=True, blank=True)
+    identificador = models.CharField(max_length=255, null=True, blank=True)
+    telefone = models.CharField(max_length=255, null=True, blank=True)
+    endereco = models.CharField(max_length=255, blank=True, null=True)
+    bairro = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.nome  # Retorna o nome do cliente ao representar o objeto como string
+
+
+class Pedido(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)  # Relação de chave estrangeira com o Cliente
+    status = models.CharField(max_length=50, blank=False, default='EM ABERTO')
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Pedido de {self.cliente.nome}'  # Mostra o nome do cliente no pedido
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.quantidade} x {self.produto.titulo}'
+
+    def get_total(self):
+        return self.quantidade * self.produto.valor
+
+class Carrinho(models.Model):
+    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.SET_NULL)  # Relação de chave estrangeira com o Cliente
+    status = models.CharField(max_length=10, default='aberto')
+    identificador = models.CharField(max_length=255, null=True, blank=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_modificacao = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Carrinho N° {self.id}'  # Mostra o nome do cliente associado ao carrinho
+
+
+
+
+
+
+
+    
+class ItemCarrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, related_name='itens')
+    produto = models.ForeignKey(Produtos, on_delete=models.CASCADE, null=True, blank=True,)  # Alterado para relacionar ao produto
+    quantidade = models.IntegerField(default=1)
+    preco_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    preco_total = models.DecimalField(max_digits=10, decimal_places=2)
+    observacao = models.TextField(blank=True)
+    proteinas = models.ManyToManyField(Proteina)  # ManyToManyField para armazenar várias proteínas
+    acompanhamentos = models.ManyToManyField(Acompanhamento)  # ManyToManyField para vários acompanhamentos
+
+    # Novos campos para armazenar proteínas, acompanhamentos e imagem
+    
+
+    def save(self, *args, **kwargs):
+        self.preco_total = self.quantidade * self.preco_unitario
+        super(ItemCarrinho, self).save(*args, **kwargs)

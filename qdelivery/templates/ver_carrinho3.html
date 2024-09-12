@@ -129,7 +129,7 @@
 		<div class="flex-1 mx-4">
 		  <h3 class="text-lg font-semibold text-purple-600">{{ item.produto }}</h3>
 		  <p class="text-sm text-muted-foreground">
-			<p class="text-sm font-bold">{{ item.proteinas|join:", " }}</p>
+			<p class="text-sm font-bold">{{ item.proteinas|join:"/ " }}</p>
 			<p class="text-xs">{{ item.acompanhamentos|join:", " }}</p>
 		  </p>
 		  <p class="text-sm font-bold">R$ <span id="preco_{{ item_id }}">{{ item.preco }}</span> </p>

@@ -46,6 +46,15 @@
         </form>
         </div>
     </div>
+    {% else %}
+    <div class="lis_itens_pro">
+
+        <h3>Algum comentário?</h3>
+        <textarea wrap="off" cols="80" rows="5" name="observacoes"  placeholder="Ex:Feijão com caldo, tirar a cebola"></textarea>
+            <button type="submit">Adicionar ao Carrinho</button>
+        </form>
+        </div>
+    </div>
     {% endif %}
     <!-- INICIO DO CARRINHO FIXO -->
     <a href="{% url 'ver_carrinho' %}">

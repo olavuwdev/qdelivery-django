@@ -1,0 +1,2666 @@
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+/************ TABLE OF CONTENTS ***************
+
+  01. Responsive Mixin
+  02. Responsive css
+
+
+**********************************************/
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+/************ TABLE OF CONTENTS ***************
+
+  01. other color
+  02. text color
+  03. bg color
+  04. button color
+  05. border color
+  06. font family
+  07. font weight
+
+**********************************************/
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1199px) {
+  .header {
+    overflow: hidden;
+  }
+  .header .headerInner .navbar .navbar-collapse#collapsibleNavbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 9999;
+    width: 280px;
+    justify-content: flex-start;
+    padding: 20px;
+    height: 100%;
+    align-items: flex-start;
+    box-shadow: 0px 5px 10px 1px #cac8c8;
+    transform: translateX(0px);
+    transition: all 0.6s ease;
+  }
+  .header .headerInner .navbar .navbar-collapse#collapsibleNavbar.collapse:not(.show) {
+    display: block;
+    transform: translateX(-550px);
+  }
+  .header .headerInner .navbar .navbar-collapse .navbar-nav {
+    width: 100%;
+    gap: 20px;
+    flex-direction: column;
+  }
+  .header .headerInner .navbar .navbar-collapse .navbar-nav li a.active::before {
+    content: unset;
+  }
+  .header .headerInner .navbar .navbar-collapse .navbar-nav li a:hover::before {
+    content: unset;
+  }
+  .header .headerInner .rightMenu .search,
+  .header .headerInner .rightMenu .cart {
+    width: 30px;
+  }
+  .header .headerInner .rightMenu .loginBtn span {
+    display: none;
+  }
+  .header .headerInner .rightMenu .btnPrimary {
+    padding: 5px 12px;
+  }
+  .header .headerInner .rightMenu .btnPrimary img {
+    width: 52px;
+  }
+  .header .headerInner .rightMenu .menuToggle {
+    margin-top: -10px;
+  }
+  .collapsing {
+    height: auto;
+  }
+  #nav-icon2 {
+    width: 38px;
+    height: auto;
+    position: relative;
+    margin: 0px auto;
+    transform: rotate(0deg);
+    transition: 0.8s ease-in-out;
+    cursor: pointer;
+    display: block;
+  }
+  #nav-icon2 span {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 50%;
+    background: #FFA31E;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: 0.6s ease-in-out;
+  }
+  .headerSecondary #nav-icon2 span {
+    background: #fc6159;
+    width: 50%;
+  }
+  #nav-icon2 span:nth-child(even) {
+    left: 50%;
+    border-radius: 0 9px 9px 0;
+  }
+  #nav-icon2 span:nth-child(odd) {
+    left: 0px;
+    border-radius: 9px 0 0 9px;
+  }
+  #nav-icon2 span:nth-child(1), #nav-icon2 span:nth-child(2) {
+    top: -18px;
+  }
+  #nav-icon2 span:nth-child(3), #nav-icon2 span:nth-child(4) {
+    top: 0px;
+  }
+  #nav-icon2 span:nth-child(1), #nav-icon2 span:nth-child(2) {
+    top: -12px;
+  }
+  #nav-icon2 span:nth-child(5), #nav-icon2 span:nth-child(6) {
+    top: 11px;
+  }
+  #nav-icon2.open span:nth-child(1), #nav-icon2.open span:nth-child(6) {
+    transform: rotate(45deg);
+  }
+  #nav-icon2.open span:nth-child(2), #nav-icon2.open span:nth-child(5) {
+    transform: rotate(-45deg);
+  }
+  #nav-icon2.open span:nth-child(3) {
+    left: -50%;
+    opacity: 0;
+  }
+  #nav-icon2.open span:nth-child(4) {
+    left: 100%;
+    opacity: 0;
+  }
+  #nav-icon2.open span:nth-child(1) {
+    left: 3px;
+    top: -6px;
+  }
+  #nav-icon2.open span:nth-child(2) {
+    left: calc(50% - 5px);
+    top: -6px;
+  }
+  #nav-icon2.open span:nth-child(5) {
+    left: 4px;
+    top: 4px;
+  }
+  #nav-icon2.open span:nth-child(6) {
+    left: calc(50% - 5px);
+    top: 5px;
+  }
+  .header.headerSecondary .headerInner .navbar .navbar-collapse .navbar-nav li a:hover::before {
+    content: unset;
+  }
+  .header.headerSecondary .headerInner .navbar .navbar-collapse .navbar-nav li a.active::before {
+    content: unset;
+  }
+}
+@media (max-width: 767px) {
+  .header {
+    overflow: hidden;
+  }
+  .header .headerInner .navbar a.navbar-brand img {
+    width: 160px;
+  }
+  .header .headerInner .rightMenu .btnPrimary {
+    padding: 5px 12px;
+  }
+  .header .headerInner .rightMenu .btnPrimary img {
+    width: 52px;
+  }
+  .header .headerInner .menuToggle {
+    margin-top: -10px;
+  }
+}
+@media (max-width: 575px) {
+  .header .headerInner .rightMenu {
+    gap: 8px;
+  }
+  .header .headerInner .rightMenu .search img,
+  .header .headerInner .rightMenu .cart img {
+    width: 18px;
+  }
+  .header .headerInner .rightMenu .cart span {
+    right: 2px;
+  }
+  #nav-icon2 {
+    width: 25px;
+  }
+  #nav-icon2 span:nth-child(1), #nav-icon2 span:nth-child(2) {
+    top: -10px;
+  }
+  #nav-icon2 span:nth-child(5), #nav-icon2 span:nth-child(6) {
+    top: 10px;
+  }
+  #nav-icon2.open span:nth-child(1) {
+    left: 3px;
+    top: -6px;
+  }
+  #nav-icon2.open span:nth-child(2) {
+    left: calc(50% - 2px);
+    top: -6px;
+  }
+  #nav-icon2.open span:nth-child(5) {
+    left: 3px;
+    top: 2px;
+  }
+  #nav-icon2.open span:nth-child(6) {
+    left: calc(50% - 2px);
+    top: 2px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1599px) {
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating {
+    white-space: nowrap;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating .specialTiffinRight .discountLabel span {
+    font-size: 16px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.specialTiffinCall {
+    left: -104px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg1 {
+    top: 60px;
+    right: -10px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg2 {
+    left: 45px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg3 {
+    left: 34px;
+  }
+}
+@media (max-width: 1399px) {
+  .commonHeading.headingCenter {
+    width: 60%;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow {
+    grid-template-columns: 500px 1fr;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.specialTiffinCall {
+    left: -128px;
+    bottom: 25%;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating {
+    width: 350px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg2 {
+    left: 0px;
+    bottom: 10px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow {
+    grid-template-columns: 500px 1fr;
+    gap: 100px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysChef {
+    left: 80px;
+  }
+  .ourChefCard .ourChefCardInner .ourChefContent h4 a {
+    font-size: 20px;
+  }
+}
+@media (max-width: 1199px) {
+  .commonHeading.headingCenter {
+    width: 60%;
+  }
+  .commonHeading.headingCenter h4:after {
+    content: unset;
+  }
+  .commonHeading.headingLeft h4:after {
+    content: unset;
+  }
+  .specialDishTiffin {
+    padding: 150px 0 80px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow {
+    flex-direction: column-reverse;
+    display: flex;
+    gap: 100px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg1 {
+    right: 120px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg2 {
+    left: 200px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg3 {
+    left: 180px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.specialTiffinCall {
+    left: 65px;
+    bottom: 25%;
+  }
+  .ourMealCard {
+    margin-bottom: 20px;
+  }
+  .ourChefCard .ourChefCardInner .ourChefContent h4 a {
+    font-size: 18px;
+  }
+  .ourChefCard .ourChefCardInner .ourChefContent span {
+    font-size: 14px;
+  }
+  .ourBlogItem .ourBlogBanner .ourBlogDate h5 {
+    font-size: 22px;
+  }
+  .ourBlogItem .ourBlogBanner .ourBlogDate p {
+    font-size: 15px;
+  }
+  .commonHeading h4 {
+    color: #111111;
+    font-family: "Jacques Francois";
+    font-size: 30px;
+    font-weight: 400;
+    position: relative;
+  }
+  .customerSays .customerSaysInner .customerSaysRow {
+    grid-template-columns: 400px 1fr;
+    gap: 100px;
+  }
+  .specialTiffinCard {
+    margin-bottom: 20px;
+  }
+  .commonHeading p {
+    font-size: 16px;
+  }
+}
+@media (max-width: 991px) {
+  .customerSays .customerSaysInner .customerSaysRow {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysChef {
+    left: 92px;
+    width: 90%;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .ourReviewer {
+    width: 100%;
+  }
+  .deliveryFood .deliveryFoodOuter {
+    padding: 40px 80px;
+  }
+  .deliveryFood .deliveryFoodOuter .deliveryFoodInner h4 {
+    font-size: 30px;
+  }
+  .deliveryFood .deliveryFoodOuter .deliveryFoodInner h2 {
+    font-size: 38px;
+  }
+  .ourBlogItem {
+    margin-bottom: 30px;
+  }
+  .ourChefCard {
+    margin-bottom: 20px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow {
+    gap: 50px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .ourHappyCustomer,
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialDishBtnGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 15px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .ourHappyCustomer .ourHappyCustomerContent p {
+    font-size: 16px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol span.moreFaster {
+    font-size: 14px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol h1 {
+    font-size: 30px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol p {
+    font-size: 14px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .timeIcon {
+    width: 50px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg svg.arrowLine {
+    width: 65px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox {
+    gap: 20px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.specialTiffinCall, .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating {
+    position: static;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating {
+    transform: unset;
+    width: fit-content;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .sTiffinBox.splTiffinRating .specialTiffinRight .discountLabel {
+    margin-right: 30px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg1 {
+    right: -50px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg2 {
+    left: 0;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg.maskImg3 {
+    left: 0;
+  }
+  .trustedUsers .trustedUsersInner .trustedUsersRow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .ourChefCard .ourChefCardInner .ourChefContent h4 a {
+    font-size: 22px;
+  }
+  .commonHeading.commHeadingWhite.headingCenter h4:before {
+    content: unset;
+  }
+  .commonHeading.headingCenter h4:before {
+    content: unset;
+  }
+}
+@media (max-width: 767px) {
+  .ourBlog,
+  .howItWork,
+  .ourMealPlan,
+  .trustedUsers,
+  .clientsSay,
+  .ourChef,
+  .customerSays {
+    padding: 40px 0;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol .specialTiffinBannerImg .specialDishTiffinImg .maskImg {
+    display: none;
+  }
+  .deliveryFood .deliveryFoodOuter {
+    margin-bottom: 40px;
+  }
+  .commonHeading.headingCenter {
+    width: 90%;
+  }
+  .commonHeading.headingCenter h4:before {
+    content: unset;
+  }
+  .clientsSaySlideItem .clientsSaySlideRow {
+    grid-template-columns: 1fr;
+  }
+  .clientsSaySlideItem .clientsSaySlideRow .clientsSaySlideImg img {
+    width: 300px;
+    margin: 0 auto;
+  }
+  .customerSays .customerSaysInner .customerSaysRow {
+    gap: 50px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysChef {
+    left: 0;
+    width: 100%;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysIcon.customerSaysIcon1 {
+    top: 120px;
+    left: 4px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysIcon.customerSaysIcon3 {
+    bottom: 80px;
+    left: unset;
+    right: 0;
+  }
+  .specialTiffinCard {
+    margin-bottom: 40px;
+  }
+  .howItWorkItem {
+    margin-bottom: 30px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol h1 {
+    font-size: 44px;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol span.moreFaster {
+    margin-bottom: 10px;
+  }
+  .specialTiffin:after {
+    height: 100%;
+  }
+  .commonHeading p {
+    font-size: 16px;
+  }
+  .ourChefCard {
+    margin-bottom: 40px;
+  }
+  .clientsSaySlideContent p {
+    font-size: 16px;
+  }
+  .ourMealPlan .ourMealPlanInner .ourMealPlanRow {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .specialDishTiffin {
+    padding: 150px 0 40px;
+  }
+  .ourChefCard .ourChefCardInner .ourChefContent h4 a {
+    font-size: 20px;
+  }
+  .clientsSay:before {
+    width: 220px;
+    height: 40%;
+    left: -64px;
+    top: 100px;
+  }
+}
+@media (max-width: 575px) {
+  .commonHeading h4 {
+    font-size: 25px;
+  }
+  .commonHeading p {
+    font-size: 14px;
+  }
+  .ourMealCard .ourMealContent .ourMealHead .ourMealTitle h2 a {
+    font-size: 14px;
+  }
+  .ourMealCard .ourMealContent .ourMealHead .ourMealPrice span {
+    font-size: 14px;
+  }
+  .ourMealCard .ourMealPara p {
+    font-size: 14px;
+  }
+  .customerSayReview .customerSayStarInner {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+  }
+  .customerSayReview .customerSayStarInner .customerSayStar .customerSayStarTxt h6 {
+    font-size: 18px;
+  }
+  .customerSayReview .customerSayStarInner .customerSayStar .customerSayStarTxt h6 p {
+    font-size: 14px;
+  }
+  .clientsSaySlideContent .clientsSayGroup {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+  }
+  .clientsSaySlideContent .clientsSayGroup .clientsSayNam h5 {
+    font-size: 22px;
+  }
+  .clientsSaySlideContent p {
+    font-size: 15px;
+  }
+  .commonHeading.headingLeft h4:after {
+    content: unset;
+  }
+  .commonHeading.headingCenter h4:after, .commonHeading.headingCenter h4:before {
+    content: unset;
+  }
+  .specialDishTiffin .specialDishTiffinInner .specialDishTiffinRow .specialDishTiffinCol h1 {
+    font-size: 30px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysChef {
+    left: 0;
+    width: 100%;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysIcon.customerSaysIcon1 {
+    display: none;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysIcon.customerSaysIcon3 {
+    display: none;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1699px) {
+  .LetsEatBanner .bannerMask2 {
+    left: 150px;
+  }
+  .LetsEatBanner .bannerMask1 {
+    left: 250px;
+  }
+  .LetsEatBanner .bannerMask4 {
+    right: 150px;
+  }
+  .LetsEatBanner .bannerMask3 {
+    right: 200px;
+  }
+}
+@media (max-width: 1599px) {
+  .regularTiffinBanner .regularTiffinBannerRow {
+    gap: 30px;
+  }
+}
+@media (max-width: 1440px) {
+  .LetsEatBanner .bannerMask3 {
+    right: 100px;
+  }
+  .LetsEatBanner .bannerMask1 {
+    left: 80px;
+  }
+  .LetsEatBanner .bannerMask2 {
+    left: 90px;
+    width: 90px;
+    top: 350px;
+  }
+  .LetsEatBanner .bannerMask4 {
+    right: 150px;
+    width: 90px;
+    top: 350px;
+  }
+  .LetsEatBanner .bannerMask3 {
+    right: 50px;
+    width: 100px;
+  }
+  .LetsEatBanner::after {
+    right: 10%;
+  }
+  .specialTiffinSecondary::before {
+    right: 15%;
+  }
+  .specialTiffinSecondaryGroup .specialTiffinSecondaryItem .specialTiffinSecondaryContent h4 {
+    font-size: 22px;
+  }
+  .servicePrice.OurServicePackages::before {
+    right: 180px;
+  }
+}
+@media (max-width: 1399px) {
+  .regularTiffinBanner .regularTiffinBannerRow {
+    display: grid;
+    grid-template-columns: 1fr 50%;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    font-size: 28px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner p {
+    font-size: 22px;
+  }
+}
+@media (max-width: 1199px) {
+  .LetsEatBanner .LetsEatBannerInner h1 {
+    font-size: 160px;
+  }
+  .LetsEatBanner .LetsEatBannerInner h1::after {
+    width: 150px;
+    height: 150px;
+  }
+  .LetsEatBanner .LetsEatImg .LetsEatThali {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -88px;
+    width: 54%;
+  }
+  .specialTiffinSecondaryGroup .specialTiffinSecondaryItem {
+    margin-bottom: 30px;
+  }
+  .bxAboutUsContent .bxAboutUsList {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  .servicePrice.OurServicePackages::before {
+    right: 110px;
+  }
+  .commonHeading.commonSecondaryHeading.headingCenter h4:before {
+    content: unset;
+  }
+  .LetsEatBanner .bannerMask4 {
+    right: 100px;
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList {
+    padding: 20px;
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .priceTbl {
+    font-size: 16px;
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .planLabel h5 {
+    font-size: 16px;
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardBtn {
+    padding: 0 20px;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow::after {
+    width: 300px;
+    height: 300px;
+    top: -90px;
+  }
+  .ourBlog.ourBlogSecondary::after {
+    width: 80px;
+    height: 100px;
+  }
+  .ourBlog.ourBlogSecondary::before {
+    width: 80px;
+    height: 100px;
+  }
+  .meetOurChef::before {
+    width: 80px;
+    height: 100px;
+  }
+  .servicePrice.OurServicePackages::after {
+    width: 80px;
+    height: 100px;
+  }
+  .servicePrice.OurServicePackages::before {
+    width: 40px;
+    height: 40px;
+  }
+  .meetOurChef .meetOurChefInner::before {
+    right: 8%;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    font-size: 22px;
+  }
+}
+@media (max-width: 1199px) {
+  .LetsEatBanner .bannerMask1 {
+    left: 120px;
+    width: 20px;
+    top: 100px;
+  }
+  .LetsEatBanner .bannerMask4 {
+    right: 50px;
+    width: 30px;
+  }
+  .LetsEatBanner .bannerMask3 {
+    right: 100px;
+    width: 60px;
+    top: 380px;
+  }
+  .LetsEatBanner .LetsEatImg .LetsEatThali {
+    width: 70%;
+  }
+  .LetsEatBanner .bannerMask2 {
+    left: 40px;
+    width: 50px;
+    top: 350px;
+  }
+  .LetsEatBanner .bannerMask3 {
+    right: 50px;
+    top: 400px;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow::after {
+    width: 200px;
+    height: 300px;
+    top: -140px;
+    left: 48%;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow .mobileAppContent .mobileAppContentInner h2 {
+    font-size: 30px;
+  }
+  .ourBlog.ourBlogSecondary .ourBlogInner::before {
+    right: 6%;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup {
+    width: 100%;
+  }
+  .meetOurChefItem {
+    margin-bottom: 50px;
+  }
+  .LetsEatBanner .bannerMask3 {
+    right: 50px;
+    top: 220px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    padding: 24px 100px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner p {
+    font-size: 18px;
+  }
+}
+@media (max-width: 991px) {
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard {
+    margin-bottom: 30px;
+  }
+  .regularTiffinBanner .regularTiffinBannerRow {
+    grid-template-columns: 1fr 40%;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    font-size: 20px;
+    padding: 24px 70px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner p {
+    font-size: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .LetsEatBanner .LetsEatBannerInner h1 {
+    font-size: 100px;
+  }
+  .LetsEatBanner .LetsEatBannerInner h1::before {
+    left: 5px;
+    bottom: 18px;
+  }
+  .LetsEatBanner .LetsEatImg .LetsEatThali {
+    width: 90%;
+    top: -40px;
+  }
+  .mobileAppImg {
+    margin-bottom: 30px;
+  }
+  .bxAboutUsImg .bxAboutUsImgInner {
+    margin-bottom: 40px;
+  }
+  .LetsEatBanner .LetsEatBannerInner h1::after {
+    width: 80px;
+    height: 80px;
+  }
+  .specialTiffinSecondary,
+  .bxAboutUs,
+  .servicePrice.OurServicePackages,
+  .meetOurChef {
+    padding: 40px 0;
+  }
+  .servicePrice.OurServicePackages::before {
+    right: 40px;
+    top: 16px;
+  }
+  .servicePrice.OurServicePackages::after,
+  .servicePrice.OurServicePackages::before,
+  .LetsEatBanner .LetsEatBannerInner h1::before,
+  .ourBlog.ourBlogSecondary::after,
+  .ourBlog.ourBlogSecondary::before,
+  .meetOurChef::before,
+  .LetsEatBanner .LetsEatBannerInner h1::after,
+  .meetOurChef .meetOurChefInner::before,
+  .meetOurChef .meetOurChefInner::after,
+  .meetOurChef::after,
+  .bxAboutUs::before,
+  .bxAboutUs::after,
+  .ourBlog.ourBlogSecondary .ourBlogInner::before,
+  .specialTiffinSecondary::before,
+  .LetsEatBanner::before,
+  .LetsEatBanner::after {
+    content: unset;
+  }
+  .bxAboutUsContent .bxAboutUsService h5 {
+    font-size: 18px;
+  }
+  .LetsEatBanner .bannerMask1,
+  .LetsEatBanner .bannerMask2,
+  .LetsEatBanner .bannerMask3,
+  .LetsEatBanner .bannerMask4 {
+    display: none;
+  }
+  .letsEatThaliTiffin {
+    width: 90%;
+    margin-top: 54px;
+  }
+  .bxAboutUsContent .bxAboutUsList .bxAboutUsListItem .bxAboutUsListContent p {
+    font-size: 16px;
+  }
+  .commonHeading h4 {
+    font-size: 22px;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup .subscribeNewsletterInput .inputGroup .input-group {
+    gap: 20px;
+  }
+  .partnerLogo .partnerLogoInner .partnerLogoItemGroup {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow::after {
+    content: unset;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow .mobileAppContent::after {
+    content: unset;
+  }
+  .LetsEatBanner::after {
+    right: 12%;
+    bottom: 0px;
+  }
+  .LetsEatBanner {
+    padding: 80px 0 20px;
+  }
+  .servicePrice.OurServicePackages {
+    padding-top: 0;
+  }
+  .mobileApp {
+    padding: 40px 0 0;
+  }
+  .regularTiffinBanner .regularTiffinBannerRow {
+    grid-template-columns: 1fr;
+  }
+  .regularTiffinBanner .regularTiffinBannerRow .regularTiffinBannerCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    font-size: 20px;
+    padding: 24px 70px;
+    text-align: center;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner .btn {
+    margin-top: 0;
+  }
+}
+@media (max-width: 575px) {
+  .mobileApp .mobileAppInner .mobileAppRow .mobileAppContent .mobileAppStore {
+    align-items: self-start;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner {
+    padding: 15px;
+    border-radius: 20px;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup h5 {
+    font-size: 22px;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup p {
+    font-size: 14px;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup .subscribeNewsletterInput .inputGroup .input-group {
+    gap: 10px;
+    flex-direction: column;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup .subscribeNewsletterInput .inputGroup .input-group input {
+    width: 100%;
+    height: 50px;
+  }
+  .subscribeNewsletter .subscribeNewsletterInner .subscribeNewsletterGroup .subscribeNewsletterInput .inputGroup .input-group input::placeholder {
+    font-size: 14px;
+  }
+  .mobileApp .mobileAppInner .mobileAppRow .mobileAppContent .mobileAppContentInner h2 {
+    font-size: 20px;
+  }
+  .LetsEatBanner .LetsEatBannerInner h1 {
+    font-size: 80px;
+  }
+  .LetsEatBanner .LetsEatImg .LetsEatThali {
+    width: 90%;
+    top: -5px;
+  }
+  .loginBtn .btnThird {
+    display: inline-flex;
+    padding: 6px;
+  }
+  .servicePrice.OurServicePackages.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading h4 {
+    font-size: 30px;
+  }
+  .servicePrice.OurServicePackages.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading span {
+    font-size: 16px;
+  }
+  .specialTiffinSecondaryGroup .specialTiffinSecondaryItem .specialTiffinSecondaryImg {
+    width: 180px;
+    height: 180px;
+  }
+  .specialTiffinSecondaryGroup .specialTiffinSecondaryItem .specialTiffinSecondaryImg img {
+    width: 140px;
+    height: 140px;
+  }
+  .specialTiffinSecondaryGroup .specialTiffinSecondaryItem .specialTiffinSecondaryContent h4 {
+    font-size: 18px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner h2 {
+    font-size: 16px;
+  }
+  .regularTiffinBanner .regularTiffinBannerInner p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 450px) {
+  .LetsEatBanner .LetsEatBannerInner h1 {
+    font-size: 56px;
+  }
+  .btn {
+    font-size: 14px;
+  }
+  .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .planLabel h5, .servicePrice.OurServicePackages .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .priceTbl, .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardBtn a {
+    font-size: 14px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1199px) {
+  .informationInto:before {
+    width: 350px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow {
+    grid-template-columns: 400px 1fr;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:after {
+    height: 400px;
+  }
+  .howItWorkAbout:before {
+    width: 230px;
+  }
+  .weWonAwards:before {
+    width: 120px;
+    height: 400px;
+    left: 0;
+    top: -150px;
+  }
+  .innerPageBanner {
+    padding: 40px 0;
+  }
+}
+@media (max-width: 991px) {
+  .informationInto:before {
+    top: 200px;
+    height: 600px;
+    width: 350px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow {
+    grid-template-columns: 1fr;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:after {
+    height: 695px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:before {
+    top: 390px;
+  }
+  .innerPageBanner {
+    padding: 40px 0;
+  }
+  .innerPageBanner .innerPageBannerInner {
+    justify-content: center;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerImgLeft,
+  .innerPageBanner .innerPageBannerInner .innerPageBannerImgRight {
+    display: none;
+  }
+}
+@media (max-width: 991px) {
+  .howItWorkItem {
+    padding: 10px;
+  }
+  .howItWorkItem .howItWorkContent h4 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .informationInto .informationIntoInner .informationIntoRow {
+    gap: 50px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:after {
+    height: 510px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:before {
+    top: 285px;
+  }
+  .howItWorkItem {
+    padding: 20px;
+  }
+  .aboutUsVideo .aboutUsVideoInner .aboutUsVideoContent p {
+    font-size: 16px;
+  }
+  .weWonAwards {
+    padding: 40px 0 0;
+  }
+  .weWonAwards:before {
+    content: unset;
+  }
+  .weWonAwards .weWonAwardsInner .weWonAwardsContent {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+  .informationInto {
+    padding: 40px 0;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerContent h1 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 575px) {
+  .informationInto:before {
+    top: 80px;
+    height: 400px;
+    width: 220px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:before {
+    top: 132px;
+    right: 0;
+    width: 80px;
+  }
+  .informationInto .informationIntoInner .informationIntoRow .informationIntoCol .informationIntoImg .informationIntoImgInner:after {
+    height: 320px;
+  }
+  .specialDishBtnGroup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerContent h1 {
+    font-size: 30px;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerContent ul.breadcrumb li.active {
+    font-size: 14px;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerContent ul.breadcrumb li a {
+    font-size: 14px;
+  }
+}
+@media (max-width: 375px) {
+  .innerPageBanner {
+    padding: 20px 0;
+  }
+  .innerPageBanner .innerPageBannerInner .innerPageBannerContent h1 {
+    font-size: 24px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1399px) {
+  .sendMessage .sendMessageInner .sendMessageContentBox {
+    padding: 40px 60px;
+  }
+}
+@media (max-width: 1199px) {
+  .sendMessage .sendMessageInner .sendMessageContentBox {
+    padding: 40px 20px;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem {
+    width: 300px;
+    height: 300px;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem .getInTouchInfoOuter {
+    width: 300px;
+    height: 300px;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow {
+    gap: 50px;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow .getInTouchCol .getInTouchContent .getInTouchMap iframe {
+    width: 100%;
+    height: 260px;
+  }
+}
+@media (max-width: 991px) {
+  .getInTouch {
+    padding: 80px 0 80px;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 120px;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem {
+    margin: 0 auto;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem .getInTouchInfoOuter .getInTouchInfoItemInner .getInTouchInfoContent p {
+    font-size: 16px;
+  }
+  .sendMessage .sendMessageInner .sendMessageContentBox {
+    margin-right: 0;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow {
+    gap: 110px;
+  }
+  .sendMessage .sendMessageInner {
+    padding: 24px;
+  }
+  .commonHeading h4 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 767px) {
+  .sendMessageFrom {
+    margin-top: 50px;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem {
+    margin: 0 auto;
+  }
+  .getInTouchInfo .getInTouchInfoInner .getInTouchInfoRow .getInTouchInfoCol a .getInTouchInfoItem .getInTouchInfoOuter .getInTouchInfoItemInner .getInTouchInfoContent p {
+    font-size: 14px;
+  }
+  .getInTouchInfo {
+    padding: 100px 0 40px;
+  }
+  .sendMessage {
+    padding: 40px 0 0;
+  }
+  .sendMessage .sendMessageInner {
+    padding: 20px;
+  }
+  .getInTouch {
+    padding: 40px 0 40px;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow {
+    gap: 50px;
+  }
+  .getInTouch .getInTouchInner .getInTouchRow .getInTouchCol .getInTouchImg:before {
+    height: 200px;
+    right: 40px;
+    top: -20px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1199px) {
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(2):after {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: #FFA31E;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):after {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):before {
+    background: linear-gradient(90deg, #FFA31E 50%, #FFF 100%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):before {
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%);
+  }
+}
+@media (max-width: 767px) {
+  .serviceCategory {
+    padding: 40px 0;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem {
+    padding: 20px;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem .serviceCategoryContent h6 {
+    font-size: 20px;
+  }
+  .serviceBanner {
+    padding: 0px 0 40px;
+  }
+  .serviceBanner .serviceBannerInner .serviceBannerItem {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 575px) {
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem .serviceCategoryContent h6 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 450px) {
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(2):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(6):before {
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%, #FFF 100%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(1):before {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(1):after, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):after, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):after {
+    content: unset;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading {
+    padding: 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading h4 {
+    font-size: 50px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading span {
+    font-size: 28px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .priceTbl {
+    font-size: 16px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .planLabel h5 {
+    font-size: 16px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardBtn {
+    padding: 0 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList {
+    padding: 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardLabel {
+    width: 60px;
+    height: 60px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardLabel span {
+    font-size: 14px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1399px) {
+  .ourMealListItem .ourMealListContent .ourMealListHeading h4 {
+    font-size: 20px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading h4 a {
+    font-size: 20px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading span {
+    font-size: 20px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListPara p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 1199px) {
+  .ourMealListItem {
+    grid-template-columns: 150px 1fr;
+  }
+  .ourMealListItem .ourMealListContent {
+    gap: 8px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading h4 {
+    font-size: 16px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading h4 a {
+    font-size: 16px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading span {
+    font-size: 20px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListPara p {
+    font-size: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .ourMealListItem {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 767px) {
+  .ourMealList {
+    padding: 40px 0 0;
+  }
+  .ourMealListItem {
+    margin-bottom: 20px;
+  }
+  .paginationContainer .pagination {
+    border: 0;
+    gap: 6px;
+    overflow: unset;
+    border-radius: 0;
+  }
+  .paginationContainer .pagination li a {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .paginationContainer .pagination li a.active {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .paginationContainer .pagination li.page-item:first-child .page-link {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+  .paginationContainer .pagination li.page-item:last-child .page-link {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1399px) {
+  .thaliDetailGroup {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .thaliDetail .thaliDetailInner .thaliDetailRow {
+    grid-template-columns: 400px 1fr;
+    gap: 50px;
+  }
+  .thaliDetail .thaliDetailInner .thaliDetailRow .thaliDetailCol .thaliDetailImg .thaliDetailImgInner:after {
+    top: 0;
+    height: 300px;
+    bottom: 0;
+  }
+}
+@media (max-width: 1199px) {
+  .thaliDetail .thaliDetailInner .thaliDetailRow {
+    grid-template-columns: 300px 1fr;
+    gap: 50px;
+  }
+}
+@media (max-width: 991px) {
+  .thaliDetail .thaliDetailInner .thaliDetailRow {
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+  }
+  .thaliDetail .thaliDetailInner .thaliDetailRow .thaliDetailCol .thaliDetailImg .thaliDetailImgInner {
+    padding: 20px;
+  }
+  .commonHeading p {
+    font-size: 16px;
+  }
+  .thaliList .list-group .list-group-item {
+    font-size: 14px;
+  }
+}
+@media (max-width: 767px) {
+  .thaliDetail .thaliDetailInner .thaliDetailRow {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .quantityThaliContainer .quantityLabel {
+    font-size: 16px;
+  }
+  .ourMealListItem .ourMealListContent .ourMealListHeading span {
+    font-size: 16px;
+  }
+}
+@media (max-width: 575px) {
+  .commonHeading p {
+    font-size: 14px;
+  }
+  .quantityThaliContainer .quantityLabel {
+    font-size: 14px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1599px) {
+  .lbWatchVideo .lbWatchVideoInner .lbArrow {
+    width: 45%;
+  }
+}
+@media (max-width: 1399px) {
+  .lbWatchVideo .lbWatchVideoInner .lbArrow {
+    width: 43%;
+  }
+}
+@media (max-width: 1199px) {
+  .lbWatchVideo .lbWatchVideoInner .lbArrow {
+    width: 42%;
+  }
+  .customerChoiceVideo,
+  .customerChoiceVideo:after,
+  .customerChoiceVideo:before {
+    width: 400px;
+    height: 400px;
+  }
+  .reviewStar .reviewStarInner .reviewStarHead .reviewStarPoint span {
+    font-size: 60px;
+  }
+  .reviewStar .reviewStarInner .reviewStarHead .review5Star .review5StarInner a i {
+    font-size: 18px;
+  }
+  .reviewStar .reviewStarInner .reviewStarHead .rating p {
+    font-size: 14px;
+  }
+  .reviewComment .reviewCommentInner .reviewCommentItem .reviewCommentItemInner .reviewCommentTxt p {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+@media (max-width: 991px) {
+  .customerChoiceVideo,
+  .customerChoiceVideo:after,
+  .customerChoiceVideo:before {
+    width: 300px;
+    height: 300px;
+  }
+  .reviewStar .reviewStarInner .reviewStarHead {
+    display: flex;
+    align-items: self-start;
+    gap: 0px;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .reviewComment .reviewCommentInner .reviewCommenHeading h5 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .customerChoiceVideo,
+  .customerChoiceVideo:after,
+  .customerChoiceVideo:before {
+    width: 200px;
+    height: 200px;
+  }
+  .customerChoicePlayBtn svg {
+    width: 80px;
+    height: 80px;
+  }
+  .customerReview .customerReviewInner .tab-content .descriptionInner p {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .reviewStar {
+    margin-bottom: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .lbWatchVideo .lbWatchVideoInner .lbWatchVideoRow {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 40px;
+  }
+  .lbWatchVideo .lbWatchVideoInner .lbWatchVideoRow .specialDishBtnGroup {
+    margin-top: 0;
+  }
+  .customerChoiceVideo {
+    width: 200px;
+    height: 200px;
+    margin: 0 50px 0px auto;
+    z-index: 2;
+  }
+  .lbWatchVideo,
+  .customerReview {
+    padding: 40px 0 0;
+  }
+  .customerReview .customerReviewInner .nav-pills li a {
+    font-size: 16px;
+  }
+  .reviewComment .reviewCommentInner .reviewCommentItemGroup .reviewCommentItem .reviewCommentItemInner .reviewCommentTxt p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 575px) {
+  .reviewComment .reviewCommentInner .reviewCommentItemGroup .reviewCommentItem .reviewCommentItemInner .reviewCommentHead {
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+}
+@media (max-width: 450px) {
+  .lbWatchVideo .lbWatchVideoInner .lbArrow {
+    top: 70px;
+    left: 38px;
+    width: 48%;
+  }
+  .customerChoiceList .list-group .list-group-item span {
+    font-size: 14px;
+  }
+  .specialDishBtnGroup .specialDishWatchVideoBtn a {
+    font-size: 16px;
+  }
+  .reviewComment .reviewCommentInner .reviewCommentItemGroup .reviewCommentItem .reviewCommentItemInner .reviewCommentTxt p {
+    font-size: 12px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1399px) {
+  .lbCheckOutBox .lbCheckOutTbl {
+    margin-bottom: 40px;
+  }
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutQuantity,
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutPrice {
+    padding: 80px 30px;
+  }
+  .yourInfoBtn {
+    margin-bottom: 40px;
+  }
+  .lbPaymentInfo .cardDetail {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner {
+    align-items: self-start;
+    flex-direction: column;
+  }
+  .lbCheckOutBox .lbCheckOutTbl {
+    margin-bottom: 40px;
+  }
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutQuantity,
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutPrice {
+    padding: 0 20px 5px;
+    border-left: 0;
+  }
+  .lbCheckOut {
+    padding: 40px 0 0;
+  }
+}
+@media (max-width: 575px) {
+  .lbCheckOutBox .lbCheckOutDetail .lbProductsPriceTbl .table tbody tr td {
+    font-size: 16px;
+  }
+  .lbCheckOutBox .lbCheckOutDetail .lbProductsPriceTbl .table tbody tr td strong {
+    font-size: 16px;
+  }
+  .lbCheckOutBox .lbCheckOutDetail .lbProductsPriceTbl .table tbody tr td span {
+    font-size: 16px;
+  }
+  .lbCheckOutHeading h5 {
+    font-size: 18px;
+  }
+  .lbCheckOutFormDetail .lbCheckOutForm .lbFormGroup input {
+    height: 40px;
+    font-size: 14px;
+  }
+  .lbCheckOutFormDetail .lbCheckOutForm .lbFormGroup input::placeholder {
+    font-size: 14px;
+  }
+  .btnSecondary,
+  .btnPrimary {
+    font-size: 14px;
+  }
+  .lbPaymentInfo .cardDetail {
+    grid-template-columns: 1fr;
+  }
+  .yourInfoBtn .yourInfoBtnGroup {
+    gap: 10px;
+  }
+  .custom_radio .formLabel {
+    margin-bottom: 0;
+  }
+  .custom_radio .formLabel label {
+    color: #111111;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+@media (max-width: 450px) {
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutDetail {
+    grid-template-columns: 1fr;
+  }
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutDetail .lbCheckOutImg {
+    margin-bottom: 15px;
+  }
+  .lbCheckOutBox .lbCheckOutTbl .lbCheckOutTblInner .lbCheckOutDetail .lbCheckOutTxt h5 {
+    font-size: 16px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1199px) {
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(2):after {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: #FFA31E;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):after {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):before {
+    background: linear-gradient(90deg, #FFA31E 50%, #FFF 100%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):before {
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%);
+  }
+}
+@media (max-width: 767px) {
+  .serviceCategory {
+    padding: 40px 0;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem {
+    padding: 20px;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem .serviceCategoryContent h6 {
+    font-size: 20px;
+  }
+  .serviceBanner {
+    padding: 0px 0 40px;
+  }
+  .serviceBanner .serviceBannerInner .serviceBannerItem {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 575px) {
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol .serviceCategoryItem .serviceCategoryContent h6 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 450px) {
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(2):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(4):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):before, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(6):before {
+    background: linear-gradient(90deg, #FFF 0%, #FFA31E 50%, #FFF 100%);
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(1):before {
+    content: unset;
+  }
+  .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(1):after, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(3):after, .serviceCategory .serviceCategoryInner .serviceCategoryRow .serviceCategoryCol:nth-child(5):after {
+    content: unset;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading {
+    padding: 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading h4 {
+    font-size: 50px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardHeading span {
+    font-size: 28px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .priceTbl {
+    font-size: 16px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList ul li .planLabel h5 {
+    font-size: 16px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardBtn {
+    padding: 0 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardPlanList {
+    padding: 15px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardLabel {
+    width: 60px;
+    height: 60px;
+  }
+  .servicePrice .servicePriceInner .servicePriceGroup .servicePriceGroupInner .servicePriceCard .servicePriceCardInner .servicePriceCardLabel span {
+    font-size: 14px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1199px) {
+  .lunchboxSidebar .blogSidebar .blogCardSidebarGroup .blogCardSidebar {
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
+  }
+  .lunchboxSidebar .blogSidebar .blogCardSidebarGroup .blogCardSidebar .blogContentSidebar h4 {
+    font-size: 12px;
+  }
+  .lunchboxSidebar .blogSidebar .blogCardSidebarGroup .blogCardSidebar .blogContentSidebar .ourBlogNav .nav li a span {
+    font-size: 12px;
+  }
+  .ourBlogItem .ourBlogTxt h4 a {
+    color: #111111;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+@media (max-width: 991px) {
+  .lunchboxSidebar {
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    background: #fff;
+    z-index: 99;
+    right: 0;
+    width: 320px;
+    gap: 20px;
+    overflow: scroll;
+    transform: translateX(500px);
+    transition: all 0.6s ease;
+  }
+  .lunchboxSidebar.active {
+    transform: translateX(0px);
+    box-shadow: 0px 14px 12px 2px #c6c6c6;
+  }
+  .lunchboxFilterClose .blogFilterCloseIcon {
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .ourBlogCard {
+    padding: 40px 0 0;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1599px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    display: grid;
+    grid-template-columns: 1fr 287px;
+    gap: 15px;
+  }
+}
+@media (max-width: 1399px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr 245px;
+  }
+}
+@media (max-width: 1199px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr 204px;
+  }
+}
+@media (max-width: 991px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr 204px;
+  }
+}
+@media (max-width: 991px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr 150px;
+  }
+}
+@media (max-width: 767px) {
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr 108px;
+  }
+}
+@media (max-width: 575px) {
+  .lbGallery {
+    padding: 40px 0 0;
+  }
+  .lbGallery .lbGalleryInner .lbGalleryRow2 {
+    grid-template-columns: 1fr;
+  }
+  .lbGallery .lbGalleryInner .lbGalleryRow2 .lbGalleryInnerRow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 767px) {
+  .lbOurChef {
+    padding: 40px 0 0;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 991px) {
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow {
+    grid-template-columns: 300px 1fr;
+    align-items: self-start;
+    gap: 30px;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent h2 {
+    font-size: 24px;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent h4 {
+    font-size: 28px;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent h5 {
+    font-size: 28px;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent span {
+    margin: 10px 0;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent .lbChefDetailHorizLine {
+    margin: 20px 0 20px 0;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent .socialMedia ul li a {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .lbOurChef {
+    padding: 40px 0 0;
+  }
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow {
+    grid-template-columns: 1fr;
+  }
+  .lbChefDetail {
+    padding: 40px 0;
+  }
+}
+@media (max-width: 767px) {
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 767px) {
+  .lbChefDetail .lbChefDetailInner .lbChefDetailRow .lbChefDetailCol .lbChefDetailContent h2 {
+    font-size: 20px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 767px) {
+  .lbBlogSingle {
+    padding: 40px 0 0;
+  }
+  .lbBlogSingleContent .ourBlogItem .ourBlogTxt p {
+    font-size: 16px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent h4 {
+    font-size: 22px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent p {
+    font-size: 14px;
+  }
+}
+@media (max-width: 575px) {
+  .lbBlogComment .lbBlogCommentRow {
+    grid-template-columns: 1fr;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent h4 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent p {
+    font-size: 14px;
+  }
+  .lbBlogSingleContent .ourBlogItem .ourBlogTxt p {
+    color: #999;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .lbBlogSingleContent .ourBlogItem .ourBlogTxt .readMoreBtn {
+    font-size: 16px;
+  }
+  .lbBlogCommentItemGroup .lbBlogComment .lbBlogCommentRow .lbBlogCommentRowInner {
+    grid-template-columns: 1fr;
+  }
+  .leaveReplyBox .sendMessageInner {
+    padding: 20px;
+  }
+}
+@media (max-width: 375px) {
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent p {
+    font-size: 12px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent p .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentContent h4 small {
+    font-size: 12px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentProfile {
+    width: 80px;
+    height: 80px;
+  }
+  .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentProfile img, .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentProfile:after, .lbBlogComment .lbBlogCommentRow .lbBlogCommentCol .lbBlogCommentProfile:before {
+    width: 80px;
+    height: 80px;
+  }
+  .lbBlogCommentItemGroup .lbBlogComment .lbBlogCommentRow .lbBlogCommentRowInner {
+    padding: 20px 0;
+  }
+  .lbBlogCommentItemGroup .lbBlogComment .lbBlogNestedCommentRow {
+    padding-left: 20px;
+  }
+  .lbBlogSingleContent .ourBlogItem .ourBlogTxt p {
+    font-size: 12px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1599px) {
+  .loginSec .loginSecContainer .loginSecInner .loginForm {
+    padding: 40px 80px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter {
+    gap: 50px;
+  }
+}
+@media (max-width: 1399px) {
+  .loginSec .loginSecContainer .loginSecInner {
+    grid-template-columns: 120px 1fr 120px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginTab a {
+    padding: 20px 10px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginSecDotsNav .backBtn {
+    padding: 20px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginSecDotsNav .loginDotsNavInner {
+    padding: 10px;
+  }
+}
+@media (max-width: 1199px) {
+  .loginSec .loginSecContainer .loginSecInner .loginForm {
+    padding: 40px 20px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter {
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner p {
+    margin-top: 40px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginSignupHeading {
+    margin-bottom: 40px;
+  }
+}
+@media (max-width: 991px) {
+  .loginSec .loginSecContainer .loginSecInner {
+    grid-template-columns: 80px 1fr 100px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter {
+    grid-template-columns: 1fr 150px;
+  }
+}
+@media (max-width: 767px) {
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter {
+    grid-template-columns: 1fr;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormImg {
+    display: none;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner p {
+    font-size: 16px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup label {
+    font-size: 16px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup .formRememberGroup .form-check label.form-check-label {
+    font-size: 14px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginSignupHeading h2 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 575px) {
+  .loginSec .loginSecContainer .loginSecInner {
+    grid-template-columns: 50px 1fr;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup {
+    margin-bottom: 15px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup label {
+    font-size: 16px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup .form-control {
+    height: 50px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup .formRememberGroup {
+    align-items: self-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup .formRememberGroup .form-check {
+    margin-top: 8px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner form .loginGroup .formRememberGroup .forgotPassword {
+    padding: 6px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginForm .loginFormOuter .loginFormInner p {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginTab {
+    display: none;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginSecDotsNav .backBtn {
+    padding: 20px 10px;
+  }
+  .loginSec .loginSecContainer .loginSecInner .loginSecDotsNav .backBtn svg {
+    width: 28px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1599px) {
+  .signupSec .signupSecContainer .signupSecInner .signupForm {
+    padding: 40px 80px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter {
+    gap: 50px;
+  }
+}
+@media (max-width: 1399px) {
+  .signupSec .signupSecContainer .signupSecInner {
+    grid-template-columns: 120px 120px 1fr;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupTab a {
+    padding: 20px 10px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupSecDotsNav .backBtn {
+    padding: 20px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupSecDotsNav .signupDotsNavInner {
+    padding: 10px;
+  }
+}
+@media (max-width: 1199px) {
+  .signupSec .signupSecContainer .signupSecInner .signupForm {
+    padding: 40px 20px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter {
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner p {
+    margin-top: 40px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupSignupHeading {
+    margin-bottom: 40px;
+  }
+}
+@media (max-width: 991px) {
+  .signupSec .signupSecContainer .signupSecInner {
+    grid-template-columns: 80px 100px 1fr;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter {
+    grid-template-columns: 1fr 150px;
+  }
+}
+@media (max-width: 767px) {
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter {
+    grid-template-columns: 1fr;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormImg {
+    display: none;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner p {
+    font-size: 16px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .groupField {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .signupGroup label {
+    font-size: 16px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .signupGroup .form-control {
+    height: 50px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupSignupHeading h2 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 575px) {
+  .signupSec .signupSecContainer .signupSecInner {
+    grid-template-columns: 50px 1fr;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .signupGroup {
+    margin-bottom: 15px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .signupGroup label {
+    font-size: 16px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner form .signupGroup .form-control {
+    height: 50px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupForm .signupFormOuter .signupFormInner p {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupTab {
+    display: none;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupSecDotsNav .backBtn {
+    padding: 20px 10px;
+  }
+  .signupSec .signupSecContainer .signupSecInner .signupSecDotsNav .backBtn svg {
+    width: 28px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1399px) {
+  .myProfile .myProfileInner .navTabs .nav-pills li a {
+    font-size: 18px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard {
+    gap: 40px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter {
+    padding: 10px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner {
+    width: 270px;
+    padding: 10px;
+    gap: 35px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileDetail ul li a {
+    font-size: 20px;
+  }
+}
+@media (max-width: 1199px) {
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner {
+    width: 320px;
+    gap: 48px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileDetail ul li a {
+    font-size: 16px;
+  }
+}
+@media (max-width: 991px) {
+  .myProfile .myProfileInner .navTabs .nav-pills {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: auto;
+  }
+  .myProfile .myProfileInner .navTabs .nav-pills li a {
+    padding: 10px;
+  }
+  .myProfile .myProfileInner .navTabs .nav-pills li a p {
+    display: none;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .personalProfileContentBx {
+    margin-bottom: 20px;
+    height: auto;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileDetail ul {
+    margin-top: 30px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody {
+    grid-template-columns: 80px 1fr;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody .orderCardBtn span.orderPrice {
+    font-size: 22px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody .orderCardImgContent h4 a {
+    font-size: 18px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressContactList .addressContactNav {
+    gap: 0;
+    flex-direction: column;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressContactList .addressContactNav li a:before {
+    content: unset;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner {
+    width: 254px;
+    gap: 26px;
+  }
+  .personalContent .form {
+    width: 100%;
+  }
+  .modal-header h4 {
+    font-size: 22px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileDetail {
+    margin-top: 0px;
+  }
+}
+@media (max-width: 767px) {
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner {
+    width: 320px;
+    gap: 48px;
+  }
+  .formRightCheck {
+    width: 100%;
+  }
+  .modal-header h4 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 575px) {
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardHead {
+    align-items: self-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressHead {
+    display: flex;
+    align-items: self-start;
+    flex-direction: column;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressHead .addressHeading h4 {
+    font-size: 18px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressHead .newAddressLink .newAddress {
+    font-size: 14px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .myProfileBx .personalContent .formRatioGroup {
+    align-items: self-start;
+    flex-direction: column;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .myProfileBx .profileImgOuter .profileImg {
+    width: 150px;
+    height: 150px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .myProfileBx .profileImgOuter .profileImg .profileImgInner {
+    width: 150px;
+    height: 150px;
+    background-color: #FFA31E;
+    border-radius: 300px 0px 300px 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 10px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .myProfileBx .profileImgOuter .profileImg:before, .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .myProfileBx .profileImgOuter .profileImg:after {
+    width: 150px;
+    height: 150px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileUserDetailBx h4 {
+    font-size: 22px;
+  }
+  .modal-header h4 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 450px) {
+  .myProfile .myProfileInner .navTabs {
+    padding: 10px;
+  }
+  .myProfile .myProfileInner .navTabs .nav-pills li a {
+    padding: 5px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter {
+    grid-template-columns: 1fr 20px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner .paymentVisaCardNumber h5 {
+    font-size: 12px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner .paymentCardInfo ul li a {
+    font-size: 11px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody {
+    grid-template-columns: 1fr;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody .orderCardImgBody {
+    width: 50%;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody .orderCardBtn {
+    align-items: self-start;
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myOrderContent .orderCardGroup .orderCard .orderCardInner .orderCardBody .orderCardInnerBody .orderCardImgContent h4 a {
+    font-size: 16px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressHead .addressHeading h4 {
+    font-size: 16px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressDetailHeading h5 {
+    font-size: 18px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressDetailHeading h6 {
+    font-size: 16px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard p {
+    font-size: 14px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressContactList .addressContactNav li a {
+    font-size: 14px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .addressContent .addressCardGroup .addressCard .addressDetailCard .addressLinkBtnList .addressLinkBtnNav li a {
+    font-size: 14px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileUserDetailBx h4 {
+    font-size: 20px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .myProfileBx .profileHeading h4 {
+    font-size: 16px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .myProfileBx .personalContent .btn {
+    margin-top: 10px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .myProfileBx .personalContent .formGroup input {
+    font-size: 14px;
+    height: 40px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .myProfileBx .personalContent .formGroup .input-group-text {
+    font-size: 14px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .paymentMethodsContent .paymentInfoCardOuter .paymentInfoCard .paymentInfoCardInner .paymentVisaCardRow .paymentVisaCardInfoOuter .paymentVisaCardInfo .paymentVisaCardInfoInner {
+    width: calc(100% - 15px);
+    gap: 20px;
+  }
+  .personalContent .form .formRight input,
+  .personalContent .form .formRight select,
+  .personalContent .form .formRight span {
+    font-size: 14px;
+  }
+  .formRightFormControl,
+  .formRightFormControlName {
+    font-size: 15px;
+  }
+  .formRightExpireDate {
+    flex-direction: column;
+  }
+  .formRightExpireDate .formRightExpireDateLeft {
+    margin-top: 20px;
+  }
+  .formRightCheck {
+    gap: 15px;
+  }
+  .myProfile .myProfileInner .tabContent .tab-content .myProfileContent .personalProfileContent .profileDetail ul li a {
+    font-size: 14px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+   Template Name: foxhub
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 1920px) {
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxForm .input-group input {
+    width: 450px;
+  }
+}
+@media (max-width: 991px) {
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxForm .input-group input {
+    width: 350px;
+  }
+}
+@media (max-width: 575px) {
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxLogo img {
+    width: 180px;
+  }
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxForm .input-group input {
+    width: 300px;
+  }
+}
+@media (max-width: 450px) {
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxLogo img {
+    width: 150px;
+  }
+  .searchBox .searchBoxCard .searchBoxInner .searchBoxForm .input-group input {
+    width: 200px;
+  }
+}
+/*-----------------------------------------------------------------------------------
+
+  Template Name: Lunch Box
+  Author: Webstrot
+  Version: 1.0.0
+*/
+@media (max-width: 991px) {
+  .footerSecondary .footerSecondaryInner .footerSecondaryRow {
+    grid-template-columns: 50% 50%;
+  }
+  .footerSecondary .footerSecondaryInner .footerSecondaryRow .footerSecondaryCol {
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 767px) {
+  .footer .footerInner .footContent {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+@media (max-width: 575px) {
+  .footer .footerInner .subscribeOuter .logisticSubscribeTxt h4 {
+    font-size: 28px;
+  }
+  .footer .footerInner .subscribeOuter .subscribeInpt form .input-group {
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    flex-direction: column;
+  }
+  .footer .footerInner .subscribeOuter .subscribeInpt form .form-control {
+    border: 0px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .trustedUsers .trustedUsersInner .trustedUsersRow {
+    margin-top: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  .commonHeading.headingCenter {
+    width: 100%;
+    margin: 0 auto 20px;
+  }
+  .customerSayReview .customerSayStarInner .customerSayStar .customerSayStarTxt p {
+    font-size: 14px;
+  }
+  .customerSays .customerSaysInner .customerSaysRow .customerSaysCol .customerSaysImg .customerSaysImgInner .customerSaysIcon.customerSaysIcon1 {
+    top: 120px;
+    left: unset;
+    right: 0;
+  }
+  .howItWorkItem .howItWorkContent h4 {
+    font-size: 20px;
+  }
+  .deliveryFood .deliveryFoodOuter {
+    padding: 20px 20px;
+  }
+  .deliveryFood .deliveryFoodOuter .deliveryFoodInner h4 {
+    font-size: 20px;
+  }
+  .deliveryFood .deliveryFoodOuter .deliveryFoodInner h2 {
+    font-size: 25px;
+  }
+  .footer .footerInner .middleContent .footerMenu {
+    padding: 20px 0 20px;
+  }
+  .footer .footerInner .middleContent .footerMenu ul li a {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 8px;
+  }
+  .footer .footerInner .subscribeOuter .logisticSubscribeTxt h4 {
+    font-size: 22px;
+  }
+  .footer .footerInner .subscribeOuter .logisticSubscribeTxt p {
+    font-size: 15px;
+  }
+  .footer .footerInner .footContent .copyRight p {
+    font-size: 14px;
+  }
+  .footer .footerInner .footContent .copyRight p a {
+    font-size: 14px;
+  }
+  .footer .footerInner .footContent .socialMedia ul li a {
+    font-size: 20px;
+  }
+  .footerSecondary .footerSecondaryInner {
+    padding: 130px 0 40px;
+  }
+  .footerSecondary .footerSecondaryInner .footerSecondaryRow {
+    grid-template-columns: 1fr;
+  }
+  .partnerLogo {
+    padding: 40px 0;
+  }
+}
+@media (max-width: 450px) {
+  .footer .footerInner .middleContent .footerMenu ul li a {
+    font-size: 14px;
+    padding: 6px;
+  }
+  .footer .footerInner .footContent {
+    gap: 20px;
+  }
+  .footerSecondary .footerSecondaryInner .footerSecondaryRow .footerSecondaryCol .footerHeading h5 {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1420px;
+  }
+}
+@media (max-width: 991px) {
+  .preloader .preloaderInner .loaderGroup .loaderContent .loading {
+    font-size: 60px;
+  }
+}
+@media (max-width: 767px) {
+  .preloader .preloaderInner .loaderGroup .loaderContent .loading {
+    font-size: 50px;
+  }
+}
+@media (max-width: 575px) {
+  .preloader .preloaderInner .loaderGroup .loaderContent .loading {
+    font-size: 40px;
+  }
+}/*# sourceMappingURL=responsive.css.map */

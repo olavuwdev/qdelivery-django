@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro, Carrinho, ItemCarrinho
+from .models import *
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
 import json
+from pprint import pprint
 
 #importando funções
 
@@ -33,13 +34,44 @@ def blog(request):
     dados = get_object_or_404(Dados, id=1)
     return render(request, "blog.html", {'dados': dados})
 def cardapio(request):
+    # Recupera ou cria o identificador
     identificador = request.session.get('user_id')
     if not identificador:
         criar_identificador(request)
+        identificador = request.session.get('user_id')  # Recupera o identificador recém-criado
     else:
         print(f"Identificador já existente: {identificador}")
 
+    # Verifica se já existe um cliente com o identificador
+    cliente = Cliente.objects.filter(identificador=identificador).first()
+
+    # Busca o objeto Dados pelo ID (não relacionado ao cliente ou carrinho, mas ao sistema)
     dados = get_object_or_404(Dados, id=1)
+
+    # Verifica se o cliente possui um carrinho associado
+    if cliente:
+        # Cliente encontrado, verifica o carrinho
+        carrinho = Carrinho.objects.filter(identificador=cliente.identificador).first()
+        if carrinho:
+            print("Carrinho existente")
+        else:
+            # Se não existe, cria um carrinho para o cliente
+            print("Sem carrinho. Criando um carrinho para o usuário.")
+            novo_carrinho = Carrinho.objects.create(cliente=cliente)
+            print(f"Carrinho criado: {novo_carrinho}")
+    else:
+        # Cliente não identificado, cria um carrinho anônimo
+        print("Cliente não identificado. Criando um carrinho anônimo.")
+        carrinho = Carrinho.objects.filter(identificador=identificador).first()
+        if carrinho:
+            print("Carrinho anônimo existente")
+        else:
+            # Cria um carrinho anônimo e armazena o identificador
+            novo_carrinho = Carrinho.objects.create(identificador=identificador)
+            print(f"Carrinho anônimo criado: {novo_carrinho}")
+
+
+    
     produtos = get_object_or_404(Produtos, id=1)
     quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
     bebidas = Produtos.objects.filter(tipo='B')
@@ -58,10 +90,33 @@ def cardapio(request):
 
 def produto_cardapio(request, id):
     identificador = request.session.get('user_id')
+
+    cliente = Cliente.objects.filter(identificador=identificador).first()
     if not identificador:
         criar_identificador(request)
     else:
         print(f"Identificador já existente: {identificador}")
+        # Verifica se o cliente possui um carrinho associado
+    if cliente:
+        # Cliente encontrado, verifica o carrinho
+        carrinho = Carrinho.objects.filter(identificador=cliente.identificador, status='aberto').first()
+        if carrinho:
+            print("Carrinho existente")
+        else:
+            # Se não existe, cria um carrinho para o cliente
+            print("Sem carrinho. Criando um carrinho para o usuário.")
+            novo_carrinho = Carrinho.objects.create(cliente=cliente)
+            print(f"Carrinho criado: {novo_carrinho}")
+    else:
+        # Cliente não identificado, cria um carrinho anônimo
+        print("Cliente não identificado. Criando um carrinho anônimo.")
+        carrinho = Carrinho.objects.filter(identificador=identificador).first()
+        if carrinho:
+            print(f"Carrinho anônimo existente : {carrinho}")
+        else:
+            # Cria um carrinho anônimo e armazena o identificador
+            novo_carrinho = Carrinho.objects.create(identificador=identificador)
+            print(f"Carrinho anônimo criado: {novo_carrinho}")
     
 
     produto = get_object_or_404(Produtos, id=id)
@@ -187,12 +242,47 @@ def adicionar_ao_carrinho(request):
         observacao = request.POST.get('observacao', '')
         quantidade = request.POST.get('quantidade', 1)
 
+        # iDENTIFICADOR
+        identificador = request.session.get('user_id')
+
+        cliente = Cliente.objects.filter(identificador=identificador).first()
+        if not identificador:
+            criar_identificador(request)
+        else:
+            print(f"Identificar já existe: {identificador}")
+
+        #Verifica se possui carrinho com o identificador do cliente    
+        if cliente:
+            # Cliente encontrado, verifica o carrinho
+            carrinho = Carrinho.objects.filter(identificador=cliente.identificador, status='aberto').first()
+            if carrinho:
+                print("Carrinho existente")
+            else:
+                # Se não existe, cria um carrinho para o cliente
+                print("Sem carrinho. Criando um carrinho para o usuário.")
+                novo_carrinho = Carrinho.objects.create(cliente=cliente)
+                print(f"Carrinho criado: {novo_carrinho}")
+        else:
+            # Cliente não identificado, cria um carrinho anônimo
+            print("Cliente não identificado. Criando um carrinho anônimo.")
+            carrinho = Carrinho.objects.filter(identificador=identificador).first()
+            if carrinho:
+                print(f"Carrinho anônimo existente : {carrinho}")
+            else:
+                # Cria um carrinho anônimo e armazena o identificador
+                novo_carrinho = Carrinho.objects.create(identificador=identificador)
+                print(f"Carrinho anônimo criado: {novo_carrinho}")
+
+
+
         # Obter o produto
         produto = get_object_or_404(Produtos, id=produto_id)
 
         # Obter proteinas e acompanhamentos
         proteinas = Proteina.objects.filter(id__in=proteinas_ids)
         acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
+
+        #carrinho_bd = ItemCarrinho.objects.create(produto=)
 
         # Obter ou criar o carrinho na sessão
         carrinho = request.session.get('carrinho', {})
@@ -218,7 +308,7 @@ def adicionar_ao_carrinho(request):
 
         # Atualizar o carrinho na sessão
         request.session['carrinho'] = carrinho
-        print(carrinho)
+        pprint(carrinho)
         # Redirecionar para a página do menu
         return redirect('menu')  # Certifique-se de que a URL 'menu' está configurada corretamente
 
@@ -235,7 +325,7 @@ def cartTeste(request):
         'total_carrinho': total_carrinho,
     }
     for item_id ,itens in carrinho.items():
-        print(f"{item_id}\n {itens}")
+        pprint(f"{item_id}\n {itens}")
     print(total_carrinho)    
     return render(request, 'ver_carrinho3.html', context)
 
@@ -243,6 +333,9 @@ from datetime import datetime
 #Views não usadas no ate o momento
 
 def finalizar_pedido(request):
+
+
+
     ##Get banco de dados
 
     bairro = Bairro.objects.all()
@@ -253,7 +346,8 @@ def finalizar_pedido(request):
 
     context = {
         'bairros': bairro,
-        'total_carrinho': total_carrinho
+        'total_carrinho': total_carrinho,
+        'carrinho': carrinho,
         }
     if request.method == 'POST':
         usuario = request.session.get('usuario', {})
@@ -300,4 +394,4 @@ def finalizar_pedido(request):
         
 
     
-    return render(request, 'finalizar_pedido.html', context)
+    return render(request, 'ver_carrinho4.html', context)
