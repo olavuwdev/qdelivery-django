@@ -96,8 +96,9 @@ class Produtos(models.Model):
 
 
 class Pedido(models.Model):
-    nome = models.CharField(max_length=255)
-    telefone = models.CharField(max_length=20)
+    nome = models.CharField(max_length=255,blank=True, null=True)
+    identificador_nav = models.CharField(max_length=255, default='')
+    telefone = models.CharField(max_length=20,blank=True, null=True)
     endereco = models.CharField(max_length=255,blank=True, null=True)
     bairro = models.CharField(max_length=255,blank=True, null=True)
     status = models.CharField(max_length=50, blank=False, default='EM ABERTO')
@@ -109,10 +110,16 @@ class Pedido(models.Model):
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
     produto = models.ForeignKey(Produtos, on_delete=models.CASCADE)
+    proteinas = models.JSONField(default=list) 
+    acompanhamentos = models.JSONField(default=list)
     quantidade = models.PositiveIntegerField(default=1)
+    imagem = models.ImageField(upload_to='produtos/', blank=True, null=True)
+    preco = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    observacao = models.TextField(blank=True, null=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.quantidade} x {self.produto.titulo}'
+        return f'{self.quantidade}x {self.produto} (Pedido {self.pedido.id})'
 
     def get_total(self):
         return self.quantidade * self.produto.valor

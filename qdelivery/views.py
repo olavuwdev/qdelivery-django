@@ -37,21 +37,25 @@ def cardapio(request):
     if not identificador:
         criar_identificador(request)
     else:
-        print(f"Identificador já existente: {identificador}")
-
+        ##Pedido.objects.create(identificador_nav=identificador)
+        print(f"Identificadortem tem um pedido em aberto no banco: {Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').values_list('identificador_nav', flat=True).first()}")
+   
     dados = get_object_or_404(Dados, id=1)
     produtos = get_object_or_404(Produtos, id=1)
     quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
     bebidas = Produtos.objects.filter(tipo='B')
     proteinas = Proteina.objects.filter(ativo=True)
     acompanhamento = Acompanhamento.objects.filter(ativo=True)
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    print("Contagem: ", cont_cart)
     dados_produto = {
         'dados': dados,
         'produtos': produtos,
         'quentinhas': quentinhas,
         'bebidas': bebidas,
         'acompanhamento': acompanhamento,
-        'proteinas': proteinas
+        'proteinas': proteinas,
+        'contagem': cont_cart
         }
 
     return render(request, "menu.html", dados_produto)
@@ -243,7 +247,7 @@ def adicionar_ao_carrinho(request):
         produto_id = request.POST.get('produto_id')
         proteinas_ids = request.POST.getlist('proteinas')
         acompanhamentos_ids = request.POST.getlist('acompanhamentos')
-        observacao = request.POST.get('observacao', '')
+        observacao = request.POST.get('observacoes', '')
         quantidade = int(request.POST.get('quantidade', 1))
 
         # Obter o produto
@@ -253,6 +257,25 @@ def adicionar_ao_carrinho(request):
         proteinas = Proteina.objects.filter(id__in=proteinas_ids)
         acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
 
+        valid_pedido = Pedido.objects.filter(identificador_nav=request.session.get('user_id'), status='EM ABERTO')
+        if not valid_pedido.exists():
+            pedido = Pedido.objects.create(identificador_nav=request.session.get('user_id'))
+        else:
+            print(f"Pedido já existente para o identificador: {valid_pedido.first().identificador_nav}")
+            pedido = valid_pedido.first()
+        ItemPedido.objects.create(
+            pedido=pedido,  # O pedido correspondente
+            produto=produto,
+            imagem=produto.capa,
+            preco=produto.valor_promo,
+            quantidade=quantidade,
+            observacao=observacao,
+            proteinas=[proteina.id for proteina in proteinas],  # Lista de proteínas
+            acompanhamentos=[acomp.id for acomp in acompanhamentos],  # Lista de acompanhamentos
+            total=float(produto.valor_promo) * quantidade
+        )
+        return redirect('menu')
+        """ 
         # Obter ou criar o carrinho na sessão
         carrinho = request.session.get('carrinho', [])
 
@@ -292,10 +315,9 @@ def adicionar_ao_carrinho(request):
 
         for item in carrinho:
             print(item)
+              """
 
-        # Redirecionar para a página do menu
-        return redirect('menu')
-
+        # Redirecionar para a página do menu 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
 
