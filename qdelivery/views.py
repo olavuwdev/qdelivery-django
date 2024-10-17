@@ -57,7 +57,7 @@ def cardapio(request):
         'bebidas': bebidas,
         'acompanhamento': acompanhamento,
         'proteinas': proteinas,
-        'contagem': cont_cart
+        'contagem': cont_cart 
         }
 
     return render(request, "menu.html", dados_produto)
@@ -352,11 +352,12 @@ def cartTeste(request):
         pedido_cart = ItemPedido.objects.filter(pedido=pedido)
         total_carrinho = pedido_cart.aggregate(Sum('total'))['total__sum'] or 0
     else:
+        total_carrinho = 0
         pedido_cart = None
-
+        
+    print(total_carrinho)
     # Passar os itens do pedido para o contexto
     context = {
-        'carrinho': carrinho,
         'total_carrinho': float(total_carrinho),
         'pedido_cart': pedido_cart,
     }
