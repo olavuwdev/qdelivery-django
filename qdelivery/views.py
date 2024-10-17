@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.db import transaction
+from django.db.models import Sum
 from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -144,38 +146,49 @@ def carrinho(request):
 
 
 
-@require_POST
-@csrf_exempt  # Necessário se o CSRF não for tratado no frontend (por segurança, ideal tratar no JS)
 def atualizar_quantidade(request):
-    data = json.loads(request.body)
-    item_id = str(data.get('item_id'))
-    nova_quantidade = data.get('quantidade')
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        item_id = data.get('item_id')
+        nova_quantidade = data.get('quantidade')
+        pedido_id = data.get('id_pedido')
 
-    carrinho = request.session.get('carrinho', {})
+        try:
+            item = ItemPedido.objects.get(id=item_id)
+            item.quantidade = nova_quantidade
+            item.total = float(item.preco * nova_quantidade)
+            item.save()
+            total_pedido = ItemPedido.objects.filter(pedido_id=pedido_id).aggregate(Sum('total'))['total__sum'] or 0 # Atualiza o total baseado na nova quantidade
+            print("Novo total: ", total_pedido)
+            return JsonResponse({'status': 'success', 'nova_quantidade': item.quantidade, 'total': item.total, 'total_pedido': float(total_pedido)})
+        except ItemPedido.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Item não encontrado'}, status=404)
+    return JsonResponse({'status': 'error', 'message': 'Método inválido'}, status=400)
+    
 
-    if item_id in carrinho:
-        carrinho[item_id]['quantidade'] = nova_quantidade
-        carrinho[item_id]['total'] = nova_quantidade * carrinho[item_id]['preco']
-        request.session['carrinho'] = carrinho  # Salva a sessão
-        return JsonResponse({'success': True, 'message': 'Quantidade atualizada com sucesso.'})
-    else:
-        return JsonResponse({'success': False, 'message': 'Item não encontrado no carrinho.'}, status=404)
 
 def remover_item(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
 
-        # Obter o carrinho da sessão
-        carrinho = request.session.get('carrinho', {})
+        try:
+            # Tenta buscar o item a ser removido no banco de dados
+            item = get_object_or_404(ItemPedido, id=item_id)
+            
+            # Remove o item do banco de dados
+            item.delete()
 
-        # Remover o item do carrinho
-        if item_id in carrinho:
-            del carrinho[item_id]
+            # Opcional: Se quiser, você pode calcular o total do carrinho novamente e retornar
+            pedido = item.pedido
+            total_carrinho = ItemPedido.objects.filter(pedido=pedido).aggregate(total=Sum('total'))['total']
 
-        # Atualizar o carrinho na sessão
-        request.session['carrinho'] = carrinho
+            return JsonResponse({
+                'status': 'success',
+                'total_carrinho': float(total_carrinho)
+            })
 
-        return redirect('ver_carrinho')
+        except ItemPedido.DoesNotExist:
+            return JsonResponse({'error': 'Item não encontrado'}, status=404)
 
     return JsonResponse({'error': 'Método não permitido'}, status=405)
 
@@ -249,31 +262,37 @@ def adicionar_ao_carrinho(request):
         acompanhamentos_ids = request.POST.getlist('acompanhamentos')
         observacao = request.POST.get('observacoes', '')
         quantidade = int(request.POST.get('quantidade', 1))
+        
 
-        # Obter o produto
-        produto = get_object_or_404(Produtos, id=produto_id)
+        try:
+            with transaction.atomic():
+                # Obter o produto
+                produto = get_object_or_404(Produtos, id=produto_id)
 
-        # Obter proteinas e acompanhamentos
-        proteinas = Proteina.objects.filter(id__in=proteinas_ids)
-        acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
+                # Obter proteinas e acompanhamentos
+                proteinas = Proteina.objects.filter(id__in=proteinas_ids)
+                acompanhamentos = Acompanhamento.objects.filter(id__in=acompanhamentos_ids)
 
-        valid_pedido = Pedido.objects.filter(identificador_nav=request.session.get('user_id'), status='EM ABERTO')
-        if not valid_pedido.exists():
-            pedido = Pedido.objects.create(identificador_nav=request.session.get('user_id'))
-        else:
-            print(f"Pedido já existente para o identificador: {valid_pedido.first().identificador_nav}")
-            pedido = valid_pedido.first()
-        ItemPedido.objects.create(
-            pedido=pedido,  # O pedido correspondente
-            produto=produto,
-            imagem=produto.capa,
-            preco=produto.valor_promo,
-            quantidade=quantidade,
-            observacao=observacao,
-            proteinas=[proteina.id for proteina in proteinas],  # Lista de proteínas
-            acompanhamentos=[acomp.id for acomp in acompanhamentos],  # Lista de acompanhamentos
-            total=float(produto.valor_promo) * quantidade
-        )
+                valid_pedido = Pedido.objects.filter(identificador_nav=request.session.get('user_id'), status='EM ABERTO')
+                if not valid_pedido.exists():
+                    pedido = Pedido.objects.create(identificador_nav=request.session.get('user_id'))
+                else:
+                    print(f"Pedido já existente para o identificador: {valid_pedido.first().identificador_nav}")
+                    pedido = valid_pedido.first()
+                ItemPedido.objects.create(
+                    pedido=pedido,  # O pedido correspondente
+                    produto=produto,
+                    imagem=produto.capa,
+                    preco=produto.valor_promo,
+                    quantidade=quantidade,
+                    observacao=observacao,
+                    proteinas=[proteina.titulo for proteina in proteinas],  # Lista de proteínas
+                    acompanhamentos=[acomp.nome for acomp in acompanhamentos],  # Lista de acompanhamentos
+                    total=float(produto.valor_promo) * quantidade
+                )
+        except Exception as e:
+            print(f"Erro ao adicionar item ao carrinho: {e}")
+            # Se ocorrer algum erro, a transação será revertida automaticamente
         return redirect('menu')
         """ 
         # Obter ou criar o carrinho na sessão
@@ -323,15 +342,24 @@ def adicionar_ao_carrinho(request):
 
 
 def cartTeste(request):
-    carrinho = request.session.get('carrinho', {})
-    total_carrinho = func_total_carrinho(carrinho) # type: ignore
+    identificador = request.session.get('user_id')
+    
+    # Buscar o pedido em aberto
+    pedido = Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()
+    
+    if pedido:
+        # Buscar os itens do pedido
+        pedido_cart = ItemPedido.objects.filter(pedido=pedido)
+        total_carrinho = pedido_cart.aggregate(Sum('total'))['total__sum'] or 0
+    else:
+        pedido_cart = None
 
+    # Passar os itens do pedido para o contexto
     context = {
         'carrinho': carrinho,
-        'total_carrinho': total_carrinho,
+        'total_carrinho': float(total_carrinho),
+        'pedido_cart': pedido_cart,
     }
-    for itens in carrinho:
-        print(f"\n {itens}")
-    print(total_carrinho)    
+
     return render(request, 'ver_carrinho3.html', context)
 
