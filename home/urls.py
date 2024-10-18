@@ -44,6 +44,13 @@ urlpatterns = [
     path('atualizar_quantidade/', views.atualizar_quantidade, name='atualizar_quantidade'),
     path('remover_item/', views.remover_item, name='remover_item'),
     path('finalizar_pedido/', views.finalizar_pedido, name='finalizar_pedido'),
+
+
+    #Rotas para o novo template
+    path('teste2/', views.teste , name='tesste'),
+    path('prod2/<int:id>', views.produto_cardapio2, name="pro_cardapio"),
+    path('newCart', views.newCart, name="newCart"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'ADM Quentinha Delivery'

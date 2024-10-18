@@ -19,6 +19,11 @@ html{
     overflow-x: hidden;
     scroll-behavior: smooth;
 }
+ul {
+    padding: 0;
+    margin: 0; }
+    ul li {
+      list-style-type: none; }
 
 
 .btn{
@@ -298,6 +303,68 @@ section{
 .qd_destaque .swiper-slide-active{
     animation: qdScale 4s linear forwards;
 }
+
+/* Produto detalhe */
+
+.sb-checkbox {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .sb-checkbox input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+  }
+  
+  .sb-checkbox label {
+    font-weight: 500;
+    display: block;
+    position: relative;
+    letter-spacing: 0;
+    font-size: 14px;
+    line-height: 24px;
+    padding-left: 30px;
+    z-index: 9;
+    cursor: pointer;
+    -webkit-transition: all 0.25s linear;
+  }
+  
+  .sb-checkbox .sb-check {
+    display: block;
+    position: absolute;
+    border: 2px solid #6F6F87;
+    border-radius: 100%; 
+    height: 21px;
+    width: 21px;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .sb-checkbox .sb-check::before {
+    display: block;
+    position: absolute;
+    content: '';
+    border-radius: 100%;
+    height: 13px;
+    width: 13px;
+    top: 2px;
+    left: 2px;
+    margin: auto;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .sb-checkbox input[type=checkbox]:checked ~ .sb-check {
+    border-color: black;
+  }
+  
+  .sb-checkbox input[type=checkbox]:checked ~ .sb-check::before {
+    background: var(--yellow_qd);
+  }
+
+  
+  
 
 @keyframes slideQd {
     0%{
@@ -880,14 +947,13 @@ section{
 
 .lis_itens {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     margin: 0 auto;
-    margin-top: 70px;
-    max-width: 800px;
+    margin-top: 70px;    
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .lis_itens .formulario_cardapio textarea{
@@ -938,6 +1004,41 @@ section{
     text-align: center;
     width:60px
 }
+/* Input da quantidade */
+.produto .sb-input-number-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .produto .sb-input-number-frame .sb-input-number-btn {
+      border-radius: 50%;
+      background-color: var(--yellow_qd);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border: none;
+      transition: 0.3s ease-in-out; }
+      .produto .sb-input-number-frame .sb-input-number-btn:hover {
+        font-size: larger;
+        filter: brightness(110%); }
+      .produto .sb-input-number-frame .sb-input-number-btn:focus {
+        outline: inherit; }
+    .produto .sb-input-number-frame input {
+      margin: 0 5px;
+      text-align: center;
+      height: 50px;
+      width: 60px;
+      background-color: #F9FAFC;
+      position: relative;
+      padding: 0 20px;
+      display: block;
+      border: none; }
+      .produto .sb-input-number-frame input::-webkit-inner-spin-button, .sb-input-number-frame input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0; }
+        .produto .sb-input-number-frame input:focus {
+        outline: inherit; }
 
 .loja_valor {
     margin-top: 10px;
@@ -991,9 +1092,6 @@ button[type="submit"]:hover {
     background-color: #457b9d;
 }
 
-.lis_itens {
-    text-align: center;
-}
 
 .carrinho_bar {
     display: flex;
@@ -1196,10 +1294,6 @@ button[type="submit"]:hover {
     }
     .qd_destaque .slide .content h3{
         font-size: 4rem;
-    }
-    .lis_itens {
-        flex-direction: column;
-        align-items: center;
     }
 
     .produto, .lis_itens_pro {

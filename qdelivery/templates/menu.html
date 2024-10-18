@@ -49,15 +49,15 @@
                 <div class="box-container">
                     {% for produto in bebidas %}
                     <!-- INICIO SUB ITEM SLIDE PRINCIPAL -->
-                    <div class="box" >
-                        <div class="info">
-                            <h3>{{ produto.titulo}}</h3>
-                            <p>{{produto.descricao|safe}}</p>
+                    <a href="{% url 'pro_cardapio' produto.id %}">
+                        <div class="box" >
+                            <div class="info">
+                                <h3>{{ produto.titulo}}</h3>
+                                <p>{{produto.descricao|safe}}</p>
+                            </div>
+                            <div class="valor">R${{produto.valor}}</div>
                         </div>
-                        <div class="valor">R${{produto.valor}}</div>
-
-
-                    </div>
+                    </a>
                     {% endfor %}
                     <!-- FIM SUB ITEM SLIDE PRINCIPAL -->
 

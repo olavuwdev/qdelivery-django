@@ -13,6 +13,62 @@ import json
 
 from .utils import *
 
+
+
+
+def teste(request):
+    return render(request, "new_template/base.html")
+
+def produto_cardapio2(request, id):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificador já existente: {identificador}")
+    
+
+    produto = get_object_or_404(Produtos, id=id)
+    dados = get_object_or_404(Dados, id=1)
+    dados_produto = {
+        'id':produto.id,
+        'titulo': produto.titulo,
+        'preco': str(produto.valor_promo),
+        'tipo': produto.tipo,
+        'capa': produto.capa,
+        'acompanhamentos': Acompanhamento.objects.filter(ativo=True),
+        'proteinas':  Proteina.objects.filter(ativo=True) 
+    }
+    context = {
+        'dados_produto': dados_produto,
+        'dados':dados
+    }
+    return render(request, "new_template/produto.html", context)
+
+
+def newCart(request):
+    identificador = request.session.get('user_id')
+    
+    # Buscar o pedido em aberto
+    pedido = Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    if pedido:
+        # Buscar os itens do pedido
+        pedido_cart = ItemPedido.objects.filter(pedido=pedido)
+        total_carrinho = pedido_cart.aggregate(Sum('total'))['total__sum'] or 0
+    else:
+        total_carrinho = 0
+        pedido_cart = None
+        
+    print(total_carrinho)
+    # Passar os itens do pedido para o contexto
+    context = {
+        'total_carrinho': float(total_carrinho),
+        'pedido_cart': pedido_cart,
+        'contagem':cont_cart
+    }
+
+    return render(request, 'new_template/cart.html', context)
+
 # Create your views here.
 def index(request):
     dados = get_object_or_404(Dados, id=1)

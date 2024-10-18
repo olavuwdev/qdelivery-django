@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="{% url 'adicionar_ao_carrinho' %}">
+    {% csrf_token %}
+<section class="lis_itens">
+    <div class="produto">
+        <h2>{{ dados_produto.titulo }}</h2>
+        {{dados_produto.capa|safe}}
+        <div class="loja_valor">
+            <h3>R$ {{dados_produto.preco}}</h3>
+        </div>
+        <div class="sb-input-number-frame">
+            <i class="sb-input-number-btn sb-sub" onclick="updateQuantidade(-1)" >-</i>
+            <input name="quantidade" id="quantidade" value="1">
+            <i class="sb-input-number-btn sb-add" onclick="updateQuantidade(1)">+</i>
+        </div>    
+            
+
+    
+    <div class="lis_itens_pro">
+        <div class="formulario_cardapio"> 
+            {% if dados_produto.tipo == 'Q' %}
+            <h3>Selecione até 2 Proteínas:</h3>
+
+            <input type="hidden" name="produto_id" value="{{ dados_produto.id }}">
+            <ul>
+                {% for prote in dados_produto.proteinas %}
+                    <li class="sb-checkbox">
+                        <input type="checkbox" id="proteina_{{ prote.id }}" name="proteinas" value="{{ prote.id }}" onclick="limitProteinaSelection(this)">
+                        <label for="proteina_{{ prote.id }}">{{ prote.titulo }}</label>
+                        <div class="sb-check"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+            
+            <h3> Acompanhamentos:</h3>
+            <ul>
+                {% for acompanhamento in dados_produto.acompanhamentos %}
+                <li class="sb-checkbox">
+                    <input type="checkbox" id="acompanhamento_{{ acompanhamento.id }}" name="acompanhamentos" value="{{ acompanhamento.id }}">
+                    <label for="acompanhamento_{{ acompanhamento.id }}">{{ acompanhamento.nome }}</label>
+                    <div class="sb-check"></div>
+                  </li>
+                  {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="comentario">
+                <h3>Algum comentário?</h3>
+                <textarea wrap="off" cols="80" rows="5" name="observacoes"  placeholder="Ex:Feijão com caldo, tirar a cebola"></textarea>
+            </div>
+            
+            <button type="submit">Adicionar ao Carrinho</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+   
+    <!-- INICIO DO CARRINHO FIXO -->
+    <a href="{% url 'ver_carrinho' %}">
+        <div class="carrinho_bar">
+            <div class="carrinho-fixo">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador">{{ request.session.carrinho|length }}</span>
+            </div>
+        </div>
+    </a>
+    <!-- FIM DO CARRINHO FIXO -->
+</section>
+{% endblock %}
