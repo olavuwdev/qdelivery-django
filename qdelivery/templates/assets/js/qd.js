@@ -119,21 +119,26 @@ verModalCorpo.querySelector('#fechar').onclick = () => {
 };
  */
 
+var alertGlobal = (message) => {
+  Swal.fire({
+    position: "top",
+    icon: "error",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500,
+  });
+};
+
+/*  INICIO JAVASCRIPT produto.html */
+
 function limitProteinaSelection(checkbox) {
   var checkboxes = document.querySelectorAll('input[name="proteinas"]');
   var checkedCount = Array.from(checkboxes).filter((cb) => cb.checked).length;
-
   if (checkedCount > 2) {
     checkbox.checked = false;
 
     // Mostrar SweetAlert personalizado
-    Swal.fire({
-      position: "top",
-      icon: "error",
-      title: "Você só pode selecionar até 2 proteínas.",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    alertGlobal("Você só pode selecionar até 2 proteínas.");
   }
 }
 
@@ -158,22 +163,6 @@ function updateQuantidade(tipo) {
   }
 }
 
-$(".sb-add").on("click", function () {
-  if ($(this).prev().val() < 10) {
-    $(this)
-      .prev()
-      .val(+$(this).prev().val() + 1);
-  }
-});
-$(".sb-sub").on("click", function () {
-  if ($(this).next().val() > 1) {
-    if ($(this).next().val() > 1)
-      $(this)
-        .next()
-        .val(+$(this).next().val() - 1);
-  }
-});
-
 // produto.html
 //usuário só consiga inserir números inteiros no campo de quantidade, evitando valores inválidos como números decimais ou letras
 
@@ -187,3 +176,34 @@ document.getElementById("quantidade").addEventListener("input", function (e) {
     e.target.value = 1;
   }
 });
+
+function validateFormMenu() {
+  var proteinasSelecionadas = document.querySelectorAll(
+    'input[name="proteinas"]'
+  );
+  var acompanhamentosSelecionados = document.querySelectorAll(
+    'input[name="acompanhamentos"]'
+  );
+
+  var contProteinaSelected = Array.from(proteinasSelecionadas).filter(
+    (cb) => cb.checked
+  ).length;
+
+  var contAcompanhamentoSelected = Array.from(
+    acompanhamentosSelecionados
+  ).filter((cb) => cb.checked).length;
+
+  if (contProteinaSelected === 0) {
+    // Mostrar SweetAlert personalizado
+    alertGlobal("Selecione pelo menos uma proteina");
+    return false;
+  }
+  if (contAcompanhamentoSelected === 0) {
+    // Mostrar SweetAlert personalizado
+    alertGlobal("Selecione pelo menos um acompanhamento");
+    return false;
+  }
+  return true;
+}
+
+/*  FIM JAVASCRIPT produto.html */

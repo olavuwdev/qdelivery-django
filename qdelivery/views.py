@@ -15,9 +15,78 @@ from .utils import *
 
 
 
+def indexNew(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificador já existente: {identificador}")
+    pedido = Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    if pedido:
+        # Buscar os itens do pedido
+        pedido_cart = ItemPedido.objects.filter(pedido=pedido)
+        total_carrinho = pedido_cart.aggregate(Sum('total'))['total__sum'] or 0
+    else:
+        total_carrinho = 0
+        pedido_cart = None
+    dados = get_object_or_404(Dados, id=1)
+    produtos = get_object_or_404(Produtos, id=1)
+    quentinhas = Produtos.objects.filter(tipo='Q')
+    bebidas = Produtos.objects.filter(tipo='B')
+    dados_produto = {
+        'pedido_cart': pedido_cart,
+        'dados': dados,
+        'produtos': produtos,
+        'quentinhas': quentinhas,
+        'bebidas': bebidas,
+        'contagem': cont_cart
+    }
+    return render(request, "new_template/index.html", dados_produto)
 
-def teste(request):
-    return render(request, "new_template/base.html")
+def empresaNew(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificador já existente: {identificador}")
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    dados = get_object_or_404(Dados, id=1)
+    return render(request, "new_template/empresa.html", {'dados': dados, 'contagem': cont_cart})
+
+
+def contatosNew(request):
+    
+    return render(request, "new_template/contatos.html")
+
+def cardapioNew(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        ##Pedido.objects.create(identificador_nav=identificador)
+        print(f"Identificadortem tem um pedido em aberto no banco: {Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').values_list('identificador_nav', flat=True).first()}")
+   
+    dados = get_object_or_404(Dados, id=1)
+    produtos = get_object_or_404(Produtos, id=1)
+    produtos = Produtos.objects.filter(ativo=True)
+    quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
+    bebidas = Produtos.objects.filter(tipo='B')
+    proteinas = Proteina.objects.filter(ativo=True)
+    acompanhamento = Acompanhamento.objects.filter(ativo=True)
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    print("Contagem: ", cont_cart)
+    dados_produto = {
+        'dados': dados,
+        'produtos': produtos,
+        'quentinhas': quentinhas,
+        'bebidas': bebidas,
+        'acompanhamento': acompanhamento,
+        'proteinas': proteinas,
+        'contagem': cont_cart 
+        }
+
+    return render(request, "new_template/menu.html", dados_produto)
 
 def produto_cardapio2(request, id):
     identificador = request.session.get('user_id')
@@ -29,6 +98,7 @@ def produto_cardapio2(request, id):
 
     produto = get_object_or_404(Produtos, id=id)
     dados = get_object_or_404(Dados, id=1)
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
     dados_produto = {
         'id':produto.id,
         'titulo': produto.titulo,
@@ -36,9 +106,10 @@ def produto_cardapio2(request, id):
         'tipo': produto.tipo,
         'capa': produto.capa,
         'acompanhamentos': Acompanhamento.objects.filter(ativo=True),
-        'proteinas':  Proteina.objects.filter(ativo=True) 
+        'proteinas':  Proteina.objects.filter(ativo=True)
     }
     context = {
+        'contagem':cont_cart,
         'dados_produto': dados_produto,
         'dados':dados
     }

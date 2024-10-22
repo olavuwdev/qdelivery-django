@@ -47,9 +47,12 @@ urlpatterns = [
 
 
     #Rotas para o novo template
-    path('teste2/', views.teste , name='tesste'),
+    path('new/', views.indexNew , name='new'),
+    path('newEmpresa/', views.empresaNew , name='newEmpresa'),
+    path('newCardapio/', views.cardapioNew , name='newCardapio'),
+    path('newContato/', views.contatosNew , name='newContato'),
     path('prod2/<int:id>', views.produto_cardapio2, name="pro_cardapio"),
-    path('newCart', views.newCart, name="newCart"),
+    path('newCart/', views.newCart, name="newCart"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

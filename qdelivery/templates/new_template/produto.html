@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form method="post" action="{% url 'adicionar_ao_carrinho' %}">
+<form method="post" action="{% url 'adicionar_ao_carrinho' %} "  onsubmit="return validateFormMenu()">
     {% csrf_token %}
 <section class="lis_itens">
     <div class="produto">
@@ -62,7 +62,7 @@
         <div class="carrinho_bar">
             <div class="carrinho-fixo">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="contador">{{ request.session.carrinho|length }}</span>
+                <span class="contador">{{ contagem }}</span>
             </div>
         </div>
     </a>
