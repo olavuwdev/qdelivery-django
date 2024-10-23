@@ -63,7 +63,8 @@ def empresaNew(request):
 
 def sendmail_contact(request):
     if request.method == 'POST':
-        send_mail('NEW FEEDBACK - QUENTINHA DELIVERY', request.POST.get('name') + 'Encaminhou uma nova mensagem' + request.POST.get('text'), 'vilacoringacfc@gmail.com', [request.POST.get('email')])
+        send_mail('NEW FEEDBACK - QUENTINHA DELIVERY', request.POST.get('name') + 'Encaminhou uma nova mensagem' + request.POST.get('text'),'quentinhadelivery0@gmail.com', [request.POST.get('email')])
+        
         """    
         message_body = get_template('new_template/contatos.html').render(data)  
         email = EmailMessage(data['name'],
