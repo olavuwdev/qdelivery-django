@@ -5,6 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.db import models
 
+
+#Envio de Email
+
+class ContactMe(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100) 
+    message = models.TextField()
+
 class Estado(models.Model):
     nome = models.CharField(max_length=75, blank=True, null=True)
     uf = models.CharField(max_length=5, blank=True, null=True)

@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+
+from .forms import ContactMeForm
 from django.http import HttpResponse
 from django.db import transaction
 from django.db.models import Sum
@@ -8,6 +10,10 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
 import json
+from django.core.mail import send_mail
+from django.conf import settings 
+from django.template.loader import get_template  
+from django.core.mail import EmailMessage 
 
 #importando funções
 
@@ -55,8 +61,43 @@ def empresaNew(request):
     return render(request, "new_template/empresa.html", {'dados': dados, 'contagem': cont_cart})
 
 
-def contatosNew(request):
+def sendmail_contact(request):
+    if request.method == 'POST':
+        send_mail('NEW FEEDBACK - QUENTINHA DELIVERY', request.POST.get('name') + 'Encaminhou uma nova mensagem' + request.POST.get('text'), 'vilacoringacfc@gmail.com', [request.POST.get('email')])
+        """    
+        message_body = get_template('new_template/contatos.html').render(data)  
+        email = EmailMessage(data['name'],
+                                message_body, settings.DEFAULT_FROM_EMAIL,
+                                to=['ollavoadriel@gmail.com'])
+        email.content_subtype = "html"    
+        return email.send() """
     
+        print(request.POST.get('name'))
+        print(request.POST.get('email'))
+        print(request.POST.get('text'))
+        return redirect('newContato')
+    return redirect('newCart')
+
+
+def contatosNew(request):
+    """ 
+    if request.method == 'POST':
+        print("Entrou no POST")
+        form = ContactMeForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.save()
+            
+            data = { 
+                'name': request.POST.get('name'), 
+                'email': request.POST.get('email'),
+                'message': request.POST.get('message'),
+            } 
+            sendmail_contact(data)
+            return redirect('newContato')
+    else:
+        form = ContactMeForm()
+        print("Entrou no GET") """
     return render(request, "new_template/contatos.html")
 
 def cardapioNew(request):

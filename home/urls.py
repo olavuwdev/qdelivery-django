@@ -44,6 +44,7 @@ urlpatterns = [
     path('atualizar_quantidade/', views.atualizar_quantidade, name='atualizar_quantidade'),
     path('remover_item/', views.remover_item, name='remover_item'),
     path('finalizar_pedido/', views.finalizar_pedido, name='finalizar_pedido'),
+    path('send_email/', views.sendmail_contact, name='send_email'),
 
 
     #Rotas para o novo template

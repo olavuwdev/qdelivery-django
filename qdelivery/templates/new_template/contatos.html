@@ -1,6 +1,8 @@
 {% extends "new_template/base2.html" %}
+{% block title %}Contato{% endblock %}
 {% load static %}
 {% block content %}
+
   <!-- dynamic content -->
   <div id="sb-dynamic-content" class="sb-transition-fade">
 <section class="sb-banner sb-banner-color">
@@ -24,20 +26,21 @@
         <div class="col-lg-5">
           <div class="sb-contact-form-frame">
             <div class="sb-illustration-9">
-              <img src="img/illustrations/envelope-1.png" alt="envelope" class="sb-envelope-1">
-              <img src="img/illustrations/envelope-2.png" alt="envelope" class="sb-envelope-2">
+              <img src="{% static 'img/illustrations/papperQD.png' %}" alt="envelope" class="sb-envelope-1">
+              <img src="{% static 'img/illustrations/envelope-2.png' %}" alt="envelope" class="sb-envelope-2">
               <div class="sb-cirkle-1"></div>
               <div class="sb-cirkle-2"></div>
               <div class="sb-cirkle-3"></div>
             </div>
             <div class="sb-form-content">
               <div class="sb-main-content">
-                <h3 class="sb-mb-30">Send Message</h3>
-                <form id="form">
+                <h3 class="sb-mb-30">Envie sua Mensagen</h3>
+                <form id="form" method="POST" action="{% url 'send_email' %}">
+                  {% csrf_token %}
                   <div class="sb-group-input">
                     <input type="text" name="name" required>
                     <span class="sb-bar"></span>
-                    <label>Name</label>
+                    <label name="name_email" >Nome</label>
                   </div>
                   <div class="sb-group-input">
                     <input type="email" name="email" required>
@@ -47,15 +50,16 @@
                   <div class="sb-group-input">
                     <textarea name="text" required></textarea>
                     <span class="sb-bar"></span>
-                    <label>Message</label>
+                    <label>Mensagem</label>
                   </div>
-                  <p class="sb-text sb-text-xs sb-mb-30">*We promise not to disclose your <br>personal information to third parties.</p>
+                  <p class="sb-text sb-text-xs sb-mb-30">*
+                    Prometemos não divulgar suas <br>informações pessoais a terceiros.</p>
                   <!-- button -->
-                  <button class="sb-btn sb-cf-submit sb-show-success">
+                  <button type="submit" class="sb-btn sb-cf-submit sb-show-success">
                     <span class="sb-icon">
-                      <img src="img/ui/icons/arrow.svg" alt="icon">
+                      <img src="{% static 'img/ui/icons/arrow.svg' %}" alt="icon">
                     </span>
-                    <span>Send</span>
+                    <span>Enviar</span>
                   </button>
                   <!-- button end -->
                 </form>
