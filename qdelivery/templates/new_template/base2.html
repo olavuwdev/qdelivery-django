@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -14,7 +14,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- favicon  -->
-  <link rel="shortcut icon" href="{% static 'img/QuentinhaCirgularLogo.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static "img/QuentinhaCirgularLogo.png" %}" type="image/x-icon">
   <!-- font awesome css -->
   <link rel="stylesheet" href="{% static 'css2/plugins/font-awesome.min.css' %}">
   <!-- bootstrap css -->
@@ -62,9 +62,9 @@
       <div class="sb-top-bar-bg"></div>
       <div class="container">
         <div class="sb-top-bar">
-          <a href="/" class="sb-logo-frame">
+          <a href="/new" class="sb-logo-frame">
             <!-- logo img -->
-            <img src="{% static 'img/logoQD.svg' %}" alt="Starbelly">
+            <img src="{% static "img/logoQD.svg" %}" alt="Starbelly">
           </a>
           <!-- menu -->
           <div class="sb-right-side">
@@ -106,6 +106,8 @@
             </div>
           </div>
         </div>
+        <div id="aviso_header" style="background: #ff030394;padding: 2px;"> 
+          <h4 id="aviso_header_text"  class="text-sm-center" style="">Aberto das 10:00 as  14:00</h4> </div>
       </div>
       <!-- info bar -->
       <div class="sb-info-bar">
@@ -208,6 +210,7 @@
   <!-- app wrapper end -->
 
   <script src="{% static 'js2/plugins/jquery.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- smooth scroll js -->
   <script src="{% static 'js2/plugins/smooth-scroll.js' %}"></script>
   <!-- swup js -->
@@ -227,6 +230,79 @@
   <!-- starbelly js -->
   <script src="{% static 'js2/main.js' %}"></script>
   <script src="{% static 'js/qd.js' %}"></script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("form");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Previne o recarregamento da página
+
+      const formData = new FormData(form);
+
+      fetch("{% url 'send_email' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}", // Token CSRF para segurança
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            Swal.fire({
+              icon: "success",
+              title: "Sucesso!",
+              text: data.message,
+              confirmButtonColor: "#4CAF50",
+            });
+            form.reset(); // Limpa o formulário
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Erro!",
+              text: data.message,
+              confirmButtonColor: "#F44336",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Erro:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Erro!",
+            text: "Ocorreu um erro inesperado. Tente novamente.",
+            confirmButtonColor: "#F44336",
+          });
+        });
+    });
+  });
+
+  function verificaStatus() {
+  console.log("Entrou no verificar status");
+  const statusMessage = document.getElementById("aviso_header_text");
+  const now = new Date();
+  const currentHour = now.getHours();
+  const currentDay = now.getDay(); // 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+
+  // Define opening and closing times
+  const openingTime = 10; // 10:00
+  const closingTime = 14; // 14:00
+
+  if (currentDay === 0) {
+    // Sunday
+    statusMessage.textContent = "Fechado, hoje é domingo";
+    statusMessage.parentElement.style.background = "#ff030394"; // Red background
+  } else if (currentHour >= openingTime && currentHour < closingTime) {
+    statusMessage.textContent = "Aberto, fecha às 14:00";
+    statusMessage.parentElement.style.background = "#03ff3e94"; // Green background
+  } else {
+    statusMessage.textContent = "Fechado, abre às 10:00";
+    statusMessage.parentElement.style.background = "#ff030394"; // Red background
+  }
+}
+verificaStatus();
+  </script>
 
 </body>
 

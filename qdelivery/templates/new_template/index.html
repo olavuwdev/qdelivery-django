@@ -1,5 +1,6 @@
 {% extends "new_template/base2.html" %}
-{% load static %}
+{% block title %}Quentinha Delivery{% endblock %}
+{% load i18n static %}
 {% block content %}
  
 <!-- dynamic content -->
@@ -22,7 +23,7 @@
                 <!-- button -->
                 <a href="menu-1.html" class="sb-btn">
                   <span class="sb-icon">
-                    <img src="{% static 'img/ui/icons/menu.svg' %}" alt="icon">
+                    <img src="{% static "img/ui/icons/menu.svg" %}" alt="icon">
                   </span>
                   <span>Nosso cardapio</span>
                 </a>

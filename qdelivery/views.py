@@ -4,16 +4,19 @@ from .forms import ContactMeForm
 from django.http import HttpResponse
 from django.db import transaction
 from django.db.models import Sum
-from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro
+from .models import Dados, Produtos, ItemPedido, Pedido, Acompanhamento, Proteina, Bairro, ContactMe
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
+from django.templatetags.static import static
 import json
+
+import threading
 from django.core.mail import send_mail
+from django.contrib import messages
 from django.conf import settings 
-from django.template.loader import get_template  
-from django.core.mail import EmailMessage 
+
 
 #importando funções
 
@@ -61,23 +64,59 @@ def empresaNew(request):
     return render(request, "new_template/empresa.html", {'dados': dados, 'contagem': cont_cart})
 
 
+
+# Função para envio assíncrono do e-mail
+def send_email_async(subject, message_body, recipient_list):
+    try:
+        send_mail(
+            subject,
+            message_body,
+            settings.EMAIL_HOST_USER,
+            recipient_list,
+            fail_silently=False,
+            html_message=message_body
+        )
+        return True
+    except Exception as e:
+        print(f"Erro ao enviar e-mail: {e}")
+        return False
+
+# Função principal
 def sendmail_contact(request):
     if request.method == 'POST':
-        send_mail('NEW FEEDBACK - QUENTINHA DELIVERY', request.POST.get('name') + 'Encaminhou uma nova mensagem' + request.POST.get('text'),'quentinhadelivery0@gmail.com', [request.POST.get('email')])
-        
-        """    
-        message_body = get_template('new_template/contatos.html').render(data)  
-        email = EmailMessage(data['name'],
-                                message_body, settings.DEFAULT_FROM_EMAIL,
-                                to=['ollavoadriel@gmail.com'])
-        email.content_subtype = "html"    
-        return email.send() """
-    
-        print(request.POST.get('name'))
-        print(request.POST.get('email'))
-        print(request.POST.get('text'))
-        return redirect('newContato')
-    return redirect('newCart')
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message_text = request.POST.get('text')
+        image_url = request.build_absolute_uri(static('img/slides/rodapeQD.png'))
+
+        # Montar uma mensagem formatada
+        message_body = f"""
+        <h2 style="color: #4CAF50;">Obrigado pelo seu Feedback!</h2>
+        <p>Olá <strong>{name}</strong>,</p>
+        <p>A equipe <strong>Quentinhas Delivery</strong> agradece por você ter dedicado um tempo para nos enviar seu feedback.</p>
+        <p>Sua opinião é muito importante para nós e nos ajuda a melhorar continuamente nossos serviços.</p>
+        <p style="margin-top: 20px;">Obrigado mais uma vez por contribuir para a nossa evolução!</p>
+        <p>Atenciosamente,</p>
+        <p><a href="http://127.0.0.1:8000/new"><strong>Equipe Quentinhas Delivery</strong> </a></p>
+        """
+        try:
+            # Tenta enviar o e-mail
+                    # Enviar e-mail de forma assíncrona
+            email_thread = threading.Thread(target=send_email_async, args=(
+                f'Obrigado pelo FEEDBACK, {name}',
+                message_body,
+                [email]
+            ))
+            email_thread.start()
+            # Redirecionar com sinalizador de sucesso
+            contato = ContactMe.objects.create(name=name, email=email, message=message_text)
+            contato.save()
+            return JsonResponse({'status': 'success', 'message': 'Seu feedback foi enviado com sucesso!'})
+        except Exception as e:
+            print(f"Erro ao enviar e-mail: {e}")
+            # Retorna erro como JSON
+            return JsonResponse({'status': 'error', 'message': 'Erro ao enviar seu feedback. Tente novamente mais tarde.'})
+    return JsonResponse({'status': 'error', 'message': 'Método inválido.'}, status=405)
 
 
 def contatosNew(request):

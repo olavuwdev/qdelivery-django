@@ -3,6 +3,44 @@
 {% load static %}
 {% block content %}
 
+<style>
+  .sb-alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 300px;
+  }
+
+  .sb-alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .sb-alert-success {
+    background-color: #4CAF50;
+  }
+
+  .sb-alert-error {
+    background-color: #F44336;
+  }
+
+  .sb-alert-info {
+    background-color: #2196F3;
+  }
+
+  .sb-alert-warning {
+    background-color: #FFC107;
+  }
+</style>
+
+
+
+
   <!-- dynamic content -->
   <div id="sb-dynamic-content" class="sb-transition-fade">
 <section class="sb-banner sb-banner-color">
@@ -84,7 +122,6 @@
     </div>
   </section>
   <!-- banner end -->
-
   <!-- contact info -->
   <section class="sb-p-90-30">
     <div class="container">

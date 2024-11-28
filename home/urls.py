@@ -15,10 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from qdelivery import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -55,7 +57,10 @@ urlpatterns = [
     path('prod2/<int:id>', views.produto_cardapio2, name="pro_cardapio"),
     path('newCart/', views.newCart, name="newCart"),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+urlpatterns +=  re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    
 
 admin.site.site_header = 'ADM Quentinha Delivery'
 admin.site.index_title = 'Quentinha Delivery'

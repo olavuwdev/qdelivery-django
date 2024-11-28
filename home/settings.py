@@ -27,9 +27,9 @@ SECRET_KEY = 'django-insecure-5%h7c*b=@&vs=fyomarv_5i!tgj+hdue+ku27q*vg6qlk#2f@+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-STATIC_URL = '/static/'
+
 
 
 CACHES = {
@@ -132,11 +132,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
+
+if DEBUG:
+
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+
+else:
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'qdelivery/templates/assets'),
-]
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 

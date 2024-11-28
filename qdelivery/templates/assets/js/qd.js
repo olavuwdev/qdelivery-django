@@ -207,3 +207,6 @@ function validateFormMenu() {
 }
 
 /*  FIM JAVASCRIPT produto.html */
+
+/*  INICIO JAVASCRIPT contatos.html */
+/*  FIM JAVASCRIPT contatos.html */
