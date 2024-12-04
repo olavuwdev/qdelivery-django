@@ -169,6 +169,32 @@ def cardapioNew(request):
 
     return render(request, "new_template/menu.html", dados_produto)
 
+
+def tamanho(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        Pedido.objects.create(identificador_nav=identificador)
+        print(f"Identificadortem tem um pedido em aberto no banco: {Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').values_list('identificador_nav', flat=True).first()}")
+
+    
+
+    quentinhas = Produtos.objects.filter(tipo='Q' ,ativo=True)
+    bebidas = Produtos.objects.filter(tipo='B')
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+        # Tratar o campo `descricao` para cada produto
+    for produto in quentinhas:
+        produto.src = extrair_src(produto.capa)  # Adiciona o campo `src` com o valor extraído
+    
+    dados_produto = {
+        'quentinhas': quentinhas,
+        'bebidas': bebidas,
+        'contagem': cont_cart 
+        }
+
+    return render(request, "new_template/shop.html", dados_produto)
+
 def produto_cardapio2(request, id):
     identificador = request.session.get('user_id')
     if not identificador:
@@ -185,7 +211,7 @@ def produto_cardapio2(request, id):
         'titulo': produto.titulo,
         'preco': str(produto.valor_promo),
         'tipo': produto.tipo,
-        'capa': produto.capa,
+        'capa': extrair_src(produto.capa),
         'acompanhamentos': Acompanhamento.objects.filter(ativo=True),
         'proteinas':  Proteina.objects.filter(ativo=True)
     }
@@ -194,7 +220,7 @@ def produto_cardapio2(request, id):
         'dados_produto': dados_produto,
         'dados':dados
     }
-    return render(request, "new_template/produto.html", context)
+    return render(request, "new_template/det_produto.html", context)
 
 
 def newCart(request):

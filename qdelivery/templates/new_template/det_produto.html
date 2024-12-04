@@ -1,0 +1,176 @@
+
+{% extends "new_template/base2.html" %}
+{% block title %} Cardapio{% endblock %}
+{% load static %}
+{% block content %}
+
+<div id="sb-dynamic-content" class="sb-transition-fade" data-swup="0">
+
+    <!-- banner -->
+    <section class="sb-banner sb-banner-xs sb-banner-color">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- main title -->
+            <div class="sb-main-title-frame">
+              <div class="sb-main-title">
+                <h1 class="sb-h2">Escolha os condimentos</h1>
+                
+              </div>
+            </div>
+            <!-- main title end -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- banner end -->
+
+    <!-- product -->
+    <section class="sb-p-90-0">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="sb-gallery-item sb-gallery-square sb-mb-90">
+              <img src="{{dados_produto.capa}}" alt="photo">
+              <div class="sb-badge sb-vegan"><i class="fas fa-leaf"></i> Vegan</div>
+              <!-- button -->
+              <a data-fancybox="menu" data-no-swup="" href="img/menu/4.jpg" class="sb-btn sb-btn-2 sb-btn-icon sb-btn-gray sb-zoom sb-click">
+                <span class="sb-icon">
+                  <img src="img/ui/icons/zoom.svg" alt="icon">
+                </span>
+              </a>
+              <!-- button end -->
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="sb-product-description sb-mb-90">
+              <div class="sb-price-frame sb-mb-30">
+                <h3>{{ dados_produto.titulo}}</h3>
+                <div class="sb-price"><sub>R$</sub> {{dados_produto.preco}}</div>
+              </div>
+              <ul class="sb-stars sb-mb-25">
+                <li><i class="fas fa-star"></i></li>
+                <li><i class="fas fa-star"></i></li>
+                <li><i class="fas fa-star"></i></li>
+                <li><i class="fas fa-star"></i></li>
+                <li><i class="fas fa-star"></i></li>
+                <li><span>(4 ratings)</span></li>
+              </ul>
+              <p class="sb-text sb-mb-30"><span>tomatoes</span>, <span>nori</span>, <span>feta cheese</span>, <span>mushrooms</span>, <span>rice noodles</span>, <span>corn</span>, <span>shrimp</span>.</p>
+              
+              <div class="sb-buttons-frame">
+                <div class="sb-input-number-frame">
+                  <div class="sb-input-number-btn sb-sub">-</div>
+                  <input type="number" value="1" min="1" max="10">
+                  <div class="sb-input-number-btn sb-add">+</div>
+                </div>
+                <!-- button -->
+                <a href="#." class="sb-btn sb-atc">
+                  <span class="sb-icon">
+                    <img src="{% static 'img/ui/icons/cart.svg' %}" alt="icon">
+                  </span>
+                  <span class="sb-add-to-cart-text">Adicionar</span>
+                  <span class="sb-added-text">Added</span>
+                </a>
+                <!-- button end -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- filter -->
+        <div class="sb-filter">
+          <a href="#." data-filter=".sb-ingredients-tab" class="sb-filter-link sb-active">Ingredients</a>
+          <a href="#." data-filter=".sb-details-tab" class="sb-filter-link">Product details</a>
+          <a href="#." data-filter=".sb-reviews-tab" class="sb-filter-link">Reviews</a>
+        </div>
+        <!-- filter end -->
+        <div class="sb-masonry-grid sb-tabs" style="position: relative; height: 299px;">
+          <div class="sb-grid-sizer" style="position: absolute; display: none;"></div>
+          <div class="sb-grid-item sb-ingredients-tab" style="position: absolute; left: 0%; top: 0px;">
+            <div class="sb-tab">
+              <ul class="sb-list">
+                <li><b>Numquam</b><span>1 pack</span></li>
+                <li><b>Cupiditate</b><span>150g</span></li>
+                <li><b>Adipisicing</b><span>500g</span></li>
+                <li><b>Dolorem obcaecati</b><span>3 Teaspoon</span></li>
+                <li><b>Porro</b><span>2 pack</span></li>
+                <li><b>Facilis</b><span>1kg</span></li>
+                <li><b>Goluptatem</b><span>1 Teaspoon</span></li>
+                <li><b>Vel fuga</b><span>300g</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="sb-grid-item sb-details-tab" style="position: absolute; left: 0%; top: 0px; display: none;">
+            <div class="sb-tab">
+              <p class="sb-text sb-mb-15">Facilis ratione veritatis asperiores doloremque molestiae delectus iure officia earum dolores sit fugiat, repellendus, neque laboriosam optio culpa quibusdam, magnam totam quos. Mollitia dolorem, culpa,
+                dignissimos
+                quas et voluptates architecto in sit totam, quae animi ratione adipisci nulla ab quasi perferendis quo pariatur dolor magnam inventore. Sequi nisi ex excepturi non harum, asperiores laboriosam ipsum voluptate doloribus incidunt nam
+                eveniet similique unde esse voluptatem minus necessitatibus eaque temporibus quaerat accusantium amet deserunt. Iste, facilis? Illo tenetur, libero, non dicta asperiores quisquam voluptas natus aperiam, at perspiciatis repellat
+                voluptate. Autem non reprehenderit, perferendis.</p>
+              <div class="sb-text">Consectetur adipisicing elit. Delectus quibusdam repellendus nesciunt cumque fugit numquam adipisci voluptatum quam, sapiente doloribus ut eaque natus laudantium alias illum quos maiores, quia perferendis.</div>
+            </div>
+          </div>
+          <div class="sb-grid-item sb-reviews-tab" style="position: absolute; left: 0%; top: 0px; display: none;">
+            <div class="sb-tab">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="sb-review-card sb-mb-60">
+                    <div class="sb-review-header sb-mb-15">
+                      <h4 class="sb-mb-10">Very tasty</h4>
+                      <ul class="sb-stars">
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                      </ul>
+                    </div>
+                    <p class="sb-text sb-mb-15">Inventore possimus laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
+                      tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam labore, aliquam dolor harum!</p>
+                    <div class="sb-author-frame">
+                      <div class="sb-avatar-frame">
+                        <img src="img/faces/1.jpg" alt="Guest">
+                      </div>
+                      <h4>Emma Newman</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="sb-review-card sb-mb-60">
+                    <div class="sb-review-header sb-mb-15">
+                      <h4 class="sb-mb-10">I have lunch here every day</h4>
+                      <ul class="sb-stars">
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                        <li><i class="fas fa-star"></i></li>
+                      </ul>
+                    </div>
+                    <p class="sb-text sb-mb-15">Tempora ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit Reprehenderit rem accusamus! Quibusdam labore, aliquam dolor harum!</p>
+                    <div class="sb-author-frame">
+                      <div class="sb-avatar-frame">
+                        <img src="img/faces/2.jpg" alt="Guest">
+                      </div>
+                      <h4>Paul Trueman</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- product end -->
+
+    <!-- short menu -->
+    
+    <!-- short menu end -->
+
+    <!-- call to action -->
+    
+    <!-- call to action end -->
+
+</div>
+{% endblock %}

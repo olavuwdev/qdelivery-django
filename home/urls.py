@@ -56,6 +56,7 @@ urlpatterns = [
     path('newContato/', views.contatosNew , name='newContato'),
     path('prod2/<int:id>', views.produto_cardapio2, name="pro_cardapio"),
     path('newCart/', views.newCart, name="newCart"),
+    path('tamanho/', views.tamanho, name="tamanho"),
 
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
