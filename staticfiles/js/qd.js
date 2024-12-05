@@ -233,5 +233,9 @@ function validateFormMenu() {
 
 /*  FIM JAVASCRIPT produto.html */
 
+/*  INICIO JAVASCRIPT det_produto.html */
+
+/*  FIM JAVASCRIPT det_produto.html */
+
 /*  INICIO JAVASCRIPT contatos.html */
 /*  FIM JAVASCRIPT contatos.html */
