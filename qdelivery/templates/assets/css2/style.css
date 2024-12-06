@@ -2202,7 +2202,7 @@ filter
 
 ***************************/
 .sb-filter {
-  margin-bottom: 60px; }
+  margin-bottom: 20px; }
   .sb-filter .sb-filter-link {
     padding: 0 20px;
     font-weight: 500;
@@ -2228,7 +2228,7 @@ filter
 
 @media (max-width: 768px) {
   .sb-filter {
-    margin-bottom: 60px; }
+    margin-bottom: 20px; }
     .sb-filter .sb-filter-link {
       display: block;
       margin-right: 0; } }

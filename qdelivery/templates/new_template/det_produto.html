@@ -12,7 +12,9 @@
         <div class="row">
           <div class="col-lg-12">
             <!-- main title -->
-            <div class="sb-main-title-frame">
+            <div class="sb-main-title-frame" style="
+            padding-bottom: 20px;
+        ">
               <div class="sb-main-title">
                 <h1 class="sb-h2">Escolha os condimentos</h1>
                 
@@ -28,7 +30,7 @@
     <!-- product -->
     <section class="sb-p-90-0">
       <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center" >
           <div class="col-lg-6">
             <div class="sb-gallery-item sb-gallery-square sb-mb-90">
               <img src="{{dados_produto.capa}}" alt="photo">
@@ -47,6 +49,7 @@
               <div class="sb-price-frame sb-mb-30">
                 <h3>{{ dados_produto.titulo}}</h3>
                 <div class="sb-price"><sub>R$</sub> {{dados_produto.preco}}</div>
+                
               </div>
 <!--               <ul class="sb-stars sb-mb-25">
                 <li><i class="fas fa-star"></i></li>
@@ -57,7 +60,22 @@
                 <li><span>(4 ratings)</span></li>
               </ul> -->
   <!--             <p class="sb-text sb-mb-30"><span>tomatoes</span>, <span>nori</span>, <span>feta cheese</span>, <span>mushrooms</span>, <span>rice noodles</span>, <span>corn</span>, <span>shrimp</span>.</p> -->
-              
+  <div class="sb-buttons-frame sb-buttons-top">
+    <div class="sb-input-number-frame">
+      <div class="sb-input-number-btn sb-sub">-</div>
+      <input type="number" value="1" min="1" max="10">
+      <div class="sb-input-number-btn sb-add">+</div>
+    </div>
+    <!-- button -->
+    <a href="#." class="sb-btn sb-atc">
+      <span class="sb-icon">
+        <img src="{% static 'img/ui/icons/cart.svg' %}" alt="icon">
+      </span>
+      <span class="sb-add-to-cart-text">Adicionar</span>
+      <span class="sb-added-text">Added</span>
+    </a>
+    <!-- button end -->
+  </div>
               
             </div>
           </div>
@@ -77,11 +95,16 @@
             <div class="sb-tab">
               <ul class="sb-list">
               {% for proteina in dados_produto.proteinas %}
-                <li><b>{{ proteina.titulo}}</b>
-                  <span>
-                    <input class="form-check-input" type="checkbox" name="checkboxNumquam" id="checkboxNumquam" value="1 pack" aria-label="Numquam">
-                  </span>
-                </li>
+                <div class="customCheckBoxHolder">
+                  <input class="customCheckBoxInput" id="proteina_{{proteina.id}}" type="checkbox" value="{{proteina.id}}" />
+                  <label class="customCheckBoxWrapper" for="proteina_{{proteina.id}}">
+                    <div class="customCheckBox">
+                      <div class="inner">{{ proteina.titulo}}</div>
+                    </div>
+                  </label>
+                
+                 
+                </div>
                 {% endfor %}
                 
               </ul>
@@ -92,11 +115,18 @@
             <div class="sb-tab">
               <ul class="sb-list">
                 {% for acompanhamento in dados_produto.acompanhamentos %}
-                <li><b>{{ acompanhamento.nome }}</b>
-                  <span>
-                    <input class="form-check-input" type="checkbox" name="checkboxNumquam" id="checkboxNumquam" value="1 pack" aria-label="Numquam">
-                  </span>
-                </li>
+                <div class="customCheckBoxHolder">
+                  <input class="customCheckBoxInput" id="acompanhamento_{{acompanhamento.id}}" type="checkbox" value="{{acompanhamento.id}}" />
+                  <label class="customCheckBoxWrapper" for="acompanhamento_{{acompanhamento.id}}">
+                    <div class="customCheckBox">
+                      <div class="inner">{{ acompanhamento.nome}}</div>
+                    </div>
+                  </label>
+                
+                 
+                </div>
+                
+                
                 {% endfor %}
               </ul>
             </div>
@@ -161,8 +191,9 @@
             </div>
           </div> -->
         </div>
-        <div class="sb-buttons-frame">
-          <div class="sb-input-number-frame">
+
+        <div class="sb-buttons-frame sb-buttons-bottom">
+          <div class="sb-input-number-frame mr-2">
             <div class="sb-input-number-btn sb-sub">-</div>
             <input type="number" value="1" min="1" max="10">
             <div class="sb-input-number-btn sb-add">+</div>
@@ -190,4 +221,130 @@
     <!-- call to action end -->
 
 </div>
+<style>
+  /* From Uiverse.io by taieb1919 */ 
+.customCheckBoxHolder {
+  margin: 5px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.customCheckBox {
+  width: 100%; /* Ensures each checkbox has the same width */
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 8px;
+  background-color: rgba(0, 0, 0, 0.16);
+  border-radius: 0px;
+  color: rgba(71, 69, 69, 0.7);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 300ms;
+  transition-property: color, background-color, box-shadow;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  box-shadow:
+    rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+  outline: none;
+  justify-content: center;
+  min-width: 55px;
+}
+
+.customCheckBox:hover {
+  background-color: #2c2c2c;
+  color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBox .inner {
+  font-size: 18px;
+  font-weight: 500;
+  pointer-events: none;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 300ms;
+  transition-property: transform;
+  transform: translateY(0px);
+}
+
+.customCheckBox:hover .inner {
+  transform: translateY(-2px);
+}
+
+.customCheckBoxWrapper {
+  width: 100%; /* Ensures each wrapper takes full width of the holder */
+}
+
+/* Multiple Checkboxes can be chained together for a radio input */
+.customCheckBoxWrapper:first-of-type .customCheckBox {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-right: 0px;
+}
+
+.customCheckBoxWrapper:last-of-type .customCheckBox {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-left: 0px;
+}
+
+.customCheckBoxInput {
+  display: none;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox {
+  background-color: #ffc107;
+  color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox .inner {
+  transform: translateY(-2px);
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox:hover {
+  background-color: #ffc107;
+  box-shadow:
+    rgba(0, 0, 0, 0.26) 0px -4px 1px 0px inset,
+    rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+    rgba(0, 0, 0, 0.15) 0px 3px 6px 2px;
+}
+
+.customCheckBoxWrapper .customCheckBox:hover .inner {
+  transform: translateY(-2px);
+}
+
+/* Esconder o botão de baixo em telas grandes */
+.sb-buttons-bottom {
+  display: none;
+}
+
+/* Esconder o botão de cima em telas pequenas */
+.sb-buttons-top {
+  display: block;
+}
+
+/* Estilos para telas menores (mobile) */
+@media (max-width: 768px) {
+  .sb-buttons-top {
+    display: none !important;
+  }
+
+  .sb-buttons-bottom {
+    display: flex; /* ou block, conforme o layout */
+    justify-content: center;
+    margin-top: 20px;
+  }
+}
+
+</style>
 {% endblock %}
