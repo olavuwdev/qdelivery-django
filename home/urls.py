@@ -22,8 +22,11 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('adm/', include("adm.urls")),
     path('', views.index),
     path('empresa/', views.empresa),
     path('contatos/', views.contatos),

@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'qdelivery',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'adm'
 ]
 
 MIDDLEWARE = [

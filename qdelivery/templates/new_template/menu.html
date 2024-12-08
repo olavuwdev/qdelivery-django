@@ -49,7 +49,7 @@
           <div class="sb-grid-sizer"></div>
           {% for prod in produtos %}
           <div class="sb-grid-item sb-item-25 {{ prod.tipo}}">
-            <a data-fancybox="menu" data-no-swup href="{% static 'img/marmitas/bestQuentinha.png' %}" class="sb-menu-item sb-mb-30">
+            <a href="{% url 'pro_cardapio' prod.id %}" class="sb-menu-item sb-mb-30">
               <div class="sb-cover-frame">
                 {% if prod.tipo == 'Q' %}
                 <img src="{% static 'img/marmitas/bestQuentinha.png' %}" alt="{{ prod.titulo}}">
