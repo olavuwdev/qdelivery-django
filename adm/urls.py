@@ -25,6 +25,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 
 urlpatterns = [
     path('', views.home2),
+    path('addProduto', views.CadastroProduto, name="add-produto"),
 
 
 ]

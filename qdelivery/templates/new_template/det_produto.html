@@ -81,6 +81,7 @@
           </div>
         </div>
         <!-- filter -->
+        {% if dados_produto.tipo == 'Q' %}
         <div class="sb-filter">
           <a href="#." data-filter=".sb-ingredients-tab" class="sb-filter-link sb-active">Proteinas</a>
           <a href="#." data-filter=".sb-ingredients-tab2" class="sb-filter-link">Carboidratos</a>
@@ -89,6 +90,7 @@
           <a href="#." data-filter=".sb-reviews-tab" class="sb-filter-link">Reviews</a> -->
         </div>
         <!-- filter end -->
+        
         <div class="sb-masonry-grid sb-tabs" style="position: relative; height: 299px;">
           <div class="sb-grid-sizer" style="position: absolute; display: none;"></div>
           <div class="sb-grid-item sb-ingredients-tab" style="position: absolute; left: 0%; top: 0px;">
@@ -190,7 +192,8 @@
               </div>
             </div>
           </div> -->
-        </div>
+        
+        {% endif %}
 
         <div class="sb-buttons-frame sb-buttons-bottom">
           <div class="sb-input-number-frame mr-2">
