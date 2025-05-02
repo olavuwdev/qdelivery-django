@@ -1,7 +1,3 @@
-
-
-
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -9,4 +5,4 @@ EMAIL_HOST_USER = 'quentinhadelivery0@gmail.com'
 EMAIL_HOST_PASSWORD = 'eekf anbd pagk wjhm'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EVOLUTION_BASE_URL = 'http://olavodev.zapto.org'
-EVOLUTION_API_KEY = '2CAF57B3F559-4FA7-8CB6-C979D0C3EBEC'  # idealmente mova para .env
+EVOLUTION_API_KEY = '2CAF57B3F559-4FA7-8CB6-C979D0C3EBEC'

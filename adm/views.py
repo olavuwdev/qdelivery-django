@@ -24,8 +24,9 @@ def WhatsAppAll(request):
      }
      return render(request, "whatsapp/allClients.html" , context)
 
-evolution_base = config('evolution_base', default='http://olavodev.zapto.org')
-evolution_api_key = config('evolution_api_key')
+evolution_base = config('EVOLUTION_BASE_URL', default='http://olavodev.zapto.org')
+evolution_api_key = config('EVOLUTION_API_KEY')
+
 def enviar_mensagens(request):
     if request.method == 'POST':
         ids = json.loads(request.POST.get('ids', '[]'))
@@ -36,7 +37,7 @@ def enviar_mensagens(request):
         resultados = []
 
         headers = {
-            'apikey': evolution_api_key,
+            'apikey': EVOLUTION_API_KEY,
             'Content-Type': 'application/json'
         }
 
@@ -58,7 +59,7 @@ def enviar_mensagens(request):
                         "media": imagem_url,
                         "fileName": imagem.name
                     }
-                    url = f"{evolution_base}/message/sendMedia/Qdelivery"
+                    url = f"{EVOLUTION_BASE_URL}/message/sendMedia/Qdelivery"
                     r = requests.post(url, json=media_payload, headers=headers, timeout=10)
                 else:
                     # Apenas texto
@@ -66,7 +67,7 @@ def enviar_mensagens(request):
                         "number": contato.numero,
                         "text": texto
                     }
-                    r = requests.post(f"{evolution_base}/message/sendText/Qdelivery", json=text_payload, headers=headers, timeout=10)
+                    r = requests.post(f"{EVOLUTION_BASE_URL}/message/sendText/Qdelivery", json=text_payload, headers=headers, timeout=10)
 
                 r.raise_for_status()
                 status = "✅ Enviado"
