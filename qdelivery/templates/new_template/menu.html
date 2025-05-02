@@ -1,92 +1,62 @@
-{% extends "new_template/base2.html" %}
-{% block title %} Cardapio{% endblock %}
-{% load static %}
-{% block content %}
-
-<!-- dynamic content -->
-<div id="sb-dynamic-content" class="sb-transition-fade">
-
-    <!-- banner -->
-    <section class="sb-banner sb-banner-xs sb-banner-color">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- main title -->
-            <div class="sb-main-title-frame" 
-            style="
-            padding-top: 181px;
-            padding-bottom: 0px;">
-              <div class="sb-main-title">
-                <h1 class="sb-h2">Menu Quentinha Delivery </h1>
-<!--                 <ul class="sb-breadcrumbs">
-                  <li><a href="/new">Inicio</a></li>
-                  <li><a href="#.">Menu</a></li>
-                </ul> -->
-              </div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cardápio</title>
+</head>
+<body class="p-6 bg-gray-100">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-4">Monte sua Marmita</h1>
+        
+        <form id="pedidoForm" class="space-y-4">
+            <div>
+                <label class="block font-semibold">Proteína:</label>
+                <select name="proteina" class="w-full border p-2 rounded">
+                    {% for proteina in proteinas %}
+                        <option value="{{ proteina.nome }}">{{ proteina.nome }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <!-- main title end -->
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- banner end -->
+            
+            <div>
+                <label class="block font-semibold">Carboidrato:</label>
+                <select name="carboidrato" class="w-full border p-2 rounded">
+                    {% for carboidrato in carboidratos %}
+                        <option value="{{ carboidrato.nome }}">{{ carboidrato.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block font-semibold">Bebida:</label>
+                <select name="bebida" class="w-full border p-2 rounded">
+                    {% for bebida in bebidas %}
+                        <option value="{{ bebida.nome }}">{{ bebida.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block font-semibold">Tamanho:</label>
+                <select name="tamanho" class="w-full border p-2 rounded">
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                </select>
+            </div>
+            
+            <button type="button" onclick="enviarPedido()" class="w-full bg-green-500 text-white p-3 rounded-lg">Fazer Pedido</button>
+        </form>
+    </div>
 
-    <!-- menu section 1 -->
-    <section class="sb-menu-section sb-p-90-60">
-      <div class="sb-bg-1">
-        <div></div>
-      </div>
-      <div class="container">
-        <!-- filter -->
-        <div class="sb-filter mb-30">
-          <a href="#." data-filter="*" class="sb-filter-link sb-active">Todos</a>
-          <a href="#." data-filter=".Q" class="sb-filter-link">Quentinhas</a>
-          <a href="#." data-filter=".B" class="sb-filter-link">Bebidas</a>
-          
-        </div>
-        <!-- filter end -->
-        <div class="sb-masonry-grid">
-          <div class="sb-grid-sizer"></div>
-          {% for prod in produtos %}
-          <div class="sb-grid-item sb-item-25 {{ prod.tipo}}">
-            <a href="{% url 'pro_cardapio' prod.id %}" class="sb-menu-item sb-mb-30">
-              <div class="sb-cover-frame">
-                {% if prod.tipo == 'Q' %}
-                <img src="{% static 'img/marmitas/bestQuentinha.png' %}" alt="{{ prod.titulo}}">
-                {% else %}
-                <img src="{% static 'img/menu/15.jpg' %}" alt="product">
-                {% endif %}
-              </div>
-              <div class="sb-card-tp">
-                <h4 class="sb-card-title">{{ prod.titulo}}</h4>
-                <div class="sb-price"><sub>R$</sub>{{prod.valor_promo}}</div>
-                
-              </div>
-              <div class="sb-description">
-                
-                <p class="sb-text sb-mb-15">{{ prod.descricao | safe }}</p>
-                <ul class="sb-stars">
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><i class="fas fa-star"></i></li>
-                  <li><span>(4 ratings)</span></li>
-                </ul>
-              </div>
-            </a>
-          </div>
-          {% endfor %}
-
-        </div>
-      </div>
-    </section>
-    <!-- menu end -->
-
-    <!-- promo -->
-
-
-    
-    <!-- promo end -->
-
-{% endblock %}
+    <script>
+        function enviarPedido() {
+            const form = document.getElementById("pedidoForm");
+            const data = new FormData(form);
+            const params = new URLSearchParams(data).toString();
+            window.location.href = `https://api.whatsapp.com/send?phone=SEU_NUMERO&text=Pedido:%20${params}`;
+        }
+    </script>
+</body>
+</html>

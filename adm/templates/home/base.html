@@ -3,7 +3,19 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+<style>
+    .contato-checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
 
+    #checkAll {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+</style>
 <!-- Mirrored from themes.pixelstrap.net/zomo/landing/backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 08 Dec 2024 03:21:18 GMT -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -391,6 +403,20 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="sidebar-list">
+                                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-whatsapp-line"></i>
+                                        <span>Whatsapp</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="all-users.html">Todos Clientes</a>
+                                        </li>
+                                        <li>
+                                            <a href="add-new-user.html">Enviar para Cliente</a>
+                                        </li>
+                                    </ul>
+                                </li>
                     
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title" href="javascript:void(0)">
@@ -564,6 +590,9 @@
 
 <!-- Bootstrap js -->
 <script src="{% static 'adm/assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <!-- ck editor js -->
+    <script src="{% static 'adm/assets/js/ckeditor.js' %}"></script>
+    <script src="{% static 'adm/assets/js/ckeditor-custom.js' %}"></script>
 
 <!-- feather icon js -->
 <script src="{% static 'adm/assets/js/icons/feather-icon/feather.min.js' %}"></script>
@@ -595,6 +624,10 @@
 
 <!-- customizer js -->
 <script src="{% static 'adm/assets/js/customizer.js' %}"></script>
+    <!-- Data table js -->
+    <script src="{% static 'adm/assets/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
+    <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
 
 <!-- ratio js -->
 <script src="{% static 'adm/assets/js/ratio.js' %}"></script>
@@ -614,6 +647,64 @@
                 $(this).prop("checked", false);
             });
         }
+    });
+    $(document).ready(function () {
+        $('#table_all_users').DataTable({
+        "order": [[1, "desc"]],
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "pageLength": 10,
+        "language": {
+            "lengthMenu": "_MENU_",
+            "search": "_INPUT_",
+            "searchPlaceholder": "Buscar"
+        }
+    });
+
+ // Marcar todos
+ $('#checkAll').on('click', function () {
+        $('.contato-checkbox').prop('checked', this.checked);
+    });
+
+    // AJAX envio
+    $('#enviarMensagens').click(function (e) {
+    e.preventDefault();
+
+    const contatosSelecionados = $('.contato-checkbox:checked').map(function () {
+      return $(this).val();
+    }).get();
+
+    const texto = $('#editor').text().trim();  // ou use .val() se for textarea
+    const imagem = document.getElementById('formFile').files[0];
+
+    if (contatosSelecionados.length === 0) {
+      alert("Selecione pelo menos um contato.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('ids', JSON.stringify(contatosSelecionados));
+    formData.append('mensagem', texto);
+
+    if (imagem) {
+      formData.append('imagem', imagem);
+    }
+
+    $.ajax({
+      url: '{% url "whatsapp-send" %}',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+      success: function (data) {
+        let resultado = data.resultados.map(c => `📨 ${c.numero} — ${c.status}`).join('\n');
+        alert(resultado);
+      },
+      error: function () {
+        alert("Erro ao enviar.");
+      }
+    });
+  });
     });
 </script>
 

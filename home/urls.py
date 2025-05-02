@@ -27,7 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('adm/', include("adm.urls")),
-    path('', views.index),
+    path('', views.indexNew , name='new'),
     path('empresa/', views.empresa),
     path('contatos/', views.contatos),
     path('blog/', views.blog, name='blog'),
@@ -60,6 +60,7 @@ urlpatterns = [
     path('prod2/<int:id>', views.produto_cardapio2, name="pro_cardapio"),
     path('newCart/', views.newCart, name="newCart"),
     path('tamanho/', views.tamanho, name="tamanho"),
+    path('cardapioOnline/', views.cardapioOnline, name="cardapioOnline"),
 
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

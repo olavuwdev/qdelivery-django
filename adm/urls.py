@@ -26,8 +26,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 urlpatterns = [
     path('', views.home2),
     path('addProduto', views.CadastroProduto, name="add-produto"),
-
-
+    path('whastapp/allClient', views.WhatsAppAll, name="whatsapp-all"),
+    path('whastappSend/', views.enviar_mensagens, name="whatsapp-send"),
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 urlpatterns +=  re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),

@@ -88,13 +88,23 @@ WSGI_APPLICATION = 'home.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         'OPTIONS': {
             'timeout': 20,  # Aumente o tempo de espera (em segundos)
         }
+    }
+} """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'qdelivery',
+        'USER': 'app_olavoqd',
+        'PASSWORD': 'app_qDelivery01--',
+        'HOST': 'olavodev.zapto.org',      # ou IP da VPS se for remoto
+        'PORT': '5433',           # atenção aqui! porta do container separado
     }
 }
 

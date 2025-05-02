@@ -2203,7 +2203,8 @@ filter
 ***************************/
 .sb-filter {
   margin-bottom: 20px; }
-  .sb-filter .sb-filter-link {
+
+.sb-filter .sb-filter-link {
     padding: 0 20px;
     font-weight: 500;
     line-height: 55px;
@@ -2216,15 +2217,20 @@ filter
     margin-right: 10px;
     background-color: #F2F3F5;
     transition: 0.3s ease-in-out;
-    color: #6F6F87; }
-    .sb-filter .sb-filter-link:last-child {
-      margin-right: 0; }
-    .sb-filter .sb-filter-link.sb-active {
+    color: #6F6F87; 
+  }
+    
+.sb-filter .sb-filter-link:last-child {
+      margin-right: 0; 
+    }
+.sb-filter .sb-filter-link.sb-active {
       background-color: #ffff00;
-      color: #231E41; }
-    .sb-filter .sb-filter-link:hover {
+      color: #231E41;
+     }
+.sb-filter .sb-filter-link:hover {
       filter: brightness(102%);
-      color: #231E41; }
+      color: #231E41; 
+  }
 
 @media (max-width: 768px) {
   .sb-filter {

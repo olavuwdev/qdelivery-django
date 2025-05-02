@@ -598,3 +598,30 @@ def cartTeste(request):
 
     return render(request, 'ver_carrinho3.html', context)
 
+def cardapioOnline(request):
+    identificador = request.session.get('user_id')
+    if not identificador:
+        criar_identificador(request)
+    else:
+        print(f"Identificadortem tem um pedido em aberto no banco: {Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').values_list('identificador_nav', flat=True).first()}")
+
+    dados = get_object_or_404(Dados, id=1)
+    produtos = Produtos.objects.filter(ativo=True)
+    quentinhas = Produtos.objects.filter(tipo='Q', ativo=True)
+    bebidas = Produtos.objects.filter(tipo='B', ativo=True)
+    proteinas = Proteina.objects.filter(ativo=True)
+    acompanhamento = Acompanhamento.objects.filter(ativo=True)
+    cont_cart = ItemPedido.objects.filter(pedido=Pedido.objects.filter(identificador_nav=identificador, status='EM ABERTO').first()).count()
+    print("Contagem: ", cont_cart)
+    dados_produto = {
+        'dados': dados,
+        'produtos': produtos,
+        'quentinhas': quentinhas,
+        'bebidas': bebidas,
+        'acompanhamento': acompanhamento,
+        'proteinas': proteinas,
+        'contagem': cont_cart
+    }
+
+    return render(request, "cardapioOnline.html", dados_produto)
+

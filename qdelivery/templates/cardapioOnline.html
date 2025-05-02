@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Online</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .header {
+            text-align: center;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            width: 100%;
+            padding: 20px 0;
+            color: white;
+        }
+        .header img {
+            width: 100px;
+            height: auto;
+            border-radius: 50%;
+        }
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 10px;
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+        .product-card p {
+            font-size: 1em;
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .modal-content p {
+            font-size: 1em;
+            color: #666;
+        }
+        .modal-close {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+        .modal-close:hover {
+            background: #ff4c4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ dados.logo.url }}" alt="Logo da Empresa">
+        <h1>{{ dados.nome_empresa }}</h1>
+    </div>
+
+    <div class="products-container">
+        {% for produto in produtos %}
+        <div class="product-card" data-product="{{ produto.id }}">
+            <img src="{{ produto.capa.url }}" alt="{{ produto.titulo }}">
+            <h3>{{ produto.titulo }}</h3>
+            <p>R$ {{ produto.valor_promo }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3>Produto</h3>
+            <p>Detalhes sobre o produto.</p>
+            <button class="modal-close">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalContent = modal.querySelector('.modal-content');
+        const productCards = document.querySelectorAll('.product-card');
+        const modalClose = document.querySelector('.modal-close');
+
+        productCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const productName = card.querySelector('h3').textContent;
+                const productDetails = `Informações detalhadas sobre ${productName}.`;
+                
+                modalContent.querySelector('h3').textContent = productName;
+                modalContent.querySelector('p').textContent = productDetails;
+
+                modal.style.display = 'flex';
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
