@@ -27,6 +27,67 @@ def WhatsAppAll(request):
 evolution_base = config('EVOLUTION_BASE_URL', default='http://olavodev.zapto.org')
 evolution_api_key = config('EVOLUTION_API_KEY')
 
+#Enviar mensagens para todos os contatos ativos
+@csrf_exempt
+def send_for_all(request):
+    if request.method == 'POST':
+        ids = json.loads(request.POST.get('ids', '[]'))
+        texto = request.POST.get('mensagem', '').strip()
+        imagem = request.FILES.get('imagem', None)
+
+        contatos = Whatsapp.objects.filter(id__in=ids)
+        resultados = []
+
+        headers = {
+            'apikey': evolution_api_key,
+            'Content-Type': 'application/json'
+        }
+
+        # Se houver imagem, salva temporariamente e gera URL
+        imagem_url = ''
+        if imagem:
+            temp_path = default_storage.save(imagem.name, imagem)
+            imagem_url = request.build_absolute_uri(default_storage.url(temp_path))
+
+        for contato in contatos:
+            try:
+                if imagem_url:
+                    # Envia imagem com legenda
+                    media_payload = {
+                        "number": contato.numero,
+                        "mediatype": "image",
+                        "mimetype": imagem.content_type,
+                        "caption": texto or '',
+                        "media": imagem_url,
+                        "fileName": imagem.name
+                    }
+                    url = f"{evolution_base}/message/sendMedia/Qdelivery"
+                    r = requests.post(url, json=media_payload, headers=headers, timeout=10)
+                else:
+                    # Apenas texto
+                    text_payload = {
+                        "number": contato.numero,
+                        "text": texto
+                    }
+                    r = requests.post(f"{evolution_base}/message/sendText/Qdelivery", json=text_payload, headers=headers, timeout=10)
+
+                r.raise_for_status()
+                status = "✅ Enviado"
+            except Exception as e:
+                status = f"❌ Erro: {str(e)[:80]}"
+
+            resultados.append({
+                "numero": contato.numero,
+                "nome": contato.nome,
+                "status": status
+            })
+
+        return JsonResponse({ "resultados": resultados })
+
+    return JsonResponse({ "error": "Método não permitido" }, status=405)
+# Enviar mensagens para contatos selecionados
+
+
 def enviar_mensagens(request):
     if request.method == 'POST':
         ids = json.loads(request.POST.get('ids', '[]'))
@@ -83,3 +144,4 @@ def enviar_mensagens(request):
         return JsonResponse({ "resultados": resultados })
 
     return JsonResponse({ "error": "Método não permitido" }, status=405)
+

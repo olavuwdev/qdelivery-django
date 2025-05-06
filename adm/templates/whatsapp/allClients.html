@@ -41,8 +41,25 @@
                             </div> -->
                             <div class="col-12">
                                 <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Enviar Cardápio para Todos Clientes</h5>
+                                        <a href="#" id="enviarMensagens" class="btn btn-theme d-flex align-items-center">
+                                            <i data-feather="plus-square"></i>&nbsp;Enviar
+                                        </a>
+                                    </div>
+                                
+                                    <div class="card-body">
+                                        <!-- DESCREVER PARA QUE SERVE A TELA - TELA É PARA ENVIAR MENSAGEM PARA TODOS OS CLIENTES -->
+                                        <h6>
+                                            Esta tela é para enviar mensagens para todos os clientes cadastrados no sistema. Você pode enviar mensagens personalizadas ou informações importantes para todos os clientes de uma só vez.
+                                        </h6>
+                                    </div>
+                                </div>
+                                
+                            <div class="col-12">
+                                <div class="card">
                                     <div class="card-header">
-                                        <h5>Descrição</h5>
+                                        <h5>Mensagem de Texto</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="input-items"    >
@@ -86,40 +103,16 @@
                                 
                                 <div class="card-body">
                                     <div class="title-header option-title">
-                                        <h5>All Users</h5>
-                                        <form class="d-inline-flex">
-                                            <a href="#" id="enviarMensagens" class="align-items-center btn btn-theme d-flex">
-                                                <i data-feather="plus-square"></i>Enviar
-                                            </a>
-                                            
-                                        </form>
+                                        <h5>Clientes Cadastrados</h5>
+                                        
                                     </div>
-                                    <div class="col-12">
-                                        <div class="input-box">
-                                            <div class="icon-state">
-                                                <label class="switch-xsm mb-0">
-                                                    <input type="checkbox" id="flexSwitchCheckDefault-1" checked=""><span class="slider round"></span>
-                                                </label>
-                                                <label class="form-check-label" for="flexSwitchCheckDefault-1">Refundable</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="input-box">
-                                            <div class="icon-state">
-                                                <label class="switch-xsm mb-0">
-                                                    <input type="checkbox" id="flexSwitchCheckDefault-2" checked=""><span class="slider round"></span>
-                                                </label>
-                                                <label class="form-check-label" for="flexSwitchCheckDefault-2">Exchangeable</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     <div class="table-responsive theme-scrollbar table-product">
                                         <table class="table category-table dataTable no-footer" id="table_all_users">
                                             <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" id="checkAll"></th> <!-- Checkbox global -->
+                                                    
                                                     <th>Nome</th>
                                                     <th>Endereco</th>
                                                     <th>Numero</th>
@@ -130,9 +123,7 @@
                                             <tbody>
                                                 {% for contato in contatos %}
                                                 <tr>
-                                                    <td>
-                                                        <input type="checkbox" class="contato-checkbox" value="{{ contato.id }}">
-                                                    </td>
+                                                    
                                                     <td>
                                                         <div class="user-name">
                                                             <span>{{ contato.nome }}</span>

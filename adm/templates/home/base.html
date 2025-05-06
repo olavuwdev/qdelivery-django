@@ -112,7 +112,8 @@
                         <img src="{% static 'adm/assets/images/header.gif' %}" alt="">
                     </h5>
                     <span>
-                        Delight your taste with our most famous food !!
+                        {% if user.is_authenticated %} Olá, {{ user.username }}! {% else %} Olá, visitante! {% endif %}
+                        <i class="ri-arrow-right-s-line"></i>
                     </span>
                 </div>
                 <div class="nav-right col-xl-6 col-5 pull-right right-header p-0">
@@ -410,7 +411,7 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="all-users.html">Todos Clientes</a>
+                                            <a href="{% url 'whatsapp-all' %}">Todos Clientes</a>
                                         </li>
                                         <li>
                                             <a href="add-new-user.html">Enviar para Cliente</a>
