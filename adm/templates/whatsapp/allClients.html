@@ -1,6 +1,9 @@
 
 {% extends "home/base.html" %}
+
+
 {% load static %}
+
 {% block content %}
 
 
@@ -66,7 +69,7 @@
                                             <div class="row gy-3">
                                                 <div class="col-12">
                                                     <div class="input-box">
-                                                        <div id="editor"></div>
+                                                            <textarea class="form-control" id="text_mensagem" rows="3"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +89,7 @@
                                                     <div class="input-box">
                                                         <h6>Imagem</h6>
                                                         <input type="file"
-                                                        id="formFile" multiple>
+                                                        id="imagem" multiple>
                                                     </div>
                                                 </div>
                                                
@@ -172,10 +175,45 @@
             </div>
             <!-- Container-fluid end -->
 
-        
+
+            
 {% endblock %}
 
 
 
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+           $('#enviarMensagens').on('click', function() {
+                // Get the content of the editor
+                var mensagem = $('#text_mensagem').val();
+                // Get the selected files
+                var file = $('#imagem')[0].files[0];
+                
+                // Create a FormData object to send the data
+                var formData = new FormData();
+                formData.append('mensagem', mensagem);
+                formData.append('imagens', file); // Append the file to the FormData object
 
+                //enviar para a rota  whatsapp-all
+                $.ajax({
+                    url: 'sendAll',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle success response
+                        console.log('Mensagem enviada com sucesso!');
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response
+                        console.error('Erro ao enviar mensagem:', error);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
 

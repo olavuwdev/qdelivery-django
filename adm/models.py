@@ -7,6 +7,7 @@ class Whatsapp(models.Model):
     endereco = models.TextField(blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
     criado_em = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=[('ATIVO', 'ATIVO'), ('INATIVO', 'INATIVO')], default='ATIVO')
 
     def __str__(self):
         return f"{self.nome or 'Sem nome'} - {self.numero}"

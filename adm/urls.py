@@ -27,6 +27,7 @@ urlpatterns = [
     path('', views.home2),
     path('addProduto', views.CadastroProduto, name="add-produto"),
     path('whastapp/allClient', views.WhatsAppAll, name="whatsapp-all"),
+    path('whastapp/sendAll', views.send_for_all, name="send-all"),
     path('whastappSend/', views.enviar_mensagens, name="whatsapp-send"),
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

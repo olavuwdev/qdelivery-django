@@ -10,7 +10,13 @@ import tempfile
 from decouple import config
 import json
 
-# Create your views here.
+#VARIAVEIS DO WHATSAPP
+evolution_base = config('EVOLUTION_URL_API')
+evolution_api_key = config('EVOLUTION_KEY_API')
+evolution_api_instance = config('EVOLUTION_INSTANCE_API')
+teste_api = config('EVOLUTION_API_TESTE')
+
+
 def home2(request):
      return render(request, "home/index.html")
 def CadastroProduto(request):
@@ -24,18 +30,19 @@ def WhatsAppAll(request):
      }
      return render(request, "whatsapp/allClients.html" , context)
 
-evolution_base = config('EVOLUTION_BASE_URL', default='http://olavodev.zapto.org')
-evolution_api_key = config('EVOLUTION_API_KEY')
+
 
 #Enviar mensagens para todos os contatos ativos
 @csrf_exempt
 def send_for_all(request):
     if request.method == 'POST':
-        ids = json.loads(request.POST.get('ids', '[]'))
+        # Obtém os dados do formulário
         texto = request.POST.get('mensagem', '').strip()
-        imagem = request.FILES.get('imagem', None)
+        imagens = request.FILES.get('imagens', None)
 
-        contatos = Whatsapp.objects.filter(id__in=ids)
+        # Busca contatos ativos
+        contatos = Whatsapp.objects.filter(status='ATIVO')
+
         resultados = []
 
         headers = {
@@ -43,33 +50,35 @@ def send_for_all(request):
             'Content-Type': 'application/json'
         }
 
-        # Se houver imagem, salva temporariamente e gera URL
         imagem_url = ''
-        if imagem:
-            temp_path = default_storage.save(imagem.name, imagem)
+        if imagens:
+            temp_path = default_storage.save(imagens.name, imagens)
             imagem_url = request.build_absolute_uri(default_storage.url(temp_path))
 
         for contato in contatos:
             try:
                 if imagem_url:
-                    # Envia imagem com legenda
+                    # Envio de imagem
                     media_payload = {
                         "number": contato.numero,
                         "mediatype": "image",
-                        "mimetype": imagem.content_type,
+                        "mimetype": imagens.content_type,
                         "caption": texto or '',
-                        "media": imagem_url,
-                        "fileName": imagem.name
+                        "media": 'http://lunartecnologia.com.br/hoje_tem_feijoada.png',
+                        "fileName": imagens.name
                     }
-                    url = f"{evolution_base}/message/sendMedia/Qdelivery"
+                    url = f"{evolution_base}/message/sendMedia/{evolution_api_instance}"
+                    print(f"URL: {url}")
+                    print(f"Payload: {media_payload}")
                     r = requests.post(url, json=media_payload, headers=headers, timeout=10)
                 else:
-                    # Apenas texto
+                    # Envio de texto
                     text_payload = {
                         "number": contato.numero,
                         "text": texto
                     }
-                    r = requests.post(f"{evolution_base}/message/sendText/Qdelivery", json=text_payload, headers=headers, timeout=10)
+                    url = f"{evolution_base}/message/sendText/{evolution_api_instance}"
+                    r = requests.post(url, json=text_payload, headers=headers, timeout=10)
 
                 r.raise_for_status()
                 status = "✅ Enviado"
@@ -82,10 +91,9 @@ def send_for_all(request):
                 "status": status
             })
 
-        return JsonResponse({ "resultados": resultados })
+        return JsonResponse({"resultados": resultados})
 
-    return JsonResponse({ "error": "Método não permitido" }, status=405)
-# Enviar mensagens para contatos selecionados
+    return JsonResponse({"error": "Método não permitido"}, status=405)
 
 
 def enviar_mensagens(request):
@@ -98,7 +106,7 @@ def enviar_mensagens(request):
         resultados = []
 
         headers = {
-            'apikey': EVOLUTION_API_KEY,
+            'apikey': evolution_api_key,
             'Content-Type': 'application/json'
         }
 
