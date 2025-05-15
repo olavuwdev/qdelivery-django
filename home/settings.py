@@ -103,7 +103,7 @@ DATABASES = {
         'NAME': 'qdelivery',
         'USER': 'app_olavoqd',
         'PASSWORD': 'app_qDelivery01--',
-        'HOST': 'olavodev.zapto.org',      # ou IP da VPS se for remoto
+        'HOST': '20.206.200.91',      # ou IP da VPS se for remoto
         'PORT': '5433',           # atenção aqui! porta do container separado
     }
 }
