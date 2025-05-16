@@ -112,7 +112,7 @@
                         <img src="{% static 'adm/assets/images/header.gif' %}" alt="">
                     </h5>
                     <span>
-                        {% if user.is_authenticated %} Olá, {{ user.username }}! {% else %} Olá, visitante! {% endif %}
+                        
                         <i class="ri-arrow-right-s-line"></i>
                     </span>
                 </div>
@@ -217,6 +217,22 @@
                                 </li>
                                 <li>
                                     <a class="btn btn-primary" href="javascript:void(0)">Go to Inbox</a>
+                                </li>
+                            </ul>
+                        </li>
+                        </li>
+                        <li class="onhover-dropdown">
+                            <div class="messages-box">
+                                <i class="ri-whatsapp-line"></i>
+                            </div>
+                            <ul class="messages-dropdown onhover-show-div">
+                                <li>
+                                    <i class="ri-whatsapp-line"></i>
+                                    <h4 class="mb-0">Sincronizar Contatos</h4>
+                                </li>
+                                
+                                <li>
+                                    <a class="btn btn-primary btn-sincronizar-contatos" href="#">Sincronizar</a>
                                 </li>
                             </ul>
                         </li>
@@ -635,6 +651,58 @@
 
 <!-- Theme js -->
 <script src="{% static 'adm/assets/js/script.js' %}"></script>
+<script>
+    $('.btn-sincronizar-contatos').click(function () {
+        // Aqui você pode adicionar a lógica para sincronizar os contatos
+        // Por exemplo, fazer uma requisição AJAX para o servidor
+        fetch('/adm/sincronizar_contatos', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCSRFToken(),  // Assumindo que você usa Django templates
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.mensagem || 'Contatos sincronizados com sucesso!');
+        // opcional: atualizar a tabela, recarregar lista, etc
+    })
+    .catch(error => {
+        alert('Erro ao sincronizar: ' + error);
+    });
+        alert('Sincronizando contatos...');
+    });
+    document.getElementById('btn-sincronizar-contatos').addEventListener('click', function () {
+    fetch('/sincronizar-contatos/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCSRFToken(),  // Assumindo que você usa Django templates
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.mensagem || 'Contatos sincronizados com sucesso!');
+        // opcional: atualizar a tabela, recarregar lista, etc
+    })
+    .catch(error => {
+        alert('Erro ao sincronizar: ' + error);
+    });
+});
+
+function getCSRFToken() {
+    const name = 'csrftoken';
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        if (cookie.trim().startsWith(name + '=')) {
+            return cookie.trim().substring(name.length + 1);
+        }
+    }
+    return '';
+}
+
+</script>
+
 <!-- <script>
     $("#checkall").change(function () {
         var checked = $(this).is(":checked");

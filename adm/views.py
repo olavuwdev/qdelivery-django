@@ -4,6 +4,7 @@ import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Whatsapp
+from .models import WhatsappContato
 from django.conf import settings
 from django.core.files.storage import default_storage
 import tempfile
@@ -23,10 +24,33 @@ def CadastroProduto(request):
      return render(request, "home/add-new-food.html")
 
 def WhatsAppAll(request):
-     whatsapps = Whatsapp.objects.all()
-     print(whatsapps)
+     #whatsapps = Whatsapp.objects.all()
+      # Busca contatos ativos
+     contatos = [{
+            'nome': 'João Silva',
+            'endereco': 'Rua das Flores, 123',
+            'numero': '84988887777',
+            'observacao': 'Cliente VIP',
+            'status': 'ATIVO'
+        },
+        {
+            'nome': 'Maria Oliveira',
+            'endereco': 'Av. Brasil, 456',
+            'numero': '84991234567',
+            'observacao': '',
+            'status': 'ATIVO'
+        },
+        {
+            'nome': 'Carlos Souza',
+            'endereco': 'Rua do Comércio, 789',
+            'numero': '84999889988',
+            'observacao': None,
+            'status': 'ATIVO'
+        }
+        ]
+     print(contatos)
      context = {
-         'contatos': whatsapps,
+         'contatos': contatos,
      }
      return render(request, "whatsapp/allClients.html" , context)
 
@@ -41,8 +65,28 @@ def send_for_all(request):
         imagens = request.FILES.get('imagens', None)
 
         # Busca contatos ativos
-        contatos = Whatsapp.objects.filter(status='ATIVO')
-
+        contatos = [{
+            'nome': 'João Silva',
+            'endereco': 'Rua das Flores, 123',
+            'numero': '84988887777',
+            'observacao': 'Cliente VIP',
+            'status': 'ATIVO'
+        },
+        {
+            'nome': 'Maria Oliveira',
+            'endereco': 'Av. Brasil, 456',
+            'numero': '84991234567',
+            'observacao': '',
+            'status': 'ATIVO'
+        },
+        {
+            'nome': 'Carlos Souza',
+            'endereco': 'Rua do Comércio, 789',
+            'numero': '84999889988',
+            'observacao': None,
+            'status': 'ATIVO'
+        }
+        ]
         resultados = []
 
         headers = {
@@ -153,3 +197,58 @@ def enviar_mensagens(request):
 
     return JsonResponse({ "error": "Método não permitido" }, status=405)
 
+
+
+@csrf_exempt
+def sincronizar_contatos(request):
+    if request.method != 'POST':
+        return JsonResponse({'mensagem': 'Método não permitido'}, status=405)
+
+    try:
+        
+        contatos = response.json()
+        url = "http://20.206.200.91/chat/findContacts/Qdelivery"
+
+        payload = {"where": {"id": ""}}
+        headers = {
+            "apikey": "2CAF57B3F559-4FA7-8CB6-C979D0C3EBEC",
+            "Content-Type": "application/json"
+        }
+
+        response = requests.request("POST", url, json=payload, headers=headers)
+        contatos = response.json().get('contacts', [])
+        print(f"Contatos: {contatos}")
+        criados = 0
+        atualizados = 0
+
+        for contato in contatos:
+            remote_jid = contato.get('remoteJid', '')
+            name = contato.get('name', '')
+
+            if '-' in remote_jid or not remote_jid.endswith('@s.whatsapp.net'):
+                continue  # ignora grupos
+
+            numero_completo = remote_jid.replace('@s.whatsapp.net', '')
+            ddd = numero_completo[:2]
+            numero = numero_completo[2:]
+
+            obj, created = WhatsappContato.objects.update_or_create(
+                numero=numero,
+                defaults={
+                    'nome': name,
+                    'ddd': ddd,
+                    'status': 'ATIVO'
+                }
+            )
+
+            if created:
+                criados += 1
+            else:
+                atualizados += 1
+
+        return JsonResponse({
+            'mensagem': f'Sincronização concluída. {criados} criados, {atualizados} atualizados.'
+        })
+
+    except Exception as e:
+        return JsonResponse({'mensagem': 'Erro ao sincronizar contatos', 'erro': str(e)}, status=500)

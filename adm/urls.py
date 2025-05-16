@@ -29,6 +29,7 @@ urlpatterns = [
     path('whastapp/allClient', views.WhatsAppAll, name="whatsapp-all"),
     path('whastapp/sendAll', views.send_for_all, name="send-all"),
     path('whastappSend/', views.enviar_mensagens, name="whatsapp-send"),
+    path('sincronizar-contatos/', views.sincronizar_contatos, name='sincronizar_contatos')
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 urlpatterns +=  re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
