@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 from decouple import config
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -99,13 +98,25 @@ WSGI_APPLICATION = 'home.wsgi.application'
 } """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'qdelivery',
-        'USER': 'app_olavoqd',
-        'PASSWORD': 'app_qDelivery01--',
-        'HOST': 'olavodev.zapto.org',      # ou IP da VPS se for remoto
-        'PORT': '5433',           # atenção aqui! porta do container separado
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lunartecnologi94',
+        'USER': 'lunartecnologi94',
+        'PASSWORD': 'Jp5s3KaWvJmsK3HxXgiw',
+        'HOST': 'mysql.lunartecnologia.com.br',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,  # Aumente o tempo de espera (em segundos)
+        }
     }
+    
 }
 
 

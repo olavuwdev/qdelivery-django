@@ -87,9 +87,17 @@
                                             <div class="row gy-3">
                                                 <div class="col-xl-6">
                                                     <div class="input-box">
-                                                        <h6>Imagem</h6>
-                                                        <input type="file"
-                                                        id="imagem" multiple>
+                                                       <form class="dropzone custom-dropzone" id="multiFileUpload"
+                                                            action="https://themes.pixelstrap.net/upload.php">
+                                                                <div class="dropzone-wrapper"  style="justify-content: center;text-align: center;">
+                                                                    <div class="dz-message needsclick">
+                                                                        <div>
+                                                                            <i class="icon-cloud-up"></i>
+                                                                            <h6>Adicione uma imagem.</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                     </div>
                                                 </div>
                                                
@@ -98,6 +106,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                         
                             
                       
@@ -182,6 +191,9 @@
 
 
 {% block extra_js %}
+   <!--Dropzon js -->
+    <script src="{% static 'adm/assets/js/dropzone/dropzone.js' %}"></script>
+    <script src="{% static 'adm/assets/js/dropzone/dropzone-script.js' %}"></script>
     <script>
         $(document).ready(function() {
            $('#enviarMensagens').on('click', function() {

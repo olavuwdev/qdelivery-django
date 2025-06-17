@@ -112,7 +112,7 @@
                         <img src="{% static 'adm/assets/images/header.gif' %}" alt="">
                     </h5>
                     <span>
-                        {% if user.is_authenticated %} Olá, {{ user.username }}! {% else %} Olá, visitante! {% endif %}
+                        
                         <i class="ri-arrow-right-s-line"></i>
                     </span>
                 </div>
@@ -217,6 +217,22 @@
                                 </li>
                                 <li>
                                     <a class="btn btn-primary" href="javascript:void(0)">Go to Inbox</a>
+                                </li>
+                            </ul>
+                        </li>
+                        </li>
+                        <li class="onhover-dropdown">
+                            <div class="messages-box">
+                                <i class="ri-whatsapp-line"></i>
+                            </div>
+                            <ul class="messages-dropdown onhover-show-div">
+                                <li>
+                                    <i class="ri-whatsapp-line"></i>
+                                    <h4 class="mb-0">Sincronizar Contatos</h4>
+                                </li>
+                                
+                                <li>
+                                    <a class="btn btn-primary btn-sincronizar-contatos" href="#">Sincronizar</a>
                                 </li>
                             </ul>
                         </li>
@@ -326,7 +342,7 @@
                                             <a href="products.html">Lista de Produtos</a>
                                         </li>
                                         <li>
-                                            <a href="add-new-product.html">Adicionar Novo Produto</a>
+                                            <a href="/adm/addProduto">Adicionar Novo Produto</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -629,12 +645,84 @@
     <script src="{% static 'adm/assets/js/jquery.dataTables.js' %}"></script>
     <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
 
-
 <!-- ratio js -->
 <script src="{% static 'adm/assets/js/ratio.js' %}"></script>
 
 <!-- Theme js -->
 <script src="{% static 'adm/assets/js/script.js' %}"></script>
+<!-- <script>
+    $("#checkall").change(function () {
+        var checked = $(this).is(":checked");
+        if (checked) {
+            $(".custom-checkbox").each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $(".custom-checkbox").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    $(document).ready(function () {
+        $('#table_all_users').DataTable({
+        "order": [[1, "desc"]],
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "pageLength": 10,
+        "language": {
+            "lengthMenu": "_MENU_",
+            "search": "_INPUT_",
+            "searchPlaceholder": "Buscar"
+        }
+    });
+
+ // Marcar todos
+ $('#checkAll').on('click', function () {
+        $('.contato-checkbox').prop('checked', this.checked);
+    });
+
+    // AJAX envio
+    $('#enviarMensagens').click(function (e) {
+    e.preventDefault();
+
+    const contatosSelecionados = $('.contato-checkbox:checked').map(function () {
+      return $(this).val();
+    }).get();
+
+    const texto = $('#editor').text().trim();  // ou use .val() se for textarea
+    const imagem = document.getElementById('formFile').files[0];
+
+    if (contatosSelecionados.length === 0) {
+      alert("Selecione pelo menos um contato.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('ids', JSON.stringify(contatosSelecionados));
+    formData.append('mensagem', texto);
+
+    if (imagem) {
+      formData.append('imagem', imagem);
+    }
+
+    $.ajax({
+      url: '{% url "whatsapp-send" %}',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+      success: function (data) {
+        let resultado = data.resultados.map(c => `📨 ${c.numero} — ${c.status}`).join('\n');
+        alert(resultado);
+      },
+      error: function () {
+        alert("Erro ao enviar.");
+      }
+    });
+  });
+    });
+</script> -->
 
 </html>
 
