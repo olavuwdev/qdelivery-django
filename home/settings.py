@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'home.wsgi.application'
 } """
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lunartecnologi94',
         'USER': 'lunartecnologi94',
         'PASSWORD': 'Jp5s3KaWvJmsK3HxXgiw',
@@ -109,6 +109,13 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,  # Aumente o tempo de espera (em segundos)
+        }
+    }
     
 }
 

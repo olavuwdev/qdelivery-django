@@ -3,13 +3,13 @@ import os
 import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Whatsapp
 from .models import WhatsappContato
 from django.conf import settings
 from django.core.files.storage import default_storage
 import tempfile
 from decouple import config
 import json
+import MySQLdb
 
 #VARIAVEIS DO WHATSAPP
 evolution_base = config('EVOLUTION_URL_API')
@@ -20,8 +20,30 @@ teste_api = config('EVOLUTION_API_TESTE')
 
 def home2(request):
      return render(request, "home/index.html")
+
+
 def CadastroProduto(request):
-     return render(request, "home/add-new-food.html")
+    try:
+        conn = MySQLdb.connect(
+            host="mysql.lunartecnologia.com.br",
+            user="lunartecnologi94",
+            passwd="Jp5s3KaWvJmsK3HxXgiw",
+            db="lunartecnologi94", 
+            charset="utf8mb4",
+            use_unicode=True,
+            # Se estiver usando o MySQL padrão, a porta é 3306
+            port=3306
+        )
+        cursor = conn.cursor()
+        
+        print("Conexão com o banco de dados estabelecida com sucesso.")
+        cursor.close()
+        conn.close()
+
+    
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+    return render(request, "home/add-new-food.html")
 
 def WhatsAppAll(request):
      #whatsapps = Whatsapp.objects.all()
@@ -252,3 +274,37 @@ def sincronizar_contatos(request):
 
     except Exception as e:
         return JsonResponse({'mensagem': 'Erro ao sincronizar contatos', 'erro': str(e)}, status=500)
+    
+def enviar_cardapio_em_lote(request):
+    # Cardápio do dia - pegue a imagem do disco e converta
+    caminho_imagem = '/caminho/para/cardapio.jpg'
+    with open(caminho_imagem, 'rb') as img:
+        imagem_base64 = base64.b64encode(img.read()).decode()
+
+    contatos = WhatsappContato.objects.filter(status='pendente')[:10]
+    enviados = []
+
+    for contato in contatos:
+        payload = {
+            "numero": contato.numero,
+            "mensagem": "Olá! Confira o cardápio do dia 📝",
+            "tipo": "imagem",
+            "imagem": imagem_base64,
+            "nome_arquivo": "cardapio.jpg"
+        }
+
+        try:
+            response = requests.post("https://api.evolution.com.br/enviar", json=payload, timeout=10)
+            if response.status_code == 200:
+                contato.status = 'enviado'
+                contato.enviado_em = timezone.now()
+                enviados.append(contato.numero)
+            else:
+                contato.status = 'erro'
+        except Exception as e:
+            contato.status = 'erro'
+
+        contato.tentativa += 1
+        contato.save()
+
+    return JsonResponse({"enviados": enviados})
