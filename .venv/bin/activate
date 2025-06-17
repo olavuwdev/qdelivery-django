@@ -11,7 +11,7 @@ deactivate () {
     if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ] ; then
         PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
         export PYTHONHOME
-        unset _OLD_VIRTUAL_PYTHONHOMssE
+        unset _OLD_VIRTUAL_PYTHONHOME
     fi
 
     # Call hash to forget past commands. Without forgetting

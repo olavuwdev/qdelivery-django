@@ -628,86 +628,13 @@
     <!-- Data table js -->
     <script src="{% static 'adm/assets/js/jquery.dataTables.js' %}"></script>
     <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
-    <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
+
 
 <!-- ratio js -->
 <script src="{% static 'adm/assets/js/ratio.js' %}"></script>
 
 <!-- Theme js -->
 <script src="{% static 'adm/assets/js/script.js' %}"></script>
-<!-- <script>
-    $("#checkall").change(function () {
-        var checked = $(this).is(":checked");
-        if (checked) {
-            $(".custom-checkbox").each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $(".custom-checkbox").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $(document).ready(function () {
-        $('#table_all_users').DataTable({
-        "order": [[1, "desc"]],
-        "lengthMenu": [5, 10, 25, 50, 100],
-        "pageLength": 10,
-        "language": {
-            "lengthMenu": "_MENU_",
-            "search": "_INPUT_",
-            "searchPlaceholder": "Buscar"
-        }
-    });
-
- // Marcar todos
- $('#checkAll').on('click', function () {
-        $('.contato-checkbox').prop('checked', this.checked);
-    });
-
-    // AJAX envio
-    $('#enviarMensagens').click(function (e) {
-    e.preventDefault();
-
-    const contatosSelecionados = $('.contato-checkbox:checked').map(function () {
-      return $(this).val();
-    }).get();
-
-    const texto = $('#editor').text().trim();  // ou use .val() se for textarea
-    const imagem = document.getElementById('formFile').files[0];
-
-    if (contatosSelecionados.length === 0) {
-      alert("Selecione pelo menos um contato.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('ids', JSON.stringify(contatosSelecionados));
-    formData.append('mensagem', texto);
-
-    if (imagem) {
-      formData.append('imagem', imagem);
-    }
-
-    $.ajax({
-      url: '{% url "whatsapp-send" %}',
-      method: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-      success: function (data) {
-        let resultado = data.resultados.map(c => `📨 ${c.numero} — ${c.status}`).join('\n');
-        alert(resultado);
-      },
-      error: function () {
-        alert("Erro ao enviar.");
-      }
-    });
-  });
-    });
-</script> -->
 
 </html>
 
