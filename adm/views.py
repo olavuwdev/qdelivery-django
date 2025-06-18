@@ -45,6 +45,65 @@ def CadastroProduto(request):
         print(f"Erro ao conectar ao banco de dados: {e}")
     return render(request, "home/add-new-food.html")
 
+
+def api_produtos(request):
+
+    """     conn = MySQLdb.connect(
+        host="mysql.lunartecnologia.com.br",
+        user="lunartecnologi94",
+        passwd="Jp5s3KaWvJmsK3HxXgiw",
+        db="lunartecnologi94",
+        charset="utf8mb4",
+        use_unicode=True,
+        port=3306  # Se estiver usando o MySQL padrão, a porta é 3306
+            cursor = conn.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    produtos = cursor.fetchall()   
+    cursor.close()
+    conn.close()
+    ) """
+
+    produtos = [
+        {'id': 1, 'nome': 'Quentinha P', 'valor': 10.00, 'descricao': 'Descrição do Produto 1'},
+        {'id': 2, 'nome': 'Quentinha M', 'valor': 20.00, 'descricao': 'Descrição do Produto 2'},
+        {'id': 3, 'nome': 'Quentinha G', 'valor': 30.00, 'descricao': 'Descrição do Produto 3'},
+        {'id': 4, 'nome': 'Produto 4', 'valor': 40.00, 'descricao': 'Descrição do Produto 4'},
+        {'id': 5, 'nome': 'Produto 5', 'valor': 50.00, 'descricao': 'Descrição do Produto 5'}
+    ]
+
+    return JsonResponse({'data': produtos})
+def api_clientes(request):
+    # Simulação de dados de clientes
+    clientes = [
+        {'id': 1, 'nome': 'João Silva', 
+         'endereco': {
+            'rua': 'Rua das Flores',
+            'numero': '123',
+            'bairro': 'Jardim das Rosas',
+            'cidade': 'São Paulo',
+            'estado': 'SP',
+         }
+           },
+        {'id': 2, 'nome': 'Maria Oliveira',
+         'endereco':  {
+            'rua': 'Av. Brasil',
+            'numero': '456',
+            'bairro': 'Centro',
+            'cidade': 'Rio de Janeiro',
+            'estado': 'RJ',
+            }
+         },
+        {'id': 3, 'nome': 'Carlos Souza',
+         'endereco':  {
+            'rua': 'Av. Brasil',
+            'numero': '456',
+            'bairro': 'Centro',
+            'cidade': 'Rio de Janeiro',
+            'estado': 'RJ',
+            }
+        }
+    ]
+    return JsonResponse({'data': clientes})
 def WhatsAppAll(request):
      #whatsapps = Whatsapp.objects.all()
       # Busca contatos ativos
@@ -308,3 +367,15 @@ def enviar_cardapio_em_lote(request):
         contato.save()
 
     return JsonResponse({"enviados": enviados})
+
+
+def conta_receber(request):
+    # Aqui você pode implementar a lógica para receber os dados da conta
+    # Por exemplo, você pode buscar os dados do usuário logado ou de uma conta específica
+    # e retornar esses dados em um template ou como JSON.
+    return render(request, "conta/conta-receber.html")
+def conta_receber_form(request):
+    # Aqui você pode implementar a lógica para receber os dados da conta
+    # Por exemplo, você pode buscar os dados do usuário logado ou de uma conta específica
+    # e retornar esses dados em um template ou como JSON.
+    return render(request, "conta/conta-receber-form.html")

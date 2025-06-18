@@ -26,10 +26,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 urlpatterns = [
     path('', views.home2),
     path('addProduto', views.CadastroProduto, name="add-produto"),
+    path('api/produtos/', views.api_produtos, name='api_produtos'),
+    path('api/clientes/', views.api_clientes, name='api_clientes'),
     path('whastapp/allClient', views.WhatsAppAll, name="whatsapp-all"),
     path('whastapp/sendAll', views.send_for_all, name="send-all"),
     path('whastappSend/', views.enviar_mensagens, name="whatsapp-send"),
-    path('sincronizar-contatos/', views.sincronizar_contatos, name='sincronizar_contatos')
+    path('sincronizar-contatos/', views.sincronizar_contatos, name='sincronizar_contatos'),
+    path('conta/receber', views.conta_receber, name='conta_receber'),
+    path('conta/receber/form', views.conta_receber_form, name='conta_receber_form'),
 ]
 urlpatterns +=  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 urlpatterns +=  re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),

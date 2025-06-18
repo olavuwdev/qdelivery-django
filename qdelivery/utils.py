@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+
 import uuid
 
 from django.http import HttpResponse
@@ -28,7 +28,7 @@ def extrair_src(html):
     """
     Extrai o valor do atributo 'src' de uma tag <img> em um string HTML.
     """
-    soup = BeautifulSoup(html, 'html.parser')
+    soup = 'teste'
     img_tag = soup.find('img')  # Encontra a tag <img>
     if img_tag and 'src' in img_tag.attrs:
         return img_tag['src']  # Retorna o valor do atributo 'src'

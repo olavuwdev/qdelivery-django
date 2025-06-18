@@ -45,6 +45,9 @@
 
     <!-- ratio css -->
     <link rel="stylesheet" type="text/css" href="{% static 'adm/assets/css/ratio.css' %}">
+    
+    <!-- Select2 css -->
+<link rel="stylesheet" type="text/css" href="{% static 'adm/assets/css/select2.min.css' %}">
 
     <!-- remixicon css -->
     <link rel="stylesheet" type="text/css" href="{% static 'adm/assets/css/remixicon.css' %}">
@@ -499,14 +502,14 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-price-tag-3-line"></i>
-                                        <span>Cupons</span>
+                                        <span>Contas</span>
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="coupon-list.html">Lista de Cupons</a>
+                                            <a href="{% url 'conta_receber' %}">A receber</a>
                                         </li>
                                         <li>
-                                            <a href="create-coupon.html">Criar Cupom</a>
+                                            <a href="create-coupon.html">A pagar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -567,6 +570,8 @@
                     
                 </div>
             </div>
+                <!-- latest js -->
+<script src="{% static 'adm/assets/js/jquery-3.6.0.min.js' %}"></script>
             <!-- Page Sidebar Ends-->
 
 
@@ -602,8 +607,7 @@
     </div>
     <!-- Modal End -->
 
-    <!-- latest js -->
-<script src="{% static 'adm/assets/js/jquery-3.6.0.min.js' %}"></script>
+
 
 <!-- Bootstrap js -->
 <script src="{% static 'adm/assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
@@ -634,6 +638,9 @@
 <script src="{% static 'adm/assets/js/chart/apex-chart/apex-chart.js' %}"></script>
 <script src="{% static 'adm/assets/js/chart/apex-chart/stock-prices.js' %}"></script>
 <script src="{% static 'adm/assets/js/chart/apex-chart/chart-custom1.js' %}"></script>
+<!-- select2 js -->
+<script src="{% static 'adm/assets/js/select2.min.js' %}"></script>
+<script src="{% static 'adm/assets/js/select2-custom.js' %}"></script>
 
 <!-- swiper slider -->
 <script src="{% static 'adm/assets/js/swiper-bundle.min.js' %}"></script>
@@ -641,9 +648,9 @@
 
 <!-- customizer js -->
 <script src="{% static 'adm/assets/js/customizer.js' %}"></script>
-    <!-- Data table js -->
-    <script src="{% static 'adm/assets/js/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
+<!-- Data table js -->
+<script src="{% static 'adm/assets/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'adm/assets/js/custom-data-table.js' %}"></script>
 
 <!-- ratio js -->
 <script src="{% static 'adm/assets/js/ratio.js' %}"></script>

@@ -49,7 +49,6 @@ class Dados(models.Model):
     cep = models.CharField(max_length=100)
     senha_email = models.CharField(max_length=255)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    ultima_atualizacao = models.DateTimeField(auto_now=True)
     tipo = models.CharField(max_length=70, blank=True, null=True)
 
     def __str__(self):
@@ -75,7 +74,6 @@ class RedeSocial(models.Model):
     link = models.CharField(max_length=255)
     tipo = models.CharField(max_length=70)
     tipo_cadastro = models.CharField(max_length=50, blank=True, null=True)
-    data = models.DateTimeField()
     dia = models.CharField(max_length=2, blank=True, null=True)
     mes = models.CharField(max_length=2, blank=True, null=True)
     ano = models.CharField(max_length=4, blank=True, null=True)
@@ -110,7 +108,6 @@ class Pedido(models.Model):
     endereco = models.CharField(max_length=255,blank=True, null=True)
     bairro = models.CharField(max_length=255,blank=True, null=True)
     status = models.CharField(max_length=50, blank=False, default='EM ABERTO')
-    criado_em = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'Pedido de {self.nome}'

@@ -1,0 +1,218 @@
+
+{% extends "home/base.html" %}
+
+
+{% load static %}
+
+{% block content %}
+
+<div class="page-body">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <!-- Table Start -->
+                                <div class="card-body">
+                                    <div class="title-header option-title">
+                                        <h5>Contas a Receber</h5>
+                                        <form class="d-inline-flex">
+                                            <a href="add-new-user.html" class="align-items-center btn btn-theme d-flex">
+                                                <i data-feather="plus-square"></i>Nova Conta
+                                            </a>
+                                        </form>
+                                    </div>
+                                    <div class="table-responsive theme-scrollbar theme-scrollbar">
+                                        <table class="table category-table dataTable no-footer" id="table_id">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <input id="checkall" class="custom-checkbox" type="checkbox" name="text">
+                                                    </th>
+                                                    <th>Tax Detail</th>
+                                                    <th>Tax Schedule</th>
+                                                    <th>Tax Rate</th>
+                                                    <th>Total Tax Amount</th>
+                                                    <th>Options</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    </td>
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">10%</td>
+                                                    <td>15.24</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">18%</td>
+                                                    <td>5.29</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    </td>
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">25%</td>
+                                                    <td>4.78</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    </td>
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">40%</td>
+                                                    <td>3.20</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    </td>
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">80%</td>
+                                                    <td>8.4</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="custom-checkbox" type="checkbox" name="text">
+                                                    </td>
+                                                    <td>USASTE-PS6N0</td>
+                                                    <td>USASTCITY-6 <span class="theme-color">*</span></td>
+                                                    <td class="f-w-600">50%</td>
+                                                    <td>4.78</td>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="javascript:void(0)">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Table End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Container-fluid Ends-->
+
+                <!-- footer start-->
+                <div class="container-fluid">
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-md-12 footer-copyright text-center">
+                                <p class="mb-0">Copyright 2024 ©Zomo template by pixelstrap</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <!-- footer End-->
+            </div>
+{% endblock %}
