@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'home.wsgi.application'
 } """
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'lunartecnologi94',
-        'USER': 'lunartecnologi94',
-        'PASSWORD': 'Jp5s3KaWvJmsK3HxXgiw',
-        'HOST': 'mysql.lunartecnologia.com.br',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'qdeliveryDB',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
