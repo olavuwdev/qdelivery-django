@@ -1,0 +1,136 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% block content %}
+<div class="page-body-wrapper">
+    <!-- Page Sidebar Start-->
+    <div class="sidebar-wrapper">
+        <!-- Sua sidebar aqui (mantenha igual ao exemplo fornecido) -->
+    </div>
+    <!-- Page Sidebar Ends-->
+
+    <!-- Order Creation Section Start-->
+    <div class="page-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="title-header option-title">
+                                        <h5>Criar Novo Pedido</h5>
+                                    </div>
+                                    
+                                    <!-- Mensagens de Feedback -->
+                                    {% if messages %}
+                                        <div class="alert alert-success mb-4">
+                                            {% for message in messages %}
+                                                <div class="flex items-center">
+                                                    <i class="ri-checkbox-circle-fill mr-2"></i>
+                                                    <span>{{ message }}</span>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- Seleção de Produto -->
+                                                <div class="mb-4">
+                                                    <label for="{{ form.produto.id_for_label }}" class="form-label">
+                                                        Escolha a Quentinha
+                                                    </label>
+                                                    <select id="{{ form.produto.id_for_label }}" name="{{ form.produto.name }}"
+                                                            class="form-select">
+                                                        {{ form.produto }}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-12">
+                                                <!-- Seleção de Complementos -->
+                                                <div class="mb-4">
+                                                    <label class="form-label">Escolha os Complementos</label>
+                                                    <div class="row">
+                                                        {% for complemento in form.complementos %}
+                                                            <div class="col-md-3 col-sm-6">
+                                                                <div class="card mb-3">
+                                                                    <div class="card-body">
+                                                                        <div class="form-check">
+                                                                            <input type="checkbox" id="{{ complemento.id_for_label }}" 
+                                                                                   name="{{ complemento.name }}"
+                                                                                   value="{{ complemento.choice_value }}"
+                                                                                   class="form-check-input"
+                                                                                   {% if complemento.choice_value in form.complementos.value %}checked{% endif %}>
+                                                                            <label for="{{ complemento.id_for_label }}" 
+                                                                                   class="form-check-label">
+                                                                                {{ complemento.choice_label }}
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="text-end mt-4">
+                                            <button type="submit" class="btn btn-primary me-2">
+                                                <i class="ri-save-line me-1"></i> Criar Pedido
+                                            </button>
+                                            <button type="button" class="btn btn-light">
+                                                Cancelar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container-fluid Ends-->
+
+        <!-- footer start-->
+        <div class="container-fluid">
+            <footer class="footer">
+                <div class="row">
+                    <div class="col-md-12 footer-copyright text-center">
+                        <p class="mb-0">Copyright 2024 © Seu Nome Aqui</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- footer end-->
+    </div>
+    <!-- Order Creation Section End-->
+</div>
+
+<style>
+    .form-check-input:checked + .form-check-label {
+        font-weight: 600;
+        color: var(--theme-color);
+    }
+    
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .form-select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    }
+</style>
+{% endblock %}

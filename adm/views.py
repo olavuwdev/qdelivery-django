@@ -10,6 +10,7 @@ import tempfile
 from decouple import config
 import json
 import MySQLdb
+from .forms import PedidoForm
 
 #VARIAVEIS DO WHATSAPP
 evolution_base = config('EVOLUTION_URL_API')
@@ -72,6 +73,27 @@ def api_produtos(request):
     ]
 
     return JsonResponse({'data': produtos})
+def criar_pedido(request):
+    if request.method == 'POST':
+        form = PedidoForm(request.POST)
+        if form.is_valid():
+            # Simular criação de pedido com dados estáticos
+            produto = form.cleaned_data['produto']
+            complementos = form.cleaned_data['complementos']
+            # Simular cálculo de total (valores fixos para exemplo)
+            precos = {'quentinha_carne': 15.00, 'quentinha_frango': 12.00}
+            total = precos.get(produto, 0.00)
+            
+            # Simular armazenamento (apenas para debug, pode ser removido)
+            print(f"Pedido criado: {produto}, Complementos: {complementos}, Total: R${total:.2f}")
+            
+            messages.success(request, 'Pedido criado com sucesso!')
+            return redirect('criar_pedido')
+    else:
+        form = PedidoForm()
+
+    return render(request, 'home/fazer-pedido.html', {'form': form})
+
 def api_clientes(request):
     # Simulação de dados de clientes
     clientes = [

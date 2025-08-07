@@ -97,12 +97,12 @@ WSGI_APPLICATION = 'home.wsgi.application'
     }
 } """
 DATABASES = {
-    'default': {
+'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'qdeliveryDB',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',  # ← use IP em vez de 'localhost'
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',

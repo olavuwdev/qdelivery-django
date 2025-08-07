@@ -26,6 +26,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 urlpatterns = [
     path('', views.home2),
     path('addProduto', views.CadastroProduto, name="add-produto"),
+    path('fazer-pedido', views.criar_pedido, name="fazer-pedido"),
     path('api/produtos/', views.api_produtos, name='api_produtos'),
     path('api/clientes/', views.api_clientes, name='api_clientes'),
     path('whastapp/allClient', views.WhatsAppAll, name="whatsapp-all"),
